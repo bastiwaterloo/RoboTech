@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="0" name="edu.thi.demo.orderhandling_wildfly_process.ProcessUnitTest" time="0.532" errors="1" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="java.vm.version" value="11.0.13+10-LTS-370"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11.0.13\bin"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\basst\eclipse-workspace\orderhandling-wildfly-process"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="https://openjdk.java.net/"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="path.separator" value=";"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="DE"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="C:\Users\basst\eclipse-workspace\orderhandling-wildfly-process"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="java.runtime.version" value="11.0.13+10-LTS-370"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Users\basst\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="classworlds.conf" value="C:\Users\basst\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf1215181975342485252.tmp"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.13\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jdk-11.0.13/bin/server;C:/Program Files/Java/jdk-11.0.13/bin;C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\wbin;C:\ProgramData\Anaconda3;C:\ProgramData\Anaconda3\Library\mingw-w64\bin;C:\ProgramData\Anaconda3\Library\usr\bin;C:\ProgramData\Anaconda3\Library\bin;C:\ProgramData\Anaconda3\Scripts;C:\Python39\Scripts\;C:\Python39\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-11.0.13\bin;C:\Program Files\nodejs\;C:\Program Files\PuTTY\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\platform-tools\platform-tools_r31.0.3-windows\platform-tools;C:\Gradle\gradle-7.3-all\gradle-7.3\bin;C:\apache-maven-3.8.4\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\basst\AppData\Local\Microsoft\WindowsApps;;C:\Program Files\JetBrains\IntelliJ IDEA 2021.3\bin;;C:\Program Files\JetBrains\WebStorm 2021.2.3\bin;;C:\Users\basst\AppData\Roaming\npm;C:\Program Files\JetBrains\PyCharm 2021.1.1\bin;;C:\Windows\System32;;."/>
+    <property name="jdk.debug" value="release"/>
+    <property name="java.class.version" value="55.0"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.0"/>
+    <property name="user.home" value="C:\Users\basst"/>
+    <property name="user.timezone" value="Europe/Berlin"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="user.name" value="basst"/>
+    <property name="java.class.path" value="C:\Users\basst\.p2\pool\plugins\org.eclipse.m2e.maven.runtime_1.18.1.20211011-2139\jars\plexus-classworlds-2.6.0.jar"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B install"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-11.0.13"/>
+    <property name="user.language" value="de"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="11.0.13"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="C:\Users\basst\eclipse-workspace\orderhandling-wildfly-process\EMBEDDED"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.version.date" value="2021-10-19"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="java.vendor.version" value="18.9"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase classname="edu.thi.demo.orderhandling_wildfly_process.ProcessUnitTest" name="testHappyPath" time="0.532">
+    <error message="no processes deployed with key &apos;orderhandling-wildfly-process&apos;: processDefinition is null" type="org.camunda.bpm.engine.exception.NullValueException">org.camunda.bpm.engine.exception.NullValueException: no processes deployed with key &apos;orderhandling-wildfly-process&apos;: processDefinition is null
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.camunda.bpm.engine.impl.util.EnsureUtil.generateException(EnsureUtil.java:398)
+	at org.camunda.bpm.engine.impl.util.EnsureUtil.ensureNotNull(EnsureUtil.java:55)
+	at org.camunda.bpm.engine.impl.util.EnsureUtil.ensureNotNull(EnsureUtil.java:50)
+	at org.camunda.bpm.engine.impl.persistence.deploy.cache.ProcessDefinitionCache.checkInvalidDefinitionByKey(ProcessDefinitionCache.java:52)
+	at org.camunda.bpm.engine.impl.persistence.deploy.cache.ProcessDefinitionCache.checkInvalidDefinitionByKey(ProcessDefinitionCache.java:28)
+	at org.camunda.bpm.engine.impl.persistence.deploy.cache.ResourceDefinitionCache.findDeployedLatestDefinitionByKey(ResourceDefinitionCache.java:67)
+	at org.camunda.bpm.engine.impl.persistence.deploy.cache.DeploymentCache.findDeployedLatestProcessDefinitionByKey(DeploymentCache.java:90)
+	at org.camunda.bpm.engine.impl.cmd.GetDeployedProcessDefinitionCmd.findByKey(GetDeployedProcessDefinitionCmd.java:87)
+	at org.camunda.bpm.engine.impl.cmd.GetDeployedProcessDefinitionCmd.find(GetDeployedProcessDefinitionCmd.java:74)
+	at org.camunda.bpm.engine.impl.cmd.GetDeployedProcessDefinitionCmd.execute(GetDeployedProcessDefinitionCmd.java:56)
+	at org.camunda.bpm.engine.impl.cmd.StartProcessInstanceCmd.execute(StartProcessInstanceCmd.java:50)
+	at org.camunda.bpm.engine.impl.cmd.StartProcessInstanceCmd.execute(StartProcessInstanceCmd.java:38)
+	at org.camunda.bpm.engine.impl.interceptor.CommandExecutorImpl.execute(CommandExecutorImpl.java:28)
+	at org.camunda.bpm.engine.impl.interceptor.CommandContextInterceptor.execute(CommandContextInterceptor.java:110)
+	at org.camunda.bpm.engine.impl.interceptor.ProcessApplicationContextInterceptor.execute(ProcessApplicationContextInterceptor.java:70)
+	at org.camunda.bpm.engine.impl.interceptor.CommandCounterInterceptor.execute(CommandCounterInterceptor.java:35)
+	at org.camunda.bpm.engine.impl.interceptor.LogInterceptor.execute(LogInterceptor.java:33)
+	at org.camunda.bpm.engine.impl.ProcessInstantiationBuilderImpl.executeWithVariablesInReturn(ProcessInstantiationBuilderImpl.java:166)
+	at org.camunda.bpm.engine.impl.ProcessInstantiationBuilderImpl.execute(ProcessInstantiationBuilderImpl.java:132)
+	at org.camunda.bpm.engine.impl.ProcessInstantiationBuilderImpl.execute(ProcessInstantiationBuilderImpl.java:128)
+	at org.camunda.bpm.engine.impl.RuntimeServiceImpl.startProcessInstanceByKey(RuntimeServiceImpl.java:90)
+	at edu.thi.demo.orderhandling_wildfly_process.ProcessUnitTest.testHappyPath(ProcessUnitTest.java:40)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:61)
+	at org.camunda.bpm.engine.test.ProcessEngineRule$1.evaluate(ProcessEngineRule.java:185)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:61)
+	at org.camunda.bpm.engine.test.ProcessEngineRule$1.evaluate(ProcessEngineRule.java:185)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+</error>
+    <system-out>22:36:13.775 [main] DEBUG org.camunda.bpm.engine.test - ==== BUILDING PROCESS ENGINE ========================================================================
+22:36:14.137 [main] INFO  org.camunda.bpm.engine.cfg - ENGINE-12003 Plugin &apos;SpinProcessEnginePlugin&apos; activated on process engine &apos;default&apos;
+22:36:14.143 [main] INFO  org.camunda.spin - SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
+22:36:14.335 [main] INFO  org.camunda.spin - SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
+22:36:14.345 [main] INFO  org.camunda.spin - SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
+22:36:14.345 [main] INFO  org.camunda.spin - SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
+22:36:14.529 [main] INFO  org.camunda.bpm.dmn.feel.scala - FEEL/SCALA-01001 Spin value mapper detected
+22:36:14.602 [main] INFO  org.camunda.feel.FeelEngine - Engine created. [value-mapper: CompositeValueMapper(List(org.camunda.feel.impl.JavaValueMapper@6f667ad1, org.camunda.spin.plugin.impl.feel.integration.SpinValueMapper@566d0c69)), function-provider: org.camunda.bpm.dmn.feel.impl.scala.function.CustomFunctionTransformer@3be4f71, clock: SystemClock, configuration: Configuration(false)]
+22:36:18.084 [main] INFO  org.camunda.bpm.connect - CNCT-01004 Discovered provider for connector id &apos;http-connector&apos; and class &apos;org.camunda.connect.httpclient.impl.HttpConnectorImpl&apos;: &apos;org.camunda.connect.httpclient.impl.HttpConnectorProviderImpl&apos;
+22:36:18.089 [main] INFO  org.camunda.bpm.connect - CNCT-01004 Discovered provider for connector id &apos;soap-http-connector&apos; and class &apos;org.camunda.connect.httpclient.soap.impl.SoapHttpConnectorImpl&apos;: &apos;org.camunda.connect.httpclient.soap.impl.SoapHttpConnectorProviderImpl&apos;
+22:36:18.310 [main] INFO  org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation &apos;create&apos; on component &apos;engine&apos; with resource &apos;org/camunda/bpm/engine/db/create/activiti.h2.create.engine.sql&apos;
+22:36:18.395 [main] INFO  org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation &apos;create&apos; on component &apos;history&apos; with resource &apos;org/camunda/bpm/engine/db/create/activiti.h2.create.history.sql&apos;
+22:36:18.409 [main] INFO  org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation &apos;create&apos; on component &apos;identity&apos; with resource &apos;org/camunda/bpm/engine/db/create/activiti.h2.create.identity.sql&apos;
+22:36:18.424 [main] INFO  org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation &apos;create&apos; on component &apos;case.engine&apos; with resource &apos;org/camunda/bpm/engine/db/create/activiti.h2.create.case.engine.sql&apos;
+22:36:18.429 [main] INFO  org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation &apos;create&apos; on component &apos;case.history&apos; with resource &apos;org/camunda/bpm/engine/db/create/activiti.h2.create.case.history.sql&apos;
+22:36:18.439 [main] INFO  org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation &apos;create&apos; on component &apos;decision.engine&apos; with resource &apos;org/camunda/bpm/engine/db/create/activiti.h2.create.decision.engine.sql&apos;
+22:36:18.448 [main] INFO  org.camunda.bpm.engine.persistence - ENGINE-03016 Performing database operation &apos;create&apos; on component &apos;decision.history&apos; with resource &apos;org/camunda/bpm/engine/db/create/activiti.h2.create.decision.history.sql&apos;
+22:36:18.478 [main] INFO  org.camunda.bpm.engine.persistence - ENGINE-03067 No history level property found in database
+22:36:18.478 [main] INFO  org.camunda.bpm.engine.persistence - ENGINE-03065 Creating historyLevel property in database for level: HistoryLevelFull(name=full, id=3)
+22:36:18.536 [main] INFO  org.camunda.bpm.engine - ENGINE-00001 Process Engine default created.
+22:36:18.538 [main] DEBUG org.camunda.bpm.engine.test - ==== PROCESS ENGINE CREATED =========================================================================
+22:36:18.544 [main] DEBUG org.camunda.bpm.engine.test - annotation @Deployment creates deployment for ProcessUnitTest.testHappyPath
+22:36:19.003 [main] ERROR org.camunda.bpm.engine.context - ENGINE-16004 Exception while closing command context: no processes deployed with key &apos;orderhandling-wildfly-process&apos;: processDefinition is null
+org.camunda.bpm.engine.exception.NullValueException: no processes deployed with key &apos;orderhandling-wildfly-process&apos;: processDefinition is null
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490) ~[na:na]
+	at org.camunda.bpm.engine.impl.util.EnsureUtil.generateException(EnsureUtil.java:398) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.util.EnsureUtil.ensureNotNull(EnsureUtil.java:55) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.util.EnsureUtil.ensureNotNull(EnsureUtil.java:50) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.persistence.deploy.cache.ProcessDefinitionCache.checkInvalidDefinitionByKey(ProcessDefinitionCache.java:52) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.persistence.deploy.cache.ProcessDefinitionCache.checkInvalidDefinitionByKey(ProcessDefinitionCache.java:28) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.persistence.deploy.cache.ResourceDefinitionCache.findDeployedLatestDefinitionByKey(ResourceDefinitionCache.java:67) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.persistence.deploy.cache.DeploymentCache.findDeployedLatestProcessDefinitionByKey(DeploymentCache.java:90) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.cmd.GetDeployedProcessDefinitionCmd.findByKey(GetDeployedProcessDefinitionCmd.java:87) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.cmd.GetDeployedProcessDefinitionCmd.find(GetDeployedProcessDefinitionCmd.java:74) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.cmd.GetDeployedProcessDefinitionCmd.execute(GetDeployedProcessDefinitionCmd.java:56) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.cmd.StartProcessInstanceCmd.execute(StartProcessInstanceCmd.java:50) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.cmd.StartProcessInstanceCmd.execute(StartProcessInstanceCmd.java:38) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.interceptor.CommandExecutorImpl.execute(CommandExecutorImpl.java:28) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.interceptor.CommandContextInterceptor.execute(CommandContextInterceptor.java:110) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.interceptor.ProcessApplicationContextInterceptor.execute(ProcessApplicationContextInterceptor.java:70) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.interceptor.CommandCounterInterceptor.execute(CommandCounterInterceptor.java:35) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.interceptor.LogInterceptor.execute(LogInterceptor.java:33) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.ProcessInstantiationBuilderImpl.executeWithVariablesInReturn(ProcessInstantiationBuilderImpl.java:166) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.ProcessInstantiationBuilderImpl.execute(ProcessInstantiationBuilderImpl.java:132) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.ProcessInstantiationBuilderImpl.execute(ProcessInstantiationBuilderImpl.java:128) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.camunda.bpm.engine.impl.RuntimeServiceImpl.startProcessInstanceByKey(RuntimeServiceImpl.java:90) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at edu.thi.demo.orderhandling_wildfly_process.ProcessUnitTest.testHappyPath(ProcessUnitTest.java:40) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:61) ~[junit-4.13.1.jar:4.13.1]
+	at org.camunda.bpm.engine.test.ProcessEngineRule$1.evaluate(ProcessEngineRule.java:185) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:61) ~[junit-4.13.1.jar:4.13.1]
+	at org.camunda.bpm.engine.test.ProcessEngineRule$1.evaluate(ProcessEngineRule.java:185) ~[camunda-engine-7.16.0.jar:7.16.0]
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306) ~[junit-4.13.1.jar:4.13.1]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413) ~[junit-4.13.1.jar:4.13.1]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252) ~[na:na]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141) ~[na:na]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189) ~[surefire-api-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165) ~[surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85) ~[surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115) ~[surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75) ~[surefire-booter-2.12.4.jar:2.12.4]
+22:36:19.041 [main] DEBUG org.camunda.bpm.engine.test - annotation @Deployment deletes deployment for ProcessUnitTest.testHappyPath
+</system-out>
+    <system-err>Jan. 02, 2022 10:36:19 NACHM. org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRule failed
+INFO: testHappyPath(edu.thi.demo.orderhandling_wildfly_process.ProcessUnitTest) failed.
+Jan. 02, 2022 10:36:19 NACHM. org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRule handleTestMethodCoverage
+INFO: testHappyPath test method coverage is 0.0
+</system-err>
+  </testcase>
+</testsuite>
