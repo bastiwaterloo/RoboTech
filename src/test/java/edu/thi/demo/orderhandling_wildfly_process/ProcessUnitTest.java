@@ -32,7 +32,7 @@ public class ProcessUnitTest {
   }
 
   @Test
-  @Deployment(resources = "process.bpmn")
+  @Deployment(resources = "Auftragsbearbeitung Roboterfirma.bpmn")
   public void testHappyPath() {
     // Drive the process by API and assert correct behavior by camunda-bpm-assert
 
