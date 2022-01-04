@@ -132,7 +132,6 @@
           <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         </extensionElements>
         <flowNodeRef>sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0</flowNodeRef>
-        <flowNodeRef>Activity_1d8zeua</flowNodeRef>
       </lane>
     </laneSet>
     <startEvent id="sid-29AF6D77-9F4A-439A-95C5-B5EC598419B4" name="Auftrag für&#10;Roboterbau&#10;eingegangen">
@@ -243,7 +242,7 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         <signavio:signavioLabel align="right" bottom="false" left="true" ref="text_name" right="false" top="false" valign="middle" x="-7.0" y="20.0" />
       </extensionElements>
-      <incoming>Flow_0gyx4nz</incoming>
+      <incoming>Flow_0vptlcq</incoming>
       <outgoing>sid-DF0F582C-51AA-483D-8113-012F458EC455</outgoing>
       <outgoing>sid-7AC5512A-7E72-49BD-B352-067180F7BB0D</outgoing>
     </exclusiveGateway>
@@ -285,7 +284,7 @@
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${success== 1}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${success== true}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-CFB2393E-C724-4218-A8D1-78DFF4054CC6" name="" sourceRef="sid-188DED99-D769-4BF6-BBA8-011D8C8F1565" targetRef="sid-D50F4EFC-783A-41CA-8239-F5F8D56BEB16">
       <extensionElements>
@@ -306,7 +305,7 @@
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${success== 0}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${success== false}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-DBC73793-B2F8-4125-951F-3201AAC7C546" name="" sourceRef="sid-12244EB0-9DED-41E1-832B-F48380066793" targetRef="sid-89597351-76E7-4F67-A787-14BCEA161FBE">
       <extensionElements>
@@ -347,6 +346,17 @@
       <outgoing>sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE</outgoing>
     </callActivity>
     <callActivity id="sid-F4B0466F-E480-4B20-8E40-3E1109589D11" name="Angebotszusammenstellung" calledElement="process_angebotszusammenstellung_id">
+      <extensionElements>
+        <camunda:in source="formfield_name" target="input_name" />
+        <camunda:in source="formfield_kundenart" target="input_kundenart" />
+        <camunda:in source="formfield_vorname" target="input_vorname" />
+        <camunda:in source="formfield_postleitzahl" target="input_postleitzahl" />
+        <camunda:in source="formfield_stadt" target="input_stadt" />
+        <camunda:in source="formfield_land" target="input_land" />
+        <camunda:in source="formfield_mail" target="input_mail" />
+        <camunda:in source="formfield_eingangsdatum" target="input_eingangsdatum" />
+        <camunda:in source="formfield_anfrage" target="input_anfrage" />
+      </extensionElements>
       <incoming>sid-C88F2B85-B7A2-49B8-BFFC-48410A16433A</incoming>
       <outgoing>sid-443FFF5A-773D-4707-BC2D-3922CAC7A14A</outgoing>
     </callActivity>
@@ -360,22 +370,21 @@
       <outgoing>Flow_0vptlcq</outgoing>
     </callActivity>
     <callActivity id="sid-188DED99-D769-4BF6-BBA8-011D8C8F1565" name="Auftragsdurchführung" calledElement="process_auftragsdurchfuehrung_id">
+      <extensionElements>
+        <camunda:in source="formfield_name" target="input_name" />
+        <camunda:in source="formfield_kundenart" target="input_kundenart" />
+        <camunda:in source="formfield_vorname" target="input_vorname" />
+        <camunda:in source="formfield_postleitzahl" target="input_postleitzahl" />
+        <camunda:in source="formfield_stadt" target="input_stadt" />
+        <camunda:in source="formfield_land" target="input_land" />
+        <camunda:in source="formfield_mail" target="input_mail" />
+        <camunda:in source="formfield_eingangsdatum" target="input_eingangsdatum" />
+        <camunda:in source="formfield_anfrage" target="input_anfrage" />
+      </extensionElements>
       <incoming>sid-D8FD4B78-CEFF-43A0-B790-A8530EA6FF4B</incoming>
       <outgoing>sid-CFB2393E-C724-4218-A8D1-78DFF4054CC6</outgoing>
     </callActivity>
-    <sequenceFlow id="Flow_0vptlcq" sourceRef="sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0" targetRef="Activity_1d8zeua" />
-    <userTask id="Activity_1d8zeua" name="test">
-      <extensionElements>
-        <camunda:formData>
-          <camunda:formField id="FormField_3tv928p" type="string" defaultValue="${isPermittedAreaManager}" />
-          <camunda:formField id="FormField_2d5atrf" type="string" defaultValue="${isPermittedManager}" />
-          <camunda:formField id="FormField_0kbj7qj" type="long" defaultValue="${price}" />
-        </camunda:formData>
-      </extensionElements>
-      <incoming>Flow_0vptlcq</incoming>
-      <outgoing>Flow_0gyx4nz</outgoing>
-    </userTask>
-    <sequenceFlow id="Flow_0gyx4nz" sourceRef="Activity_1d8zeua" targetRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049" />
+    <sequenceFlow id="Flow_0vptlcq" sourceRef="sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0" targetRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049" />
     <textAnnotation id="sid-3426E86F-0FE9-4088-9CE2-08119B8A125B" signavio:alignment="left">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -416,6 +425,11 @@
           <omgdc:Bounds x="835.9995190314287" y="639.633766491032" width="12" height="124.971435546875" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0vptlcq_di" bpmnElement="Flow_0vptlcq">
+        <omgdi:waypoint x="1228" y="966" />
+        <omgdi:waypoint x="1265" y="966" />
+        <omgdi:waypoint x="1265" y="720" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE_gui" bpmnElement="sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE">
         <omgdi:waypoint x="689" y="700" />
         <omgdi:waypoint x="777" y="700" />
@@ -497,16 +511,6 @@
         <omgdi:waypoint x="511" y="700" />
         <omgdi:waypoint x="589" y="700" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0vptlcq_di" bpmnElement="Flow_0vptlcq">
-        <omgdi:waypoint x="1228" y="966" />
-        <omgdi:waypoint x="1320" y="966" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0gyx4nz_di" bpmnElement="Flow_0gyx4nz">
-        <omgdi:waypoint x="1370" y="926" />
-        <omgdi:waypoint x="1370" y="833" />
-        <omgdi:waypoint x="1265" y="833" />
-        <omgdi:waypoint x="1265" y="720" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="sid-29AF6D77-9F4A-439A-95C5-B5EC598419B4_gui" bpmnElement="sid-29AF6D77-9F4A-439A-95C5-B5EC598419B4">
         <omgdc:Bounds x="250" y="410" width="30" height="30" />
         <bpmndi:BPMNLabel labelStyle="sid-5a0f711a-4128-4ab4-877a-a14fb5c53a91">
@@ -581,9 +585,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-3426E86F-0FE9-4088-9CE2-08119B8A125B_gui" bpmnElement="sid-3426E86F-0FE9-4088-9CE2-08119B8A125B">
         <omgdc:Bounds x="506" y="340" width="100" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1cvw8gz_di" bpmnElement="Activity_1d8zeua">
-        <omgdc:Bounds x="1320" y="926" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="sid-F8F3AE61-D691-4768-8147-7459401E2C4C_gui" bpmnElement="sid-F8F3AE61-D691-4768-8147-7459401E2C4C">
         <omgdi:waypoint x="506" y="365" />

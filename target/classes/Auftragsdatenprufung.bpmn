@@ -81,7 +81,7 @@
       <incoming>sid-231B97FA-3785-4492-A02F-BF347326C8CF</incoming>
       <outgoing>sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738</outgoing>
     </userTask>
-    <startEvent id="sid-787B9C94-187B-4198-961A-CE785C4843BB" name="">
+    <startEvent id="sid-787B9C94-187B-4198-961A-CE785C4843BB" name="start">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -240,6 +240,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-787B9C94-187B-4198-961A-CE785C4843BB_gui" bpmnElement="sid-787B9C94-187B-4198-961A-CE785C4843BB">
         <omgdc:Bounds x="236.79549358165468" y="294.1977721584533" width="30" height="30" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="241" y="331" width="23" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-E1D845DA-5615-4432-B4BD-6152266C4FE2_gui" bpmnElement="gateway_auftragsdaten_vollstaendig" isMarkerVisible="true">
         <omgdc:Bounds x="530.7954935816547" y="289.1977721584533" width="40" height="40" />

@@ -84,6 +84,22 @@
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
+        <camunda:formData>
+          <camunda:formField id="formfield_kundenart" label="Kundenart" type="enum">
+            <camunda:value id="kunde_privat" name="Privatkunde" />
+            <camunda:value id="kunde_geschaeft" name="Geschaeftskunde" />
+          </camunda:formField>
+          <camunda:formField id="formfield_name" label="Name" type="string" defaultValue="${input_name}" />
+          <camunda:formField id="formfield_vorname" label="Vorname" type="string" defaultValue="${input_vorname}" />
+          <camunda:formField id="formfield_plz" label="Postleitzahl" type="long" defaultValue="${input_postleitzahl}" />
+          <camunda:formField id="formfield_stadt" label="Stadt" type="string" defaultValue="${input_stadt}" />
+          <camunda:formField id="formfield_land" label="Land" type="string" defaultValue="${input_land}" />
+          <camunda:formField id="formfield_email" label="E-Mail" type="string" defaultValue="${input_mail}" />
+          <camunda:formField id="formfield_anfrage" label="Anfrage" type="string" defaultValue="${input_anfrage}" />
+          <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="date" />
+          <camunda:formField id="formfield_auftragsdaten_vollstaendig" label="Auftragsdaten vollstaendig?" type="boolean" defaultValue="false" />
+          <camunda:formField id="formfield_auftragsdaten_anmerkungen" label="Anmerkungen zu den Auftragsdaten" type="string" />
+        </camunda:formData>
       </extensionElements>
       <outgoing>sid-43EFC928-ADFB-4E56-AE80-22EB77ACA3A7</outgoing>
     </startEvent>
