@@ -103,8 +103,14 @@
       <!-- Needed for InMemoryH2Test -->
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
+      <!-- <version>1.4.200</version> -->
       <version>1.4.200</version>
-      <scope>test</scope>
+      <!-- <scope>test</scope> -->
+      <!--
+       doesnt work with the scope line because it says that the dependency
+      "This scope indicates that the dependency is not required for normal use 
+      of the application, and is only available for the test compilation and execution phases." 
+      -->
     </dependency>
 
     <!-- Used to generate test coverage reports, see https://github.com/camunda/camunda-bpm-process-test-coverage -->
@@ -221,6 +227,26 @@
           <password>admin</password>
         </configuration>
       </plugin>
+      
+      <!-- 
+      plugin to test a script with main method seperate
+      install maven in path and open the terminal in the maven project
+      after this type in this command:  mvn compile exec:java
+      fill in the relative package-path and the class name like
+      below
+      uncomment to use
+      -->
+      <!-- 
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <mainClass>edu.thi.java.db.H2Class</mainClass>
+        </configuration>
+      </plugin>
+      -->
+      <!--  until here -->
     </plugins>
   </build>
 
