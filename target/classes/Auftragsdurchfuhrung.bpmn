@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:signavio="http://www.signavio.com" id="sid-352216f5-0c47-4f7d-a968-2d19b7f33ab0" targetNamespace="http://www.signavio.com" expressionLanguage="http://www.w3.org/TR/XPath" exporter="Camunda Modeler" exporterVersion="4.10.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:signavio="http://www.signavio.com" id="sid-352216f5-0c47-4f7d-a968-2d19b7f33ab0" targetNamespace="http://www.signavio.com" expressionLanguage="http://www.w3.org/TR/XPath" exporter="Camunda Modeler" exporterVersion="4.11.1" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
   <message id="sid-6C18103D-2BD9-4AE0-A07F-8E09708612C7" name="Zusage" />
   <message id="sid-75064450-9D34-47A2-A1D6-52736B1A7D15" name="Absage" />
-  <message id="sid-F54CB53F-244D-4204-B00F-F7B4781571FD" name="Angebotsrücknahme" />
-  <message id="sid-4170E452-648B-47C6-8BFE-39B34EE9A411" name="Nachträgliche Absage" />
+  <message id="sid-F54CB53F-244D-4204-B00F-F7B4781571FD" name="Angebotsruecknahme" />
+  <message id="sid-4170E452-648B-47C6-8BFE-39B34EE9A411" name="Nachtraegliche Absage" />
   <collaboration id="Process_Auftragsdurchfuehrung">
     <extensionElements>
       <signavio:signavioDiagramMetaData metaKey="prozessreifegrad" metaValue="" />
@@ -12,7 +12,7 @@
       <signavio:signavioDiagramMetaData metaKey="meta-prozessverantwortlicher" metaValue="" />
       <signavio:signavioDiagramMetaData metaKey="revisionid" metaValue="f96eb7533add417d8a69a3e0f7048f5e" />
     </extensionElements>
-    <participant id="sid-6B3E89EC-1ECD-46DE-AB9A-EEB10A52FA3C" name="Auftragsdurchführung" processRef="sid-ABFE3629-7F8F-4091-8FC1-BE81A8DBC555">
+    <participant id="process_auftragsdurchfuehrung" name="Auftragsdurchfuehrung" processRef="process_auftragsdurchfuehrung_id">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -49,7 +49,7 @@
       </extensionElements>
     </messageFlow>
   </collaboration>
-  <process id="sid-ABFE3629-7F8F-4091-8FC1-BE81A8DBC555" name="Auftragsdurchführung" processType="None" isClosed="false" isExecutable="false">
+  <process id="process_auftragsdurchfuehrung_id" name="Auftragsdurchfuehrung" processType="None" isClosed="false" isExecutable="true">
     <extensionElements />
     <laneSet id="sid-9167a6b7-3456-403a-81fb-e52bd4089ad1">
       <lane id="sid-791D5F33-FEB8-44E6-A638-2AACC34BD495" name="Technischer Mitarbeiter">
@@ -84,15 +84,31 @@
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
+        <camunda:formData>
+          <camunda:formField id="formfield_kundenart" label="Kundenart" type="enum">
+            <camunda:value id="kunde_privat" name="Privatkunde" />
+            <camunda:value id="kunde_geschaeft" name="Geschaeftskunde" />
+          </camunda:formField>
+          <camunda:formField id="formfield_name" label="Name" type="string" defaultValue="${input_name}" />
+          <camunda:formField id="formfield_vorname" label="Vorname" type="string" defaultValue="${input_vorname}" />
+          <camunda:formField id="formfield_plz" label="Postleitzahl" type="long" defaultValue="${input_postleitzahl}" />
+          <camunda:formField id="formfield_stadt" label="Stadt" type="string" defaultValue="${input_stadt}" />
+          <camunda:formField id="formfield_land" label="Land" type="string" defaultValue="${input_land}" />
+          <camunda:formField id="formfield_email" label="E-Mail" type="string" defaultValue="${input_mail}" />
+          <camunda:formField id="formfield_anfrage" label="Anfrage" type="string" defaultValue="${input_anfrage}" />
+          <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="date" />
+          <camunda:formField id="formfield_auftragsdaten_vollstaendig" label="Auftragsdaten vollstaendig?" type="boolean" defaultValue="false" />
+          <camunda:formField id="formfield_auftragsdaten_anmerkungen" label="Anmerkungen zu den Auftragsdaten" type="string" />
+        </camunda:formData>
       </extensionElements>
       <outgoing>sid-43EFC928-ADFB-4E56-AE80-22EB77ACA3A7</outgoing>
     </startEvent>
-    <endEvent id="endevent_auftragsdurchfuehrung_erfolgreich" name="Auftragsdurchführung&#10;erfolgreich">
+    <endEvent id="endevent_auftragsdurchfuehrung_erfolgreich" name="Auftragsdurchfuehrung&#10;erfolgreich">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         <signavio:signavioMetaData metaKey="nachfolgerprozesse" metaValue="[]" />
-        <camunda:executionListener class="&#34;set_erfolg_auftragsdurchführung&#34; tbd" event="start" />
+        <camunda:executionListener class="&#34;set_erfolg_auftragsdurchfuehrung&#34; tbd" event="start" />
       </extensionElements>
       <incoming>sid-391D6815-AB12-496A-A709-789CC40DCBC8</incoming>
     </endEvent>
@@ -126,7 +142,7 @@
         <timeDuration xsi:type="tFormalExpression">P30D</timeDuration>
       </timerEventDefinition>
     </intermediateCatchEvent>
-    <sendTask id="task_angebot_zurueckziehen" name="Angebot zurückziehen" implementation="##WebService">
+    <sendTask id="task_angebot_zurueckziehen" name="Angebot zurueckziehen" implementation="##WebService" camunda:expression="${1 == 1}">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -149,7 +165,7 @@
       <incoming>sid-5E254450-A26E-4B7C-909F-0A13B91EAFFA</incoming>
       <outgoing>sid-82BF680B-B182-4A73-B652-B988FC162095</outgoing>
     </exclusiveGateway>
-    <endEvent id="endevent_auftragsdurchfuehrung_nicht_erfolgreich" name="Auftragsdurchführung&#10;nicht erfolgreich">
+    <endEvent id="endevent_auftragsdurchfuehrung_nicht_erfolgreich" name="Auftragsdurchfuehrung&#10;nicht erfolgreich">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -228,14 +244,14 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <callActivity id="subprozess_roboterbau" name="Roboterbau" calledElement="Process_Roboterbau">
+    <callActivity id="subprozess_roboterbau" name="Roboterbau" calledElement="process_roboterbau_id">
       <incoming>sid-96BDBBB3-5943-4359-A48D-D5BB822C74CC</incoming>
       <outgoing>sid-A6BBC640-7605-4086-99E2-ACFD6A54051A</outgoing>
     </callActivity>
   </process>
   <bpmndi:BPMNDiagram id="sid-d47dc37b-cfd8-4e58-8924-dcd903bb6578">
     <bpmndi:BPMNPlane id="sid-b1c4b173-2ffc-49aa-a9ad-ca80f23f1219" bpmnElement="Process_Auftragsdurchfuehrung">
-      <bpmndi:BPMNShape id="sid-6B3E89EC-1ECD-46DE-AB9A-EEB10A52FA3C_gui" bpmnElement="sid-6B3E89EC-1ECD-46DE-AB9A-EEB10A52FA3C" isHorizontal="true">
+      <bpmndi:BPMNShape id="sid-6B3E89EC-1ECD-46DE-AB9A-EEB10A52FA3C_gui" bpmnElement="process_auftragsdurchfuehrung" isHorizontal="true">
         <omgdc:Bounds x="157" y="214" width="949" height="463" />
         <bpmndi:BPMNLabel labelStyle="sid-c6d20ade-d36b-4f7e-a1f8-6c043d79eab8">
           <omgdc:Bounds x="71.67033541886336" y="704.8811098950765" width="12.000000000000014" height="121.11428833007812" />
