@@ -8,14 +8,14 @@
       <signavio:signavioDiagramMetaData metaKey="meta-prozessverantwortlicher" metaValue="" />
       <signavio:signavioDiagramMetaData metaKey="revisionid" metaValue="793f4ee01e8f48859a3d4aa56238269a" />
     </extensionElements>
-    <participant id="sid-C5C4CC4B-DF29-44D9-B02B-DBB5E52A22F1" name="Angebotsgenehmigung" processRef="sid-5B1920A9-284A-47CE-8EF0-6B6480EC308F">
+    <participant id="process_angebotsgenehmigung" name="Angebotsgenehmigung" processRef="process_angebotsgenehmigung_id">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </participant>
   </collaboration>
-  <process id="sid-5B1920A9-284A-47CE-8EF0-6B6480EC308F" name="Angebotsgenehmigung" processType="None" isClosed="false" isExecutable="true">
+  <process id="process_angebotsgenehmigung_id" name="Angebotsgenehmigung" processType="None" isClosed="false" isExecutable="true">
     <extensionElements />
     <laneSet id="sid-adc2750b-6159-4786-9240-2dc6928e604c">
       <lane id="sid-CB4FDE41-1BD6-49CE-88DB-242ED5F2DB3C" name="Vorstand">
@@ -63,8 +63,8 @@
         <camunda:formData>
           <camunda:formField id="formfield_acceptance_status" label="Akzeptanz Bereichsleiter" type="enum">
             <camunda:value id="value_acceptance_area_manager" name="Ja" />
-            <camunda:value id="value_acceptance_manager" name="Nein" />
-            <camunda:value id="value_escalation" name="Eskalieren" />
+            <camunda:value id="value_no_area_manager" name="Nein" />
+            <camunda:value id="value_escalation" name="Eskalation" />
           </camunda:formField>
           <camunda:formField id="formfield_price" label="Preis" type="long" defaultValue="0" />
         </camunda:formData>
@@ -187,7 +187,7 @@
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${formfield_acceptance_status != "value_acceptance_area_manager"}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${formfield_acceptance_status == "value_no_area_manager"}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-43D15756-BB6B-411D-AB25-111C664FC93C" name="Nein" sourceRef="sid-2C594507-23EC-41C7-8520-566D139B7C59" targetRef="sid-6ABAD151-57EF-4AA1-8D4C-ADEB5621A313">
       <extensionElements>
@@ -248,14 +248,14 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <businessRuleTask id="sid-A2548D97-3B87-43CD-A5EF-FBD3E6B2B2F7" name="Schwellenwert Volumen prüfen" implementation="##WebService" camunda:decisionRef="dmn_volume_check">
+    <businessRuleTask id="sid-A2548D97-3B87-43CD-A5EF-FBD3E6B2B2F7" name="Schwellenwert Volumen prüfen" implementation="##WebService" camunda:decisionRef="decision_volumecheck_id">
       <incoming>sid-5D416502-F5A6-4F70-9233-05071E03E34B</incoming>
       <outgoing>sid-EAFC8DFE-675A-46BD-9030-627DD36A10E0</outgoing>
     </businessRuleTask>
   </process>
   <bpmndi:BPMNDiagram id="sid-f7b71cae-cf51-4e94-a5a9-673ffeeef7d7">
     <bpmndi:BPMNPlane id="sid-1570f269-85a0-492c-a7c8-827fc7a90836" bpmnElement="Process_Angebotsgenehmigung">
-      <bpmndi:BPMNShape id="sid-C5C4CC4B-DF29-44D9-B02B-DBB5E52A22F1_gui" bpmnElement="sid-C5C4CC4B-DF29-44D9-B02B-DBB5E52A22F1" isHorizontal="true">
+      <bpmndi:BPMNShape id="sid-C5C4CC4B-DF29-44D9-B02B-DBB5E52A22F1_gui" bpmnElement="process_angebotsgenehmigung" isHorizontal="true">
         <omgdc:Bounds x="160" y="80" width="1514" height="488" />
         <bpmndi:BPMNLabel labelStyle="sid-4f1177b6-4f32-4f95-a62f-af623295a0e1">
           <omgdc:Bounds x="15.000306671934357" y="461.17826693646407" width="12.000000000000021" height="125.74285888671875" />
@@ -298,8 +298,6 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-EAFC8DFE-675A-46BD-9030-627DD36A10E0_gui" bpmnElement="sid-EAFC8DFE-675A-46BD-9030-627DD36A10E0">
         <omgdi:waypoint x="800" y="267" />
-        <omgdi:waypoint x="849" y="267" />
-        <omgdi:waypoint x="849" y="266" />
         <omgdi:waypoint x="897" y="266" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-5D416502-F5A6-4F70-9233-05071E03E34B_gui" bpmnElement="sid-5D416502-F5A6-4F70-9233-05071E03E34B">

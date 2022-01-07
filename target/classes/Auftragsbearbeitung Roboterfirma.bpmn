@@ -97,7 +97,7 @@
       </extensionElements>
     </messageFlow>
   </collaboration>
-  <process id="sid-12BEA2F6-ADB4-4E7F-B2C6-168F5C918AB4" name="Auftragsbearbeitung Roboterfirma" processType="None" isClosed="false" isExecutable="false">
+  <process id="sid-12BEA2F6-ADB4-4E7F-B2C6-168F5C918AB4" name="Auftragsbearbeitung Roboterfirma" processType="None" isClosed="false" isExecutable="true">
     <extensionElements />
     <laneSet id="sid-c18b3d1f-72e5-4331-a0f5-610af7de8fde">
       <lane id="sid-8324F00C-B8D4-4219-AE98-56C8DB6060AA" name="Technischer Mitarbeiter">
@@ -134,30 +134,30 @@
         <flowNodeRef>sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0</flowNodeRef>
       </lane>
     </laneSet>
-    <startEvent id="sid-29AF6D77-9F4A-439A-95C5-B5EC598419B4" name="Auftrag für&#10;Roboterbau&#10;eingegangen" camunda:formKey="form_kunde">
+    <startEvent id="sid-29AF6D77-9F4A-439A-95C5-B5EC598419B4" name="Auftrag für&#10;Roboterbau&#10;eingegangen">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
         <camunda:formData>
-          <camunda:formField id="formfield_kundenart" label="Kundenart" type="enum" defaultValue="GESCHAEFTSKUNDE">
-            <camunda:value id="value_privat" name="PRIVATKUNDE" />
-            <camunda:value id="value_geschaeftskunde" name="GESCHAEFTSKUNDE" />
+          <camunda:formField id="formfield_kundenart" label="Kundenart" type="enum">
+            <camunda:value id="value_privat" name="Privatkunde" />
+            <camunda:value id="value_geschaeftskunde" name="Geschaeftskunde" />
           </camunda:formField>
-          <camunda:formField id="formfield_name" type="string" />
-          <camunda:formField id="formfield_vorname" type="string" />
-          <camunda:formField id="formfield_postleitzahl" type="long" />
-          <camunda:formField id="formfield_stadt" type="string" />
-          <camunda:formField id="formfield_land" type="string" />
-          <camunda:formField id="formfield_mail" type="string" />
-          <camunda:formField id="formfield_anfrage" type="string" />
-          <camunda:formField id="formfield_eingangsdatum" type="date" />
+          <camunda:formField id="formfield_name" label="Name" type="string" />
+          <camunda:formField id="formfield_vorname" label="Vorname" type="string" />
+          <camunda:formField id="formfield_postleitzahl" label="Postleitzahl" type="long" />
+          <camunda:formField id="formfield_stadt" label="Stadt" type="string" />
+          <camunda:formField id="formfield_land" label="Land" type="string" />
+          <camunda:formField id="formfield_mail" label="E-mail Adresse" type="string" />
+          <camunda:formField id="formfield_anfrage" label="Anfrage" type="string" />
+          <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="date" />
         </camunda:formData>
       </extensionElements>
       <outgoing>sid-4A67AB44-290B-4305-A60F-B845C985AC6B</outgoing>
-      <messageEventDefinition id="sid-19838efd-fe46-41ce-93a2-28ad61d45b36" />
+      <messageEventDefinition id="sid-19838efd-fe46-41ce-93a2-28ad61d45b36" messageRef="Message_1wjzk74" />
     </startEvent>
-    <sendTask id="sid-12244EB0-9DED-41E1-832B-F48380066793" name="Auftrag&#10;ablehnen" implementation="##WebService">
+    <sendTask id="sid-12244EB0-9DED-41E1-832B-F48380066793" name="Auftrag&#10;ablehnen" implementation="##WebService" camunda:expression="${1 == 1}">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -187,7 +187,7 @@
       <incoming>sid-8272B622-F867-443E-99A8-F2A960EAC008</incoming>
       <outgoing>sid-9C2FF5D9-FCE7-40C6-9935-B5D9F18C0500</outgoing>
     </exclusiveGateway>
-    <sendTask id="sid-C34CF306-455A-4AC0-9FBC-ECF6351C7E73" name="Angebot versenden" implementation="##WebService">
+    <sendTask id="sid-C34CF306-455A-4AC0-9FBC-ECF6351C7E73" name="Angebot versenden" implementation="##WebService" camunda:expression="${1 == 1}">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -242,7 +242,7 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         <signavio:signavioLabel align="right" bottom="false" left="true" ref="text_name" right="false" top="false" valign="middle" x="-7.0" y="20.0" />
       </extensionElements>
-      <incoming>sid-34802292-6BAA-46BF-972C-76A7BF8945E4</incoming>
+      <incoming>Flow_0vptlcq</incoming>
       <outgoing>sid-DF0F582C-51AA-483D-8113-012F458EC455</outgoing>
       <outgoing>sid-7AC5512A-7E72-49BD-B352-067180F7BB0D</outgoing>
     </exclusiveGateway>
@@ -256,35 +256,35 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="sid-34802292-6BAA-46BF-972C-76A7BF8945E4" name="" sourceRef="sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0" targetRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-      </extensionElements>
-    </sequenceFlow>
     <sequenceFlow id="sid-8272B622-F867-443E-99A8-F2A960EAC008" name="nein" sourceRef="sid-89BF1188-55E6-4311-B716-E8EF2B46CBB5" targetRef="sid-D2716A52-8A99-45EE-85D9-A33298BF49D7">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${isPossible == false}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-C88F2B85-B7A2-49B8-BFFC-48410A16433A" name="ja" sourceRef="sid-89BF1188-55E6-4311-B716-E8EF2B46CBB5" targetRef="sid-F4B0466F-E480-4B20-8E40-3E1109589D11">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${isPossible ==true}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-7AC5512A-7E72-49BD-B352-067180F7BB0D" name="ja" sourceRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049" targetRef="sid-C34CF306-455A-4AC0-9FBC-ECF6351C7E73">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${(isPermittedAreaManager == "value_acceptance_area_manager" &amp;&amp; price &lt; 50000) || isPermittedManager == "value_yes"}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-DF0F582C-51AA-483D-8113-012F458EC455" name="nein" sourceRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049" targetRef="sid-D2716A52-8A99-45EE-85D9-A33298BF49D7">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${(isPermittedAreaManager != "value_acceptance_area_manager" &amp;&amp; isPermittedManager != "value_yes") || isPermittedManager}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-C617442F-7688-42F3-87E4-14360E0888C9" name="ja" sourceRef="sid-D50F4EFC-783A-41CA-8239-F5F8D56BEB16" targetRef="sid-9752BB96-5346-4F6D-A070-D7DE8F0B21D6">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${success== true}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-CFB2393E-C724-4218-A8D1-78DFF4054CC6" name="" sourceRef="sid-188DED99-D769-4BF6-BBA8-011D8C8F1565" targetRef="sid-D50F4EFC-783A-41CA-8239-F5F8D56BEB16">
       <extensionElements>
@@ -305,6 +305,7 @@
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${success== false}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-DBC73793-B2F8-4125-951F-3201AAC7C546" name="" sourceRef="sid-12244EB0-9DED-41E1-832B-F48380066793" targetRef="sid-89597351-76E7-4F67-A787-14BCEA161FBE">
       <extensionElements>
@@ -321,27 +322,69 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <callActivity id="sid-F655168D-A585-4DFB-B1D7-FCC69C7C9083" name="Auftragsdatenprüfung" calledElement="Process_Auftragsdatenpruefung">
+    <callActivity id="sid-F655168D-A585-4DFB-B1D7-FCC69C7C9083" name="Auftragsdatenprüfung" calledElement="process_auftragsdatenpruefung_id">
+      <extensionElements>
+        <camunda:in source="formfield_name" target="input_name" />
+        <camunda:in source="formfield_kundenart" target="input_kundenart" />
+        <camunda:in source="formfield_vorname" target="input_vorname" />
+        <camunda:in source="formfield_postleitzahl" target="input_postleitzahl" />
+        <camunda:in source="formfield_stadt" target="input_stadt" />
+        <camunda:in source="formfield_land" target="input_land" />
+        <camunda:in source="formfield_mail" target="input_mail" />
+        <camunda:in source="formfield_eingangsdatum" target="input_eingangsdatum" />
+        <camunda:in source="formfield_anfrage" target="input_anfrage" />
+      </extensionElements>
       <incoming>sid-4A67AB44-290B-4305-A60F-B845C985AC6B</incoming>
       <outgoing>sid-10FF465E-BFD7-4076-83D2-E0BF794F1B16</outgoing>
       <standardLoopCharacteristics />
     </callActivity>
-    <callActivity id="sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01" name="Umsetzbarkeitsprüfung" calledElement="Process_Umsetzbarkeitspruefung">
+    <callActivity id="sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01" name="Umsetzbarkeitsprüfung" calledElement="umsetzbarkeitspruefung_id">
+      <extensionElements>
+        <camunda:out source="test_person" target="isPossible" />
+      </extensionElements>
       <incoming>sid-10FF465E-BFD7-4076-83D2-E0BF794F1B16</incoming>
       <outgoing>sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE</outgoing>
     </callActivity>
-    <callActivity id="sid-F4B0466F-E480-4B20-8E40-3E1109589D11" name="Angebotszusammenstellung" calledElement="Process_Angebotszusammenstellung">
+    <callActivity id="sid-F4B0466F-E480-4B20-8E40-3E1109589D11" name="Angebotszusammenstellung" calledElement="process_angebotszusammenstellung_id">
+      <extensionElements>
+        <camunda:in source="formfield_name" target="input_name" />
+        <camunda:in source="formfield_kundenart" target="input_kundenart" />
+        <camunda:in source="formfield_vorname" target="input_vorname" />
+        <camunda:in source="formfield_postleitzahl" target="input_postleitzahl" />
+        <camunda:in source="formfield_stadt" target="input_stadt" />
+        <camunda:in source="formfield_land" target="input_land" />
+        <camunda:in source="formfield_mail" target="input_mail" />
+        <camunda:in source="formfield_eingangsdatum" target="input_eingangsdatum" />
+        <camunda:in source="formfield_anfrage" target="input_anfrage" />
+      </extensionElements>
       <incoming>sid-C88F2B85-B7A2-49B8-BFFC-48410A16433A</incoming>
       <outgoing>sid-443FFF5A-773D-4707-BC2D-3922CAC7A14A</outgoing>
     </callActivity>
-    <callActivity id="sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0" name="Angebotsgenehmigung" calledElement="Process_Angebotsgenehmigung">
+    <callActivity id="sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0" name="Angebotsgenehmigung" calledElement="process_angebotsgenehmigung_id">
+      <extensionElements>
+        <camunda:out source="formfield_man_acceptance" target="isPermittedManager" />
+        <camunda:out source="formfield_acceptance_status" target="isPermittedAreaManager" />
+        <camunda:out source="formfield_price" target="price" />
+      </extensionElements>
       <incoming>sid-443FFF5A-773D-4707-BC2D-3922CAC7A14A</incoming>
-      <outgoing>sid-34802292-6BAA-46BF-972C-76A7BF8945E4</outgoing>
+      <outgoing>Flow_0vptlcq</outgoing>
     </callActivity>
-    <callActivity id="sid-188DED99-D769-4BF6-BBA8-011D8C8F1565" name="Auftragsdurchführung" calledElement="Process_Auftragsdurchfuehrung">
+    <callActivity id="sid-188DED99-D769-4BF6-BBA8-011D8C8F1565" name="Auftragsdurchführung" calledElement="process_auftragsdurchfuehrung_id">
+      <extensionElements>
+        <camunda:in source="formfield_name" target="input_name" />
+        <camunda:in source="formfield_kundenart" target="input_kundenart" />
+        <camunda:in source="formfield_vorname" target="input_vorname" />
+        <camunda:in source="formfield_postleitzahl" target="input_postleitzahl" />
+        <camunda:in source="formfield_stadt" target="input_stadt" />
+        <camunda:in source="formfield_land" target="input_land" />
+        <camunda:in source="formfield_mail" target="input_mail" />
+        <camunda:in source="formfield_eingangsdatum" target="input_eingangsdatum" />
+        <camunda:in source="formfield_anfrage" target="input_anfrage" />
+      </extensionElements>
       <incoming>sid-D8FD4B78-CEFF-43A0-B790-A8530EA6FF4B</incoming>
       <outgoing>sid-CFB2393E-C724-4218-A8D1-78DFF4054CC6</outgoing>
     </callActivity>
+    <sequenceFlow id="Flow_0vptlcq" sourceRef="sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0" targetRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049" />
     <textAnnotation id="sid-3426E86F-0FE9-4088-9CE2-08119B8A125B" signavio:alignment="left">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -355,6 +398,7 @@
       </extensionElements>
     </association>
   </process>
+  <message id="Message_1wjzk74" name="message_start" />
   <bpmndi:BPMNDiagram id="sid-cf65ba66-58b1-4055-b931-c674b4ebac04">
     <bpmndi:BPMNPlane id="sid-a6bdb486-b673-483a-bfe8-c782f150bbdb" bpmnElement="Process_Auftragsbearbeitung_Roboterfirma">
       <bpmndi:BPMNShape id="sid-87FA1882-01C6-4145-9976-12F1F1F28467_gui" bpmnElement="sid-87FA1882-01C6-4145-9976-12F1F1F28467" isHorizontal="true">
@@ -381,6 +425,11 @@
           <omgdc:Bounds x="835.9995190314287" y="639.633766491032" width="12" height="124.971435546875" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0vptlcq_di" bpmnElement="Flow_0vptlcq">
+        <omgdi:waypoint x="1228" y="966" />
+        <omgdi:waypoint x="1265" y="966" />
+        <omgdi:waypoint x="1265" y="720" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE_gui" bpmnElement="sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE">
         <omgdi:waypoint x="689" y="700" />
         <omgdi:waypoint x="777" y="700" />
@@ -449,11 +498,6 @@
         <bpmndi:BPMNLabel labelStyle="sid-5a0f711a-4128-4ab4-877a-a14fb5c53a91">
           <omgdc:Bounds x="772" y="650" width="21" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="sid-34802292-6BAA-46BF-972C-76A7BF8945E4_gui" bpmnElement="sid-34802292-6BAA-46BF-972C-76A7BF8945E4">
-        <omgdi:waypoint x="1228" y="966" />
-        <omgdi:waypoint x="1265.506232973766" y="966" />
-        <omgdi:waypoint x="1266" y="719" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-443FFF5A-773D-4707-BC2D-3922CAC7A14A_gui" bpmnElement="sid-443FFF5A-773D-4707-BC2D-3922CAC7A14A">
         <omgdi:waypoint x="1036" y="700" />
