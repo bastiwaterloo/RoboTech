@@ -14,7 +14,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import edu.thi.demo.pda.entities.Order; //richtige Bean importieren
+import edu.thi.java.beans.AngebotBean;
 
 public class SendenFehlenderAuftragsdaten implements JavaDelegate {
 

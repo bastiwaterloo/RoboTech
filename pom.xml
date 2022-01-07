@@ -145,6 +145,13 @@
     </dependency>
 
     <!-- Add your own dependencies here, if in compile scope, they are added to the war -->
+    
+    <!-- Needed for ActiveMQ -->
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-all</artifactId>
+      <version>5.15.2</version>
+    </dependency>
 
   </dependencies>
 
