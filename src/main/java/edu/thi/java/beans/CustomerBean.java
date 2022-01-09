@@ -14,7 +14,7 @@ public class CustomerBean implements Serializable {
     private String kundenart;
     private String name;
     private String vorname;
-    private int plz;
+    private Long plz;
     private String stadt;
     private String land;
     private String email;
@@ -26,7 +26,7 @@ public class CustomerBean implements Serializable {
         this.kundenart = "Geschäftskunde";
         this.name = "";
         this.vorname = "";
-        this.plz = 0;
+        this.plz = 0L;
         this.stadt = "";
         this.land = "";
         this.email = "";
@@ -35,7 +35,7 @@ public class CustomerBean implements Serializable {
         this.date = dtf.format(LocalDateTime.now());
     }
     
-    public CustomerBean(String kundenart, String name, String vorname, int plz, String stadt, String land, String email, String anfrage) {
+    public CustomerBean(String kundenart, String name, String vorname, Long plz, String stadt, String land, String email, String anfrage) {
         this.kundenid = (int)Math.ceil(Math.random()*10000);
         this.kundenart = kundenart;
         this.name = name;
@@ -82,11 +82,11 @@ public class CustomerBean implements Serializable {
 		this.vorname = vorname;
 	}
 
-	public int getPlz() {
+	public Long getPlz() {
 		return plz;
 	}
 
-	public void setPlz(int plz) {
+	public void setPlz(Long plz) {
 		this.plz = plz;
 	}
 

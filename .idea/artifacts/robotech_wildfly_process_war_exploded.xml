@@ -1,0 +1,28 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="robotech-wildfly-process:war exploded">
+    <output-path>$PROJECT_DIR$/target/orderhandling-wildfly-process</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>robotech-wildfly-process</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="robotech-wildfly-process" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.camunda.bpm.assert:camunda-bpm-assert:12.0.0" />
+          <element id="library" level="project" name="Maven: com.h2database:h2:1.4.200" />
+          <element id="library" level="project" name="Maven: org.apache.activemq:activemq-all:5.15.2" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/orderhandling-wildfly-process/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="robotech-wildfly-process/web/Web" />
+    </root>
+  </artifact>
+</component>

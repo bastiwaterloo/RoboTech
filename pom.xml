@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>edu.thi.demo</groupId>
-  <artifactId>orderhandling-wildfly-process</artifactId>
+  <artifactId>robotech-wildfly-process</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <packaging>war</packaging>
@@ -140,7 +140,12 @@
     </dependency>
 
     <!-- Add your own dependencies here, if in compile scope, they are added to the war -->
-
+    <dependency>
+      <!-- process engine, needs to be 'provided' because it's already a shared library in the application server -->
+      <groupId>org.camunda.bpm</groupId>
+      <artifactId>camunda-engine</artifactId>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <repositories>
