@@ -1,0 +1,10 @@
+edu\thi\demo\test_ejb_lukas\LoggerDelegate.class
+edu\thi\java\servicetask\CreateOrderService.class
+edu\thi\demo\test_ejb_lukas\ProcessConstants.class
+edu\thi\camundabpm\ejb\CustomerServiceDelegateLocal.class
+edu\thi\jpa\beans\Customer.class
+edu\thi\camundabpm\ejb\CustomerServiceDelegate.class
+edu\thi\webservice\CustomerServiceSOAP.class
+edu\thi\services\ejb\CustomerServiceBeanLocal.class
+edu\thi\services\ejb\CustomerServiceBeanRemote.class
+edu\thi\services\ejb\CustomerServiceBean.class
