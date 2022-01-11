@@ -333,6 +333,15 @@
         <camunda:in source="formfield_mail" target="input_mail" />
         <camunda:in source="formfield_eingangsdatum" target="input_eingangsdatum" />
         <camunda:in source="formfield_anfrage" target="input_anfrage" />
+        <camunda:out source="formfield_name" target="formfield_name" />
+        <camunda:out source="formfield_kundeart" target="formfield_kundenart" />
+        <camunda:out source="formfield_vorname" target="formfield_vorname" />
+        <camunda:out source="formfield_postleitzahl" target="formfield_postleitzahl" />
+        <camunda:out source="formfield_stadt" target="formfield_stadt" />
+        <camunda:out source="formfield_land" target="formfield_land" />
+        <camunda:out source="formfield_mail" target="formfield_mail" />
+        <camunda:out source="formfield_eingangsdatum" target="formfield_eingangsdatum" />
+        <camunda:out source="formfield_anfrage" target="formfield_anfrage" />
       </extensionElements>
       <incoming>sid-4A67AB44-290B-4305-A60F-B845C985AC6B</incoming>
       <outgoing>sid-10FF465E-BFD7-4076-83D2-E0BF794F1B16</outgoing>
@@ -341,6 +350,10 @@
     <callActivity id="sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01" name="Umsetzbarkeitsprüfung" calledElement="umsetzbarkeitspruefung_id">
       <extensionElements>
         <camunda:out source="test_person" target="isPossible" />
+        <camunda:in source="formfield_name" target="input_name" />
+        <camunda:in source="formfield_land" target="input_land" />
+        <camunda:in source="formfield_eingangsdatum" target="input_eingangsdatum" />
+        <camunda:in source="formfield_anfrage" target="input_anfrage" />
       </extensionElements>
       <incoming>sid-10FF465E-BFD7-4076-83D2-E0BF794F1B16</incoming>
       <outgoing>sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE</outgoing>
