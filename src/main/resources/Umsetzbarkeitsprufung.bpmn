@@ -72,6 +72,16 @@
             <camunda:value id="nichtUmsetzbar" name="nein" />
             <camunda:value id="umsetzbar" name="ja" />
           </camunda:formField>
+          <camunda:formField id="input_eingangsdatum" label="Auftragseingang" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="input_anfrage" label="Anfrage" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
         </camunda:formData>
       </extensionElements>
       <incoming>sid-10D5D684-B94A-44D4-92B6-FC8F28FB8AD8</incoming>
@@ -135,6 +145,16 @@
               <camunda:constraint name="readonly" />
             </camunda:validation>
           </camunda:formField>
+          <camunda:formField id="input_eingangsdatum" label="Auftragseingang" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="input_anfrage" label="Anfrage" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
         </camunda:formData>
       </extensionElements>
       <incoming>sid-8077CF63-991D-4C7A-802D-83B7286BBBA5</incoming>
@@ -168,7 +188,31 @@
         <signavio:signavioMetaData metaKey="meta-risikomanagement" metaValue="" />
         <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
         <camunda:formData>
-          <camunda:formField id="test_person" label="Test Person" type="boolean" />
+          <camunda:formField id="personell_umsetzbar" label="Personelle Umsetzbarkeit" type="boolean">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="angepasstes_angebot" label="Angepasstes Angebot" type="long">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="summarized_notes" label="Summarized Notes" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="input_eingangsdatum" label="Auftragseingang" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="input_anfrage" label="Anfrage" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
         </camunda:formData>
       </extensionElements>
       <incoming>sid-FD3036AC-1444-4992-A10A-0AC3FA592B2D</incoming>
@@ -220,7 +264,7 @@
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${test_person==false}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${personell_umsetzbar==false}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-8B368103-FA6C-470D-99E4-2055EE1E9E36" name="" sourceRef="sid-316FEBB1-E31B-4F67-8780-3202A84F1AAA" targetRef="sid-1FC027A7-DDB4-4FC3-96F8-F5C457611478">
       <extensionElements>
@@ -236,7 +280,7 @@
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${test_person==true}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${personell_umsetzbar==true}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-0EC42D31-1F9E-43D6-BDA2-8054ADDB2F0E" name="Auftrag &#10;nicht &#10;umsetzbar" isImmediate="true" sourceRef="sid-2DF7E148-0A15-445D-A13F-E221513B1C04" targetRef="sid-BFAF9A34-2F20-4926-808C-371486404CE8">
       <extensionElements>
@@ -314,6 +358,8 @@
       <extensionElements>
         <camunda:out source="orderPossible" target="orderPossible" />
         <camunda:out source="summarized_notes" target="summarized_notes" />
+        <camunda:in source="input_eingangsdatum" target="input_eingangsdatum" />
+        <camunda:in source="input_anfrage" target="input_anfrage" />
       </extensionElements>
       <incoming>sid-A6F9C358-78FF-4EC4-B167-53B887D4AFA8</incoming>
       <outgoing>sid-D7170110-955A-4D8D-B874-4997DD6D25DD</outgoing>
