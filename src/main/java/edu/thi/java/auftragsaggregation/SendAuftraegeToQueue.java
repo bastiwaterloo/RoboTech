@@ -14,7 +14,7 @@ import javax.jms.Destination;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-//import javax.json.*;
+import javax.json.*;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -35,41 +35,78 @@ public class SendAuftraegeToQueue implements JavaDelegate {
         // Get the collected list from the process context
         @SuppressWarnings("unchecked")
         ArrayList<Auftrag> auftragsliste = (ArrayList<Auftrag>) execution.getVariable("auftragsliste");
+                
         
         // Create JSON for message
         //TODO JSON-Builder einbauen
- 
-/*
-        JsonObject auftragsJson = Json.createObjectBuilder()
-        		.add("auftrag", 
-        				 Json.createArrayBuilder()
-        				 	.Json.createArrayBuilder()
-        				 .add("auftragsid", "IDPL Colony")
-                         .add("roboterart", "Hyderabad")
-                         .add("menge", "500072")
-                         .add("status", "")
-                         .build()
-        				
-                .add("empAge", "25")
-                .add("empSalary", "40000")
-                     
-                .build();
-*/
         
-        StringBuffer sb = new StringBuffer();
-        sb.append("{\n");
-        sb.append("\t\"item\": [\n");
+/*
+ 
+ // Versuch der Schleife
+        
+        JsonArrayBuilder builder = Json.createArrayBuilder();
+        
+        for (int i=0; i< auftragsliste.size(); i++) {
+	        Auftrag auftrag = auftragsliste.get(i);
+	        
+	        builder.add("auftragsid", "a");
+	        builder.add("auftragsid", "a");
+        }
+        
+        JsonObject auftragsJson = Json.createObjectBuilder()
+        		.add("auftraege",
+    				Json.createArrayBuilder()
+    					.add(
+    							
+    						for (int i=0; i< auftragsliste.size(); i++) {
+    					        Auftrag auftrag = auftragsliste.get(i);
+    					        	
+	    						Json.createObjectBuilder()       								
+	    						.add("auftragsid", "a")
+	    						.add("roboterart", "Hyderabad")
+	    						.add("menge", "500072")
+	    						.add("status", "")
+	    						.build()
+    						}
+    					)
+        			.build()
+        		)
+        		.build();
+        
+    //Funktioniert ohne Schleife
+
+        JsonObject auftragsJson = Json.createObjectBuilder()
+        		.add("auftraege",
+    				Json.createArrayBuilder()
+    					.add(
+    						Json.createObjectBuilder()       								
+    						.add("auftragsid", "a")
+    						.add("roboterart", "Hyderabad")
+    						.add("menge", "500072")
+    						.add("status", "")
+    						.build()
+    					)
+        			.build()
+        		)
+        		.build();
+
+*/
+        StringBuffer auftragsJson = new StringBuffer();
+        auftragsJson.append("{\n");
+        auftragsJson.append("\t\"item\": [\n");
         for (int i=0; i< auftragsliste.size(); i++) {
         	Auftrag auftrag = auftragsliste.get(i);
-            sb.append("\t\t{\n");
-            sb.append("\t\t\t\"auftragsid\":\"" + auftrag.getAuftragsID() + "\",\n");
-            sb.append("\t\t\t\"roboterart\":\"" + auftrag.getRoboterart() + "\",\n");
-            sb.append("\t\t\t\"menge\":" + auftrag.getMenge() + ",\n");
-            sb.append("\t\t\t\"status\":\"" + auftrag.getStatus() + "\"\n");
-            sb.append((i == auftragsliste.size()-1) ? "\t\t}\n" : "\t\t},\n");
+        	auftragsJson.append("\t\t{\n");
+        	auftragsJson.append("\t\t\t\"auftragsid\":\"" + auftrag.getAuftragsID() + "\",\n");
+        	auftragsJson.append("\t\t\t\"roboterart\":\"" + auftrag.getRoboterart() + "\",\n");
+        	auftragsJson.append("\t\t\t\"menge\":" + auftrag.getMenge() + ",\n");
+        	auftragsJson.append("\t\t\t\"status\":\"" + auftrag.getStatus() + "\"\n");
+        	auftragsJson.append((i == auftragsliste.size()-1) ? "\t\t}\n" : "\t\t},\n");
         }
-        sb.append("\t]\n");
-        sb.append("}\n");
+        auftragsJson.append("\t]\n");
+        auftragsJson.append("}\n");
+        
+
         
         try {
             Connection connection = null;
@@ -81,7 +118,7 @@ public class SendAuftraegeToQueue implements JavaDelegate {
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-            TextMessage message = session.createTextMessage(sb.toString());
+            TextMessage message = session.createTextMessage(auftragsJson.toString());
             producer.send(message);
 
             connection.close();
