@@ -23,7 +23,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <failOnMissingWebXml>false</failOnMissingWebXml>
-    <skipTest>true</skipTest>
+    <skipTests>true</skipTests>
   </properties>
 
   <dependencyManagement>
@@ -150,8 +150,14 @@
     <dependency>
       <groupId>org.apache.activemq</groupId>
       <artifactId>activemq-all</artifactId>
-      <version>5.15.2</version>
+      <version>5.15.15</version>
     </dependency>
+    
+    <dependency>
+  		<groupId>com.espertech</groupId>
+  		<artifactId>esper</artifactId>
+  		<version>7.1.0</version>
+  	</dependency>
 
   </dependencies>
 
