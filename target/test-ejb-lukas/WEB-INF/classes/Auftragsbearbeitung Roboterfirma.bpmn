@@ -111,9 +111,9 @@
         <flowNodeRef>sid-D50F4EFC-783A-41CA-8239-F5F8D56BEB16</flowNodeRef>
         <flowNodeRef>sid-9D118164-B7B1-4A63-955D-1C475715418F</flowNodeRef>
         <flowNodeRef>sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049</flowNodeRef>
-        <flowNodeRef>sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01</flowNodeRef>
         <flowNodeRef>sid-F4B0466F-E480-4B20-8E40-3E1109589D11</flowNodeRef>
         <flowNodeRef>sid-188DED99-D769-4BF6-BBA8-011D8C8F1565</flowNodeRef>
+        <flowNodeRef>sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01</flowNodeRef>
       </lane>
       <lane id="sid-55F501AF-922D-4C79-A016-31073E07D4EB" name="Sachbearbeiter">
         <extensionElements>
@@ -152,6 +152,16 @@
           <camunda:formField id="formfield_mail" label="E-mail Adresse" type="string" />
           <camunda:formField id="formfield_anfrage" label="Anfrage" type="string" />
           <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="date" />
+          <camunda:formField id="formfield_type" label="Robotertyp" type="enum">
+            <camunda:value id="Staubsaugerroboter" name="Staubsaugerroboter" />
+            <camunda:value id="Montierarm" name="Montierarm" />
+            <camunda:value id="Kuechenhelfer" name="Kuechenhelfer" />
+            <camunda:value id="Buegelroboter" name="Buegelroboter" />
+            <camunda:value id="Rasenmaeher" name="Rasenmaeher" />
+            <camunda:value id="Fensterputzer" name="Fensterputzer" />
+            <camunda:value id="Haustierroboter" name="Haustierroboter" />
+          </camunda:formField>
+          <camunda:formField id="formfield_menge" label="Menge" type="long" />
         </camunda:formData>
       </extensionElements>
       <outgoing>sid-4A67AB44-290B-4305-A60F-B845C985AC6B</outgoing>
@@ -333,17 +343,13 @@
         <camunda:in source="formfield_mail" target="input_mail" />
         <camunda:in source="formfield_eingangsdatum" target="input_eingangsdatum" />
         <camunda:in source="formfield_anfrage" target="input_anfrage" />
+        <camunda:in source="formfield_type" target="input_type" />
+        <camunda:in source="formfield_menge" target="input_menge" />
+        <camunda:out source="cart" target="current_cart" />
       </extensionElements>
       <incoming>sid-4A67AB44-290B-4305-A60F-B845C985AC6B</incoming>
       <outgoing>sid-10FF465E-BFD7-4076-83D2-E0BF794F1B16</outgoing>
       <standardLoopCharacteristics />
-    </callActivity>
-    <callActivity id="sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01" name="Umsetzbarkeitsprüfung" calledElement="umsetzbarkeitspruefung_id">
-      <extensionElements>
-        <camunda:out source="test_person" target="isPossible" />
-      </extensionElements>
-      <incoming>sid-10FF465E-BFD7-4076-83D2-E0BF794F1B16</incoming>
-      <outgoing>sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE</outgoing>
     </callActivity>
     <callActivity id="sid-F4B0466F-E480-4B20-8E40-3E1109589D11" name="Angebotszusammenstellung" calledElement="process_angebotszusammenstellung_id">
       <extensionElements>
@@ -385,6 +391,17 @@
       <outgoing>sid-CFB2393E-C724-4218-A8D1-78DFF4054CC6</outgoing>
     </callActivity>
     <sequenceFlow id="Flow_0vptlcq" sourceRef="sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0" targetRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049" />
+    <callActivity id="sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01" name="Umsetzbarkeitsprüfung" calledElement="umsetzbarkeitspruefung_id">
+      <extensionElements>
+        <camunda:out source="test_person" target="isPossible" />
+        <camunda:in source="current_cart" target="input_cart" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="Input_3vvvof8" />
+        </camunda:inputOutput>
+      </extensionElements>
+      <incoming>sid-10FF465E-BFD7-4076-83D2-E0BF794F1B16</incoming>
+      <outgoing>sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE</outgoing>
+    </callActivity>
     <textAnnotation id="sid-3426E86F-0FE9-4088-9CE2-08119B8A125B" signavio:alignment="left">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -431,7 +448,7 @@
         <omgdi:waypoint x="1265" y="720" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE_gui" bpmnElement="sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE">
-        <omgdi:waypoint x="689" y="700" />
+        <omgdi:waypoint x="690" y="700" />
         <omgdi:waypoint x="777" y="700" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-9C2FF5D9-FCE7-40C6-9935-B5D9F18C0500_gui" bpmnElement="sid-9C2FF5D9-FCE7-40C6-9935-B5D9F18C0500">
@@ -509,7 +526,7 @@
         <omgdi:waypoint x="470" y="425" />
         <omgdi:waypoint x="511" y="425" />
         <omgdi:waypoint x="511" y="700" />
-        <omgdi:waypoint x="589" y="700" />
+        <omgdi:waypoint x="590" y="700" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="sid-29AF6D77-9F4A-439A-95C5-B5EC598419B4_gui" bpmnElement="sid-29AF6D77-9F4A-439A-95C5-B5EC598419B4">
         <omgdc:Bounds x="250" y="410" width="30" height="30" />
@@ -571,9 +588,6 @@
       <bpmndi:BPMNShape id="Activity_1hlei23_di" bpmnElement="sid-F655168D-A585-4DFB-B1D7-FCC69C7C9083">
         <omgdc:Bounds x="370" y="385" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1lknu9h_di" bpmnElement="sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01">
-        <omgdc:Bounds x="589" y="660" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_112cxrt_di" bpmnElement="sid-F4B0466F-E480-4B20-8E40-3E1109589D11">
         <omgdc:Bounds x="936" y="660" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -585,6 +599,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-3426E86F-0FE9-4088-9CE2-08119B8A125B_gui" bpmnElement="sid-3426E86F-0FE9-4088-9CE2-08119B8A125B">
         <omgdc:Bounds x="506" y="340" width="100" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1lknu9h_di" bpmnElement="sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01">
+        <omgdc:Bounds x="590" y="660" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="sid-F8F3AE61-D691-4768-8147-7459401E2C4C_gui" bpmnElement="sid-F8F3AE61-D691-4768-8147-7459401E2C4C">
         <omgdi:waypoint x="506" y="365" />

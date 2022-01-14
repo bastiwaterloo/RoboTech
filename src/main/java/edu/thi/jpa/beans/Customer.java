@@ -1,12 +1,17 @@
 package edu.thi.jpa.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,26 +22,46 @@ public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long customerid;
+	
+	@OneToMany(mappedBy = "customer",
+ 		   orphanRemoval = true,
+ 		   fetch = FetchType.LAZY,
+ 		   cascade = CascadeType.ALL)
+	private Collection<Cart> carts = new ArrayList<Cart>();
+	
+	
 	private String vorname;
 	private String nachname;
 	private Long plz;
 	private String stadt;
 	private String land;
 	private String email;
-
-
+	private String kundenart;
+	
 	public Long getCustomerid() {
 		return customerid;
 	}
+	
 
 	public void setCustomerid(Long customerid) {
 		this.customerid = customerid;
 	}
 
-	private String kundenart;
+
+
+	public Collection<Cart> getCarts() {
+		return carts;
+	}
+
+
+	public void setCarts(Collection<Cart> carts) {
+		this.carts = carts;
+	}
+
 
 	public String getKundenart() {
 		return kundenart;
@@ -98,6 +123,8 @@ public class Customer implements Serializable {
 		return serialVersionUID;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "Id: " + customerid + "; Firstname: " + vorname + "; Lastname: " + nachname + "; Email: " + email;

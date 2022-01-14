@@ -40,7 +40,6 @@ public class CustomerServiceSOAP {
     
     public void update(Long customerid, String kundenart, String vorname, String nachname, Long plz, String stadt, String land, String email) {
         Customer customer = new Customer();
-        customer.setCustomerid(customerid);
         customer.setKundenart(kundenart);
         customer.setNachname(nachname);
         customer.setVorname(vorname);

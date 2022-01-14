@@ -28,6 +28,16 @@ public class CustomerServiceBean implements CustomerServiceBeanRemote, CustomerS
     public CustomerServiceBean() {
         // TODO Auto-generated constructor stub
     }
+    
+    public Boolean checkCustomer(String email) {
+    	System.out.println("checking for customer with mail: " + email);
+    	if(this.search(email) == null) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
+    
     public Customer create(Customer customer) {
         em.persist(customer);
         return customer;

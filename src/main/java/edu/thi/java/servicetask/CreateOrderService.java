@@ -1,36 +1,45 @@
 package edu.thi.java.servicetask;
 
+
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import edu.thi.jpa.beans.Customer;
+import edu.thi.constants.enums.Status;
+import edu.thi.jpa.beans.Cart;
 
-public class CreateOrderService implements JavaDelegate {
+public class CreateOrderService implements JavaDelegate{
 
-    @Override
-    public void execute(DelegateExecution execution) throws Exception {
-    	String kundenart = (String) execution.getVariable("formfield_kundenart");
-    	String name = (String) execution.getVariable("formfield_name");
-    	String vorname = (String) execution.getVariable("formfield_vorname");
-    	Long plz = (Long) execution.getVariable("formfield_plz");
-    	String stadt = (String) execution.getVariable("formfield_stadt");
-    	String land = (String) execution.getVariable("formfield_land");
-    	String email = (String) execution.getVariable("formfield_email");
-    	String anfrage = (String) execution.getVariable("formfield_anfrage");
-    	String eingangsdatum = (String) execution.getVariable("formfield_eingangsdatum");
-    	String anmerkung = (String) execution.getVariable("formfield_auftragsdaten_anmerkungen");
-        Customer customer = new Customer();
-        customer.setKundenart(kundenart);
-        customer.setNachname(name);
-        customer.setVorname(vorname);
-        customer.setPlz(plz);
-        customer.setStadt(stadt);
-        customer.setLand(land);
-        customer.setEmail(email);
-        execution.setVariable("customer", customer);
-        System.out.println("We made it customer created!!!!");
-        System.out.println("We made it customer created!!!!");
-        System.out.println("We made it customer created!!!!");
-        System.out.println("We made it customer created!!!!");
-    }
+	@Override
+	 public void execute(DelegateExecution execution) throws Exception {
+    	Long robotertypID = 1L;
+    	Long kundenID = 1L;
+    	Long menge = 1L;
+    	Double auftragspreis = 99.99;
+    	Double rabattpreis = 59.99;
+    	String spezialdesign = (String) execution.getVariable("formfield_anfrage");
+    	Boolean erhoehterFertigungsaufwand = false;
+    	Boolean lautstaerkereduzierung = false;
+    	Boolean leichtbauweise = false;
+    	Double sonderzuschlag = 10.50;
+    	Status status = Status.EINGEGANGEN;
+    	String spezifikation = "";
+    	
+    	Cart cart = new Cart();
+    	cart.setKundenID(kundenID);
+    	cart.setRobotertypID(robotertypID);
+    	cart.setMenge(menge);
+    	cart.setAuftragspreis(auftragspreis);
+    	cart.setRabattpreis(rabattpreis);
+    	cart.setSpezialdesign(spezialdesign);
+    	cart.setErhoeterFertigungsaufwand(erhoehterFertigungsaufwand);
+    	cart.setLautstaerkereduzierung(lautstaerkereduzierung);
+    	cart.setLeichtbauweise(leichtbauweise);
+    	cart.setSonderzuschlag(sonderzuschlag);
+    	cart.setStatus(Status.EINGEGANGEN);
+    	cart.setSpezifikation(spezifikation);;
+    	
+        execution.setVariable("cart", cart);
+        System.out.println("order created !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	}
+	
 }

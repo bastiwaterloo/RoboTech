@@ -73,7 +73,7 @@
       <bpmn:outgoing>Flow_04psc1j</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0p29g4z" sourceRef="Activity_05ewvmb" targetRef="Activity_1n2dymx" />
-    <bpmn:serviceTask id="Activity_05ewvmb" name="Test Delegate" camunda:class="edu.thi.java.servicetask.CreateOrderService">
+    <bpmn:serviceTask id="Activity_05ewvmb" name="Test Delegate" camunda:class="edu.thi.java.servicetask.CreateCustomerService">
       <bpmn:incoming>Flow_1yecfm0</bpmn:incoming>
       <bpmn:outgoing>Flow_0p29g4z</bpmn:outgoing>
     </bpmn:serviceTask>

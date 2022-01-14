@@ -7,8 +7,13 @@ import javax.inject.Named;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 
+
 import edu.thi.jpa.beans.Customer;
+import edu.thi.jpa.beans.Robotertype;
 import edu.thi.services.ejb.CustomerServiceBean;
+
+import edu.thi.services.ejb.RobotertypeServiceBean;
+
 
 /**
  * Session Bean implementation class CustomerServiceDelegate
@@ -20,7 +25,8 @@ public class CustomerServiceDelegate implements CustomerServiceDelegateLocal {
     
 	@Inject
     CustomerServiceBean customerService;    // Injizierte Service-EJB (Stateless)
-
+	@Inject
+	RobotertypeServiceBean robotertypeService;
     /**
      * Default constructor. 
      */
@@ -29,7 +35,8 @@ public class CustomerServiceDelegate implements CustomerServiceDelegateLocal {
     }
 
     public void createCustomer(DelegateExecution execution) {
-    	System.out.println("creating customer....");
+    	System.out.println("processing incoming data....");
+    	
     	String kundenart = (String) execution.getVariable("formfield_kundenart");
     	String name = (String) execution.getVariable("formfield_name");
     	String vorname = (String) execution.getVariable("formfield_vorname");
@@ -37,10 +44,7 @@ public class CustomerServiceDelegate implements CustomerServiceDelegateLocal {
     	String stadt = (String) execution.getVariable("formfield_stadt");
     	String land = (String) execution.getVariable("formfield_land");
     	String email = (String) execution.getVariable("formfield_email");
-    	String anfrage = (String) execution.getVariable("formfield_anfrage");
-    	String eingangsdatum = (String) execution.getVariable("formfield_eingangsdatum");
-    	String anmerkung = (String) execution.getVariable("formfield_auftragsdaten_anmerkungen");
-    
+    	
         Customer customer = new Customer();
         
         customer.setKundenart(kundenart);
@@ -51,10 +55,17 @@ public class CustomerServiceDelegate implements CustomerServiceDelegateLocal {
         customer.setLand(land);
         customer.setEmail(email);
         
-        customerService.create(customer);
-        execution.setVariable("customer", customer);
-    	System.out.println("customer: " + customer.getVorname() + " " + customer.getNachname());
+        if(customerService.checkCustomer(email)) {
+        	customerService.create(customer);
+        } else {
+        	customerService.update(customer);
+        }
         
+        execution.setVariable("customer", customer);
+      
+    	String typename = (String) execution.getVariable("input_type");
+    	Robotertype rt = robotertypeService.find(typename);
+    	execution.setVariable("robotertype", rt);
     }
     
     public void createCustomer_test(DelegateExecution execution) {
@@ -90,12 +101,7 @@ public class CustomerServiceDelegate implements CustomerServiceDelegateLocal {
     	String stadt = (String) execution.getVariable("formfield_stadt");
     	String land = (String) execution.getVariable("formfield_land");
     	String email = (String) execution.getVariable("formfield_email");
-    	String anfrage = (String) execution.getVariable("formfield_anfrage");
-    	String eingangsdatum = (String) execution.getVariable("formfield_eingangsdatum");
-    	String anmerkung = (String) execution.getVariable("formfield_auftragsdaten_anmerkungen");
-    	Long customerId = (Long) execution.getVariable("customer_id");
         Customer customer = new Customer();
-        customer.setCustomerid(customerId);
         customer.setKundenart(kundenart);
         customer.setNachname(name);
         customer.setVorname(vorname);
