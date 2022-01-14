@@ -161,7 +161,7 @@
               <camunda:constraint name="readonly" />
             </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="elektronik_expert" label="Antwort Elektronik-Experte" type="string">
+          <camunda:formField id="antwort_Elektronik_experte" label="Antwort Elektronik-Experte" type="string">
             <camunda:validation>
               <camunda:constraint name="readonly" />
             </camunda:validation>

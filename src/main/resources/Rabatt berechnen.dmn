@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="rabatt_berechnung" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="rabatt_erstellen_dmn" name="Rabatt erstellen">
+    <informationRequirement id="InformationRequirement_0ssco5j">
+      <requiredInput href="#einkaufshistorie" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0m8vd6l">
+      <input id="Input_1" label="Umsatzakkumulation">
+        <inputExpression id="InputExpression_1" typeRef="long">
+          <text>einkaufshistorie</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Rabatt" name="rabatt" typeRef="long" />
+      <rule id="DecisionRule_0hud3ho">
+        <inputEntry id="UnaryTests_0rj50tl">
+          <text>&lt; 10000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ec8aa7">
+          <text>2</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dswf4b">
+        <inputEntry id="UnaryTests_0vxyj0k">
+          <text>[10000..1000000]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ojl8hu">
+          <text>4</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oc8v71">
+        <inputEntry id="UnaryTests_0rd9wuk">
+          <text>&gt; 1000000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_066897m">
+          <text>7</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="einkaufshistorie" name="einkaufshistorie" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="rabatt_erstellen_dmn">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1okluui" dmnElementRef="einkaufshistorie">
+        <dc:Bounds height="45" width="125" x="187" y="298" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1r5qugs" dmnElementRef="InformationRequirement_0ssco5j">
+        <di:waypoint x="250" y="298" />
+        <di:waypoint x="250" y="200" />
+        <di:waypoint x="250" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

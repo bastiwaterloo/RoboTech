@@ -24,10 +24,14 @@
           <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         </extensionElements>
         <flowNodeRef>sid-6372D196-A55D-43D1-9BD7-B04B350DFD54</flowNodeRef>
-        <flowNodeRef>sid-D4EDCFA7-F889-4974-B02D-6295EEF3D8CD</flowNodeRef>
-        <flowNodeRef>sid-A2F29499-C6C9-41E7-8B28-636EC82DFBE1</flowNodeRef>
-        <flowNodeRef>sid-85717202-6006-4621-8936-B429E540ACD1</flowNodeRef>
         <flowNodeRef>sid-D964B7F7-6831-4E5A-BBEC-2BA04C09EEC2</flowNodeRef>
+        <flowNodeRef>einkaufshistorie_berechnen</flowNodeRef>
+        <flowNodeRef>modifikationskonditionen_erhalten</flowNodeRef>
+        <flowNodeRef>modifikationspreis_berechnen</flowNodeRef>
+        <flowNodeRef>rabatt_erstellen</flowNodeRef>
+        <flowNodeRef>angebot_zusammenstellen</flowNodeRef>
+        <flowNodeRef>angebot_pruefen</flowNodeRef>
+        <flowNodeRef>preise_persistieren</flowNodeRef>
       </lane>
     </laneSet>
     <startEvent id="sid-6372D196-A55D-43D1-9BD7-B04B350DFD54" name="">
@@ -38,7 +42,28 @@
       </extensionElements>
       <outgoing>sid-1B5FD98A-132D-4557-A886-1B7B502910E8</outgoing>
     </startEvent>
-    <serviceTask id="sid-D4EDCFA7-F889-4974-B02D-6295EEF3D8CD" name="Rabatt&#10;berechnen" implementation="##WebService" camunda:expression="${1 == 1}">
+    <sequenceFlow id="sid-1B5FD98A-132D-4557-A886-1B7B502910E8" name="" sourceRef="sid-6372D196-A55D-43D1-9BD7-B04B350DFD54" targetRef="einkaufshistorie_berechnen">
+      <extensionElements>
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sid-A6F80FB8-6C94-4A8F-AEC9-1799611DFD88" name="" sourceRef="angebot_zusammenstellen" targetRef="angebot_pruefen">
+      <extensionElements>
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_181555q" sourceRef="angebot_pruefen" targetRef="preise_persistieren" />
+    <sequenceFlow id="Flow_0z4w7nn" sourceRef="rabatt_erstellen" targetRef="angebot_zusammenstellen" />
+    <endEvent id="sid-D964B7F7-6831-4E5A-BBEC-2BA04C09EEC2" name="Angebotszusammenstellung&#10;abgeschlossen">
+      <extensionElements>
+        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+        <signavio:signavioMetaData metaKey="nachfolgerprozesse" metaValue="[]" />
+      </extensionElements>
+      <incoming>Flow_05lporl</incoming>
+    </endEvent>
+    <sequenceFlow id="Flow_05lporl" sourceRef="preise_persistieren" targetRef="sid-D964B7F7-6831-4E5A-BBEC-2BA04C09EEC2" />
+    <serviceTask id="einkaufshistorie_berechnen" name="Einkaufshistorie berechnen" implementation="##WebService" camunda:class="${1 == 1}">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -49,9 +74,21 @@
         <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
       </extensionElements>
       <incoming>sid-1B5FD98A-132D-4557-A886-1B7B502910E8</incoming>
-      <outgoing>sid-8D6722E0-90C1-416C-93CD-107DA195E64E</outgoing>
+      <outgoing>Flow_13xuj5s</outgoing>
     </serviceTask>
-    <serviceTask id="sid-A2F29499-C6C9-41E7-8B28-636EC82DFBE1" name="Angebot zusammenstellen" implementation="##WebService" camunda:expression="${1 == 1}">
+    <receiveTask id="modifikationskonditionen_erhalten" name="Modifikationskonditionen erhalten">
+      <incoming>Flow_13xuj5s</incoming>
+      <outgoing>Flow_1m95779</outgoing>
+    </receiveTask>
+    <serviceTask id="modifikationspreis_berechnen" name="Modifikationspreis berechnen" camunda:class="">
+      <incoming>Flow_1m95779</incoming>
+      <outgoing>Flow_1ude2lr</outgoing>
+    </serviceTask>
+    <businessRuleTask id="rabatt_erstellen" name="Rabatt erstellen" camunda:resultVariable="rabatt" camunda:decisionRef="rabatt_erstellen_dmn" camunda:mapDecisionResult="singleEntry">
+      <incoming>Flow_1ude2lr</incoming>
+      <outgoing>Flow_0z4w7nn</outgoing>
+    </businessRuleTask>
+    <serviceTask id="angebot_zusammenstellen" name="Angebot zusammenstellen" implementation="##WebService" camunda:expression="${1 == 1}">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -61,10 +98,10 @@
         <signavio:signavioMetaData metaKey="meta-risikomanagement" metaValue="" />
         <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
       </extensionElements>
-      <incoming>sid-8D6722E0-90C1-416C-93CD-107DA195E64E</incoming>
+      <incoming>Flow_0z4w7nn</incoming>
       <outgoing>sid-A6F80FB8-6C94-4A8F-AEC9-1799611DFD88</outgoing>
     </serviceTask>
-    <userTask id="sid-85717202-6006-4621-8936-B429E540ACD1" name="Angebot prüfen" implementation="##WebService">
+    <userTask id="angebot_pruefen" name="Angebot prüfen" implementation="##WebService">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -77,87 +114,98 @@
       <incoming>sid-A6F80FB8-6C94-4A8F-AEC9-1799611DFD88</incoming>
       <outgoing>Flow_181555q</outgoing>
     </userTask>
-    <sequenceFlow id="sid-1B5FD98A-132D-4557-A886-1B7B502910E8" name="" sourceRef="sid-6372D196-A55D-43D1-9BD7-B04B350DFD54" targetRef="sid-D4EDCFA7-F889-4974-B02D-6295EEF3D8CD">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-      </extensionElements>
-    </sequenceFlow>
-    <sequenceFlow id="sid-A6F80FB8-6C94-4A8F-AEC9-1799611DFD88" name="" sourceRef="sid-A2F29499-C6C9-41E7-8B28-636EC82DFBE1" targetRef="sid-85717202-6006-4621-8936-B429E540ACD1">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-      </extensionElements>
-    </sequenceFlow>
-    <sequenceFlow id="sid-8D6722E0-90C1-416C-93CD-107DA195E64E" name="" sourceRef="sid-D4EDCFA7-F889-4974-B02D-6295EEF3D8CD" targetRef="sid-A2F29499-C6C9-41E7-8B28-636EC82DFBE1">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-      </extensionElements>
-    </sequenceFlow>
-    <sequenceFlow id="Flow_181555q" sourceRef="sid-85717202-6006-4621-8936-B429E540ACD1" targetRef="sid-D964B7F7-6831-4E5A-BBEC-2BA04C09EEC2" />
-    <endEvent id="sid-D964B7F7-6831-4E5A-BBEC-2BA04C09EEC2" name="Angebotszusammenstellung&#10;abgeschlossen">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        <signavio:signavioMetaData metaKey="nachfolgerprozesse" metaValue="[]" />
-      </extensionElements>
+    <task id="preise_persistieren" name="Preise persistieren">
       <incoming>Flow_181555q</incoming>
-    </endEvent>
+      <outgoing>Flow_05lporl</outgoing>
+    </task>
+    <sequenceFlow id="Flow_13xuj5s" sourceRef="einkaufshistorie_berechnen" targetRef="modifikationskonditionen_erhalten" />
+    <sequenceFlow id="Flow_1m95779" sourceRef="modifikationskonditionen_erhalten" targetRef="modifikationspreis_berechnen" />
+    <sequenceFlow id="Flow_1ude2lr" sourceRef="modifikationspreis_berechnen" targetRef="rabatt_erstellen" />
   </process>
   <bpmndi:BPMNDiagram id="sid-650692ab-d79a-4b40-b233-992af68babac" name="Angebot zusammenstellen">
     <bpmndi:BPMNPlane id="sid-d4e10249-8b94-4124-a3c5-030cf67b9811" bpmnElement="sid-50550801-c418-4d68-8a61-695a69ffc802">
       <bpmndi:BPMNShape id="sid-94799CE7-F9EB-4D8E-8510-8F6A7E37D378_gui" bpmnElement="process_angebotszusammenstellung" isHorizontal="true">
-        <omgdc:Bounds x="155" y="86" width="876" height="234" />
+        <omgdc:Bounds x="155" y="86" width="1666" height="234" />
         <bpmndi:BPMNLabel labelStyle="sid-ffe5a8cd-fef0-49fd-a590-53b438b3993f">
           <omgdc:Bounds x="550.0001216418672" y="576.4017338268828" width="12" height="153.5142822265625" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-8D1748EC-6F08-4C56-8100-6A4B61149FFF_gui" bpmnElement="sid-8D1748EC-6F08-4C56-8100-6A4B61149FFF" isHorizontal="true">
-        <omgdc:Bounds x="185" y="86" width="846" height="234" />
+        <omgdc:Bounds x="185" y="86" width="1636" height="234" />
         <bpmndi:BPMNLabel labelStyle="sid-ffe5a8cd-fef0-49fd-a590-53b438b3993f">
           <omgdc:Bounds x="581.0001216418672" y="590.6731571667266" width="12" height="124.971435546875" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="sid-8D6722E0-90C1-416C-93CD-107DA195E64E_gui" bpmnElement="sid-8D6722E0-90C1-416C-93CD-107DA195E64E">
-        <omgdi:waypoint x="413.5057004561105" y="203.9295532034248" />
-        <omgdi:waypoint x="458.5057004561105" y="203.9295532034248" />
+      <bpmndi:BPMNEdge id="Flow_1ude2lr_di" bpmnElement="Flow_1ude2lr">
+        <omgdi:waypoint x="804" y="204" />
+        <omgdi:waypoint x="884" y="204" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="sid-A6F80FB8-6C94-4A8F-AEC9-1799611DFD88_gui" bpmnElement="sid-A6F80FB8-6C94-4A8F-AEC9-1799611DFD88">
-        <omgdi:waypoint x="558.5057004561105" y="203" />
-        <omgdi:waypoint x="603.5057004561105" y="203" />
+      <bpmndi:BPMNEdge id="Flow_1m95779_di" bpmnElement="Flow_1m95779">
+        <omgdi:waypoint x="624" y="204" />
+        <omgdi:waypoint x="704" y="204" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="sid-1B5FD98A-132D-4557-A886-1B7B502910E8_gui" bpmnElement="sid-1B5FD98A-132D-4557-A886-1B7B502910E8">
-        <omgdi:waypoint x="268.5057004561105" y="203.9295532034248" />
-        <omgdi:waypoint x="313.5057004561105" y="203.9295532034248" />
+      <bpmndi:BPMNEdge id="Flow_13xuj5s_di" bpmnElement="Flow_13xuj5s">
+        <omgdi:waypoint x="444" y="204" />
+        <omgdi:waypoint x="524" y="204" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05lporl_di" bpmnElement="Flow_05lporl">
+        <omgdi:waypoint x="1524" y="203" />
+        <omgdi:waypoint x="1597" y="203" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0z4w7nn_di" bpmnElement="Flow_0z4w7nn">
+        <omgdi:waypoint x="984" y="204" />
+        <omgdi:waypoint x="1064" y="204" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_181555q_di" bpmnElement="Flow_181555q">
-        <omgdi:waypoint x="704" y="203" />
-        <omgdi:waypoint x="807" y="203" />
+        <omgdi:waypoint x="1344" y="203" />
+        <omgdi:waypoint x="1424" y="203" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="sid-A6F80FB8-6C94-4A8F-AEC9-1799611DFD88_gui" bpmnElement="sid-A6F80FB8-6C94-4A8F-AEC9-1799611DFD88">
+        <omgdi:waypoint x="1164" y="203" />
+        <omgdi:waypoint x="1244" y="203" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="sid-1B5FD98A-132D-4557-A886-1B7B502910E8_gui" bpmnElement="sid-1B5FD98A-132D-4557-A886-1B7B502910E8">
+        <omgdi:waypoint x="269" y="204" />
+        <omgdi:waypoint x="344" y="204" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="sid-6372D196-A55D-43D1-9BD7-B04B350DFD54_gui" bpmnElement="sid-6372D196-A55D-43D1-9BD7-B04B350DFD54">
         <omgdc:Bounds x="239" y="189" width="30" height="30" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-D4EDCFA7-F889-4974-B02D-6295EEF3D8CD_gui" bpmnElement="sid-D4EDCFA7-F889-4974-B02D-6295EEF3D8CD">
-        <omgdc:Bounds x="314" y="164" width="100" height="80" />
+      <bpmndi:BPMNShape id="sid-D964B7F7-6831-4E5A-BBEC-2BA04C09EEC2_gui" bpmnElement="sid-D964B7F7-6831-4E5A-BBEC-2BA04C09EEC2">
+        <omgdc:Bounds x="1597" y="190" width="26" height="26" />
+        <bpmndi:BPMNLabel labelStyle="sid-8194ca24-ba59-4261-b42f-9c2da7a75082">
+          <omgdc:Bounds x="1572" y="220" width="79" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-D4EDCFA7-F889-4974-B02D-6295EEF3D8CD_gui" bpmnElement="einkaufshistorie_berechnen">
+        <omgdc:Bounds x="344" y="164" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-ffe5a8cd-fef0-49fd-a590-53b438b3993f">
           <omgdc:Bounds x="725.3485578169503" y="639.9295532034248" width="56.31428527832031" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-A2F29499-C6C9-41E7-8B28-636EC82DFBE1_gui" bpmnElement="sid-A2F29499-C6C9-41E7-8B28-636EC82DFBE1">
-        <omgdc:Bounds x="459" y="163" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_1714mdf_di" bpmnElement="modifikationskonditionen_erhalten">
+        <omgdc:Bounds x="524" y="164" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ygdz8n_di" bpmnElement="modifikationspreis_berechnen">
+        <omgdc:Bounds x="704" y="164" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1r45r1v_di" bpmnElement="rabatt_erstellen">
+        <omgdc:Bounds x="884" y="164" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-A2F29499-C6C9-41E7-8B28-636EC82DFBE1_gui" bpmnElement="angebot_zusammenstellen">
+        <omgdc:Bounds x="1064" y="163" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-ffe5a8cd-fef0-49fd-a590-53b438b3993f">
           <omgdc:Bounds x="858.3914121260324" y="633" width="80.22857666015625" height="36" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-85717202-6006-4621-8936-B429E540ACD1_gui" bpmnElement="sid-85717202-6006-4621-8936-B429E540ACD1">
-        <omgdc:Bounds x="604" y="163" width="100" height="80" />
+      <bpmndi:BPMNShape id="sid-85717202-6006-4621-8936-B429E540ACD1_gui" bpmnElement="angebot_pruefen">
+        <omgdc:Bounds x="1244" y="163" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-ffe5a8cd-fef0-49fd-a590-53b438b3993f">
           <omgdc:Bounds x="1000.6914151777902" y="645" width="85.62857055664051" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-D964B7F7-6831-4E5A-BBEC-2BA04C09EEC2_gui" bpmnElement="sid-D964B7F7-6831-4E5A-BBEC-2BA04C09EEC2">
-        <omgdc:Bounds x="807" y="190" width="26" height="26" />
-        <bpmndi:BPMNLabel labelStyle="sid-8194ca24-ba59-4261-b42f-9c2da7a75082">
-          <omgdc:Bounds x="782" y="220" width="79" height="40" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="Activity_1wc03d1_di" bpmnElement="preise_persistieren">
+        <omgdc:Bounds x="1424" y="163" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
     <bpmndi:BPMNLabelStyle id="sid-8194ca24-ba59-4261-b42f-9c2da7a75082">
