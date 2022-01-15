@@ -26,11 +26,11 @@ public class OrderServiceSOAP {
     	order.setMenge(1L);
     	order.setAuftragspreis(100.00);
     	order.setRabattpreis(50.00);
-    	order.setSpezialdesign("special");
+    	order.setSpezialdesign(false);
     	order.setErhoeterFertigungsaufwand(true);
     	order.setLautstaerkereduzierung(true);
     	order.setLeichtbauweise(true);
-    	order.setSonderzuschlag(10.00);
+    	order.setSonderzuschlag(false);
     	order.setStatus(Status.EINGEGANGEN);
     	order.setSpezifikation("test");
     	System.out.println("creating order");

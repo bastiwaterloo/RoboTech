@@ -58,61 +58,21 @@
         <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
         <camunda:formData>
           <camunda:formField id="input_eingangsdatum" label="Auftragseingang" type="string" />
-          <camunda:formField id="input_anfrage" label="Anfrage" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
+          <camunda:formField id="input_anfrage" label="Anfrage" type="string" />
           <camunda:formField id="it_expert" label="IT-Experte" type="boolean">
             <camunda:validation>
               <camunda:constraint name="required" />
             </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="maschinenbau_expert" label="Maschinenbau-Experte" type="boolean">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="elektronik_expert" label="Elektronik-Experte" type="boolean">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="material_expert" label="Material-Experte" type="boolean">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="spezialist" label="Spezialist" type="boolean">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="antwort_Maschinenbau_experte" label="Antwort Maschinenbau-Experte" type="string" defaultValue="-">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="antwort_It_experte" label="Antwort IT-Experte" type="string" defaultValue="-">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="antwort_Elektronik_experte" label="Antwort Elektronik-Experte" type="string" defaultValue="-">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="antwort_Material_expert" label="Antwort Material-Experte" type="string" defaultValue="-">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="antwort_Spezialist" label="Antwort Spezialist" type="string" defaultValue="-">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
+          <camunda:formField id="maschinenbau_expert" label="Maschinenbau-Experte" type="boolean" />
+          <camunda:formField id="elektronik_expert" label="Elektronik-Experte" type="boolean" />
+          <camunda:formField id="material_expert" label="Material-Experte" type="boolean" />
+          <camunda:formField id="spezialist" label="Spezialist" type="boolean" />
+          <camunda:formField id="antwort_Maschinenbau_experte" label="Antwort Maschinenbau-Experte" type="string" defaultValue="-" />
+          <camunda:formField id="antwort_It_experte" label="Antwort IT-Experte" type="string" defaultValue="-" />
+          <camunda:formField id="antwort_Elektronik_experte" label="Antwort Elektronik-Experte" type="string" defaultValue="-" />
+          <camunda:formField id="antwort_Material_expert" label="Antwort Material-Experte" type="string" defaultValue="-" />
+          <camunda:formField id="antwort_Spezialist" label="Antwort Spezialist" type="string" defaultValue="-" />
         </camunda:formData>
       </extensionElements>
       <incoming>sid-C45CF3CC-F3C0-4016-A63B-14E8AABA49C0</incoming>

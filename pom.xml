@@ -173,6 +173,27 @@
 
     <!-- Add your own dependencies here, if in compile scope, they are added to the war -->
 
+
+  <!-- Needed for ActiveMQ -->
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-all</artifactId>
+      <version>5.15.15</version>
+    </dependency>
+    
+    <!-- Needed for Esper -->
+    <dependency>
+  		<groupId>com.espertech</groupId>
+  		<artifactId>esper</artifactId>
+  		<version>7.1.0</version>
+  	</dependency>
+  	
+    <!-- Needed for JSON Object Builder -->
+  	<dependency>
+		<groupId>javax</groupId>
+		<artifactId>javaee-web-api</artifactId>
+		<version>7.0</version>
+	</dependency>
   </dependencies>
 
   <repositories>

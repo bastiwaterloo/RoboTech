@@ -22,7 +22,6 @@ public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long customerid;
@@ -33,14 +32,15 @@ public class Customer implements Serializable {
  		   cascade = CascadeType.ALL)
 	private Collection<Cart> carts = new ArrayList<Cart>();
 	
-	
+	private String kundenart;
 	private String vorname;
 	private String nachname;
 	private Long plz;
 	private String stadt;
 	private String land;
 	private String email;
-	private String kundenart;
+	
+	//TODO add private String date
 	
 	public Long getCustomerid() {
 		return customerid;
@@ -123,8 +123,6 @@ public class Customer implements Serializable {
 		return serialVersionUID;
 	}
 
-	
-	
 	@Override
 	public String toString() {
 		return "Id: " + customerid + "; Firstname: " + vorname + "; Lastname: " + nachname + "; Email: " + email;

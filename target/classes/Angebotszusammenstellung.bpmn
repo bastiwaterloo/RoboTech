@@ -38,7 +38,7 @@
       </extensionElements>
       <outgoing>sid-1B5FD98A-132D-4557-A886-1B7B502910E8</outgoing>
     </startEvent>
-    <serviceTask id="sid-D4EDCFA7-F889-4974-B02D-6295EEF3D8CD" name="Rabatt&#10;berechnen" implementation="##WebService" camunda:expression="${1 == 1}">
+    <serviceTask id="sid-D4EDCFA7-F889-4974-B02D-6295EEF3D8CD" name="Rabatt&#10;berechnen" implementation="##WebService" camunda:expression="${orderServiceDelegate.updateDiscount(execution)}">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -116,6 +116,10 @@
           <omgdc:Bounds x="581.0001216418672" y="590.6731571667266" width="12" height="124.971435546875" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_181555q_di" bpmnElement="Flow_181555q">
+        <omgdi:waypoint x="704" y="203" />
+        <omgdi:waypoint x="807" y="203" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-8D6722E0-90C1-416C-93CD-107DA195E64E_gui" bpmnElement="sid-8D6722E0-90C1-416C-93CD-107DA195E64E">
         <omgdi:waypoint x="413.5057004561105" y="203.9295532034248" />
         <omgdi:waypoint x="458.5057004561105" y="203.9295532034248" />
@@ -127,10 +131,6 @@
       <bpmndi:BPMNEdge id="sid-1B5FD98A-132D-4557-A886-1B7B502910E8_gui" bpmnElement="sid-1B5FD98A-132D-4557-A886-1B7B502910E8">
         <omgdi:waypoint x="268.5057004561105" y="203.9295532034248" />
         <omgdi:waypoint x="313.5057004561105" y="203.9295532034248" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_181555q_di" bpmnElement="Flow_181555q">
-        <omgdi:waypoint x="704" y="203" />
-        <omgdi:waypoint x="807" y="203" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="sid-6372D196-A55D-43D1-9BD7-B04B350DFD54_gui" bpmnElement="sid-6372D196-A55D-43D1-9BD7-B04B350DFD54">
         <omgdc:Bounds x="239" y="189" width="30" height="30" />

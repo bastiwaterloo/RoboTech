@@ -1,5 +1,7 @@
 package edu.thi.camundabpm.ejb;
 
+import java.util.Collection;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -42,11 +44,11 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		Long menge = (Long) execution.getVariable("input_menge");
 		Double auftragspreis = rt.getPreis() * menge;
 		Double rabattpreis = 0.00;
-		String spezialdesign = "";
+		Boolean spezialdesign = false;
 		Boolean erhoehterFertigungsaufwand = false;
 		Boolean lautstaerkereduzierung = false;
 		Boolean leichtbauweise = false;
-		Double sonderzuschlag = 0.00;
+		Boolean sonderzuschlag = false;
 		Status status = Status.EINGEGANGEN;
 		String spezifikation = "";
 
@@ -63,12 +65,15 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		cart.setSpezifikation(spezifikation);
 		cart.setCustomer(customer);
 
+		orderService.create(cart);
+		Collection<Cart> customerCarts = customer.getCarts();
+		customerCarts.add(cart);
+		customer.setCarts(customerCarts);
+
+		System.out.println(customer.getCarts().size());
+
 		execution.setVariable("customer", customer);
 		execution.setVariable("cart", cart);
-
-		orderService.create(cart);
-		customer.getCarts().add(cart);
-
 	}
 
 	public void createOrder_test(DelegateExecution execution) {
@@ -84,8 +89,31 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		System.out.println("delete order....");
 	}
 
+	public void updateDiscount(DelegateExecution execution) {
+		Customer customer = (Customer) execution.getVariable("input_customer");
+		Collection<Cart> carts = customer.getCarts();
+		// TODO Rabatt regel einfügen
+		Double discount = summarizeCustomerLifetimeValue(carts) / 10;
+		Cart currentCart = (Cart) execution.getVariable("input_cart");
+		currentCart.setRabattpreis((currentCart.getAuftragspreis() - discount));
+		orderService.update(currentCart);
+	}
+
+	private Double summarizeCustomerLifetimeValue(Collection<Cart> carts) {
+		Double lifetimeValue = 0.00;
+		for (Cart cart : carts) {
+			lifetimeValue = lifetimeValue + cart.getAuftragspreis();
+		}
+		return lifetimeValue;
+	}
+
 	public void updateStatus(DelegateExecution execution, String status) {
 		Cart order = (Cart) execution.getVariable("input_cart");
+		int level = 1;
+		if(order == null) {
+			order = (Cart) execution.getVariable("input_cart_L2");
+			level = 2;
+		}
 		Status newState = null;
 		System.out.println(status);
 		switch (status) {
@@ -119,13 +147,20 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		case "ABGESCHLOSSEN":
 			newState = Status.ABGESCHLOSSEN;
 			break;
+		case "NICHTERFOLGREICH":
+			newState = Status.NICHTERFOLGREICH;
+			break;
 		default:
 			System.out.println("triggered default case...");
 			newState = Status.EINGEGANGEN;
 			break;
 		}
-		System.out.println(newState.toString());
 		order.setStatus(newState);
+		if(level == 1) {
+			execution.setVariable("input_cart", order);
+		} else {
+			execution.setVariable("input_cart_L2", order);
+		}
 		orderService.update(order);
 	}
 

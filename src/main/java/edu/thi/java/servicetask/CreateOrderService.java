@@ -16,11 +16,11 @@ public class CreateOrderService implements JavaDelegate{
     	Long menge = 1L;
     	Double auftragspreis = 99.99;
     	Double rabattpreis = 59.99;
-    	String spezialdesign = (String) execution.getVariable("formfield_anfrage");
+    	Boolean spezialdesign = (Boolean) execution.getVariable("formfield_anfrage");
     	Boolean erhoehterFertigungsaufwand = false;
     	Boolean lautstaerkereduzierung = false;
     	Boolean leichtbauweise = false;
-    	Double sonderzuschlag = 10.50;
+    	Boolean sonderzuschlag = false;
     	Status status = Status.EINGEGANGEN;
     	String spezifikation = "";
     	

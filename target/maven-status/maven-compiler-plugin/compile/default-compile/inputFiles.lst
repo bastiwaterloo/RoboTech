@@ -6,7 +6,9 @@ C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\camundabpm\ejb\RobotertypeServiceDelegate.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\jpa\beans\Robotertype.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\services\ejb\OrderServiceBean.java
+C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\java\auftragsaggregation\AddAuftragToListe.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\java\servicetask\LoadRobotertypeService.java
+C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\java\auftragsaggregation\SendAuftraegeToQueue.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\camundabpm\ejb\OrderServiceDelegate.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\jpa\beans\Customer.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\services\ejb\CustomerServiceBeanRemote.java
@@ -23,6 +25,7 @@ C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\services\ejb\RobotertypeServiceBeanLocal.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\java\servicetask\CreateCustomerService.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\camundabpm\ejb\CustomerServiceDelegateLocal.java
+C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\java\auftragsaggregation\SendToAuftragsaggregator.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\camundabpm\ejb\OrderServiceDelegateLocal.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\services\ejb\OrderServiceBeanRemote.java
 C:\Users\basst\Desktop\Uni-Arbeit\Hochschule\Master\IMS\test-ejb-lukas\src\main\java\edu\thi\java\servicetask\CreateOrderService.java

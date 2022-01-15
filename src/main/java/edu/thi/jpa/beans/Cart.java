@@ -34,15 +34,16 @@ public class Cart implements Serializable {
 	private Long menge;
 	private Double auftragspreis;
 	private Double rabattpreis;
-	private Double burttopreis;
-	private String spezialdesign;
+	private Double bruttopreis;
+	private Boolean spezialdesign;
 	private Boolean erhoeterFertigungsaufwand;
 	private Boolean lautstaerkereduzierung;
 	private Boolean leichtbauweise;
-	private Double sonderzuschlag;
+	private Boolean sonderzuschlag;
 	private String status;
 	private String spezifikation;
 	
+	//TODO insert date of order
 
 	public Long getAuftragsID() {
 		return auftragsID;
@@ -121,13 +122,13 @@ public class Cart implements Serializable {
 
 
 	public Double getBurttopreis() {
-		return burttopreis;
+		return bruttopreis;
 	}
 
 
 
 	public void setBurttopreis(Double burttopreis) {
-		this.burttopreis = burttopreis;
+		this.bruttopreis = burttopreis;
 	}
 
 
@@ -146,14 +147,14 @@ public class Cart implements Serializable {
 
 
 
-	public String getSpezialdesign() {
+	public Boolean getSpezialdesign() {
 		return spezialdesign;
 	}
 
 
 
 
-	public void setSpezialdesign(String spezialdesign) {
+	public void setSpezialdesign(Boolean spezialdesign) {
 		this.spezialdesign = spezialdesign;
 	}
 
@@ -202,14 +203,14 @@ public class Cart implements Serializable {
 
 
 
-	public Double getSonderzuschlag() {
+	public Boolean getSonderzuschlag() {
 		return sonderzuschlag;
 	}
 
 
 
 
-	public void setSonderzuschlag(Double sonderzuschlag) {
+	public void setSonderzuschlag(Boolean sonderzuschlag) {
 		this.sonderzuschlag = sonderzuschlag;
 	}
 
