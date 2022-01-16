@@ -96,10 +96,12 @@ public class SendAuftraegeToQueue implements JavaDelegate {
         for (int i=0; i< auftragsliste.size(); i++) {
         	Cart auftrag = auftragsliste.get(i);
         	auftragsJson.append("\t\t{\n");
-        	auftragsJson.append("\t\t\t\"auftragsid\":\"" + auftrag.getAuftragsID() + "\",\n");
-        	auftragsJson.append("\t\t\t\"roboterart\":\"" + auftrag.getRobotertypID() + "\",\n");
-        	auftragsJson.append("\t\t\t\"menge\":" + auftrag.getMenge() + ",\n");
-        	auftragsJson.append("\t\t\t\"status\":\"" + auftrag.getStatus() + "\"\n");
+        	auftragsJson.append("\t\t\t\"Auftrags-ID\":\"" + auftrag.getAuftragsID() + "\",\n");
+        	auftragsJson.append("\t\t\t\"Kunden-ID\":\"" + auftrag.getKundenID() + "\",\n");
+        	auftragsJson.append("\t\t\t\"Robotertyp-ID\":\"" + auftrag.getRobotertypID() + "\",\n");
+        	auftragsJson.append("\t\t\t\"Bestellmenge\":" + auftrag.getMenge() + ",\n");
+        	auftragsJson.append("\t\t\t\"Auftragspreis\":" + auftrag.getAuftragspreis() + ",\n");
+        	auftragsJson.append("\t\t\t\"Auftragsstatus\":\"" + auftrag.getStatus() + "\"\n");
         	auftragsJson.append((i == auftragsliste.size()-1) ? "\t\t}\n" : "\t\t},\n");
         }
         auftragsJson.append("\t]\n");

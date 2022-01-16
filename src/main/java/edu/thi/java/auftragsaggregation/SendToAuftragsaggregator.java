@@ -39,10 +39,10 @@ public class SendToAuftragsaggregator implements JavaDelegate {
         
         //TODO Restliche Datenfelder hinzufügen
 
-        
+        //TODO passt das hier mit dem Status?
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         MessageCorrelationResult mcresult = runtimeService.createMessageCorrelation("NeuerAuftragMsg")
-                                                            .processInstanceVariableEquals("form_status", status)
+                                                            .processInstanceVariableEquals("input_cart", status)
                                                             .setVariables(auftragsdaten)
                                                             .correlateWithResult();
         
