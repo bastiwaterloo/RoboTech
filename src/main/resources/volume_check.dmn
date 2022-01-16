@@ -6,12 +6,28 @@
       <requiredInput href="#inputdata_price" />
     </informationRequirement>
     <decisionTable id="DecisionTable_0zy79v2">
-      <input id="Input_1" label="Price" camunda:inputVariable="formfield_price">
-        <inputExpression id="InputExpression_1" typeRef="boolean" expressionLanguage="javascript">
-          <text>formfield_price &gt; 50000</text>
+      <input id="Input_1" label="Auftragspreis" camunda:inputVariable="formfield_auftragspreis">
+        <inputExpression id="InputExpression_1" typeRef="long">
+          <text>formfield_auftragspreis</text>
         </inputExpression>
       </input>
-      <output id="Output_1" name="escalate" typeRef="boolean" />
+      <output id="Output_1" label="Eskalation?" name="escalate" typeRef="boolean" />
+      <rule id="DecisionRule_0dxktnc">
+        <inputEntry id="UnaryTests_1lezw5v">
+          <text>&lt;=50000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wqtoza">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dlu7nq">
+        <inputEntry id="UnaryTests_0w7brd0">
+          <text>&gt;50000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gpfpf0">
+          <text>true</text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>

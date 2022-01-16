@@ -19,23 +19,6 @@ public class OrderServiceSOAP {
     @Inject
     OrderServiceBean orderService;
     
-    public Cart create() {
-    	Cart order = new Cart();
-    	order.setKundenID(1L);
-    	order.setRobotertypID(1L);
-    	order.setMenge(1L);
-    	order.setAuftragspreis(100.00);
-    	order.setRabattpreis(50.00);
-    	order.setSpezialdesign(false);
-    	order.setErhoeterFertigungsaufwand(true);
-    	order.setLautstaerkereduzierung(true);
-    	order.setLeichtbauweise(true);
-    	order.setSonderzuschlag(false);
-    	order.setStatus(Status.EINGEGANGEN);
-    	order.setSpezifikation("test");
-    	System.out.println("creating order");
-        return orderService.create(order);
-    }
     
     public Cart read(Long id) {
         return this.orderService.read(id);

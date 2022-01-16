@@ -1,6 +1,7 @@
 package edu.thi.camundabpm.ejb;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -42,21 +43,25 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 
 		Long robotertypId = rt.getRobotertypID();
 		Long menge = (Long) execution.getVariable("input_menge");
-		Double auftragspreis = rt.getPreis() * menge;
-		Double rabattpreis = 0.00;
+		Long auftragspreis = (long) (rt.getPreis() * menge);
+		Long rabattpreis = (long) 0.00;
 		Boolean spezialdesign = false;
 		Boolean erhoehterFertigungsaufwand = false;
 		Boolean lautstaerkereduzierung = false;
 		Boolean leichtbauweise = false;
 		Boolean sonderzuschlag = false;
 		Status status = Status.EINGEGANGEN;
-		String spezifikation = "";
-
+		String spezifikation = (String) execution.getVariable("formfield_auftragsdaten_anmerkungen");
+		Date datum = new Date();
+		
+		System.out.println(datum.toString());
+		
 		cart.setRobotertypID(robotertypId);
 		cart.setMenge(menge);
 		cart.setAuftragspreis(auftragspreis);
 		cart.setRabattpreis(rabattpreis);
 		cart.setSpezialdesign(spezialdesign);
+		cart.setBurttopreis(auftragspreis);
 		cart.setErhoeterFertigungsaufwand(erhoehterFertigungsaufwand);
 		cart.setLautstaerkereduzierung(lautstaerkereduzierung);
 		cart.setLeichtbauweise(leichtbauweise);
@@ -64,8 +69,10 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		cart.setStatus(status);
 		cart.setSpezifikation(spezifikation);
 		cart.setCustomer(customer);
-
+		cart.setEingangsdatum(datum);
+		
 		orderService.create(cart);
+		
 		Collection<Cart> customerCarts = customer.getCarts();
 		customerCarts.add(cart);
 		customer.setCarts(customerCarts);
@@ -113,14 +120,14 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 	public void calcDiscount(DelegateExecution execution) {
 		Cart cart = (Cart) execution.getVariable("input_cart");
 		Double rabatt = ((cart.getAuftragspreis()/100) * (Double) execution.getVariable("rabatt"));
-		cart.setAuftragspreis(cart.getAuftragspreis() - rabatt);
+		cart.setAuftragspreis((long) (cart.getAuftragspreis() - rabatt));
 		execution.setVariable("input_cart", cart);
 		orderService.update(cart);
 	}
 	
 	public void addExtraCharge(DelegateExecution execution, Double percentage) {
 		Cart cart = (Cart) execution.getVariable("input_cart");
-		Double auftragspreis = cart.getAuftragspreis();
+		Long auftragspreis = cart.getAuftragspreis();
 		Double aufschlag = 0.00;
 		if(cart.getSonderzuschlag()) {
 			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
@@ -137,7 +144,7 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		if(cart.getSpezialdesign()) {
 			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
 		}
-		auftragspreis = auftragspreis + aufschlag;
+		auftragspreis = (long) (auftragspreis + aufschlag);
 		cart.setAuftragspreis(auftragspreis);
 		execution.setVariable("input_cart", cart);
 		orderService.update(cart);

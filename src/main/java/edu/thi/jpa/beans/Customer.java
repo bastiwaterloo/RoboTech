@@ -40,6 +40,7 @@ public class Customer implements Serializable {
 	private String land;
 	private String email;
 	
+	
 	//TODO add private String date
 	
 	public Long getCustomerid() {

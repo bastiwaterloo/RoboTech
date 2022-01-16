@@ -14,8 +14,8 @@ public class CreateOrderService implements JavaDelegate{
     	Long robotertypID = 1L;
     	Long kundenID = 1L;
     	Long menge = 1L;
-    	Double auftragspreis = 99.99;
-    	Double rabattpreis = 59.99;
+    	Long auftragspreis = (long) 99.99;
+    	Long rabattpreis = (long) 59.99;
     	Boolean spezialdesign = (Boolean) execution.getVariable("formfield_anfrage");
     	Boolean erhoehterFertigungsaufwand = false;
     	Boolean lautstaerkereduzierung = false;

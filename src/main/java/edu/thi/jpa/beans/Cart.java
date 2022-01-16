@@ -1,6 +1,7 @@
 package edu.thi.jpa.beans;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,9 +33,9 @@ public class Cart implements Serializable {
 	
 	private Long robotertypID;
 	private Long menge;
-	private Double auftragspreis;
-	private Double rabattpreis;
-	private Double bruttopreis;
+	private Long auftragspreis;
+	private Long rabattpreis;
+	private Long bruttopreis;
 	private Boolean spezialdesign;
 	private Boolean erhoeterFertigungsaufwand;
 	private Boolean lautstaerkereduzierung;
@@ -42,6 +43,7 @@ public class Cart implements Serializable {
 	private Boolean sonderzuschlag;
 	private String status;
 	private String spezifikation;
+	private Date eingangsdatum;
 	
 	//TODO insert date of order
 
@@ -109,38 +111,38 @@ public class Cart implements Serializable {
 
 
 
-	public Double getAuftragspreis() {
+	public Long getAuftragspreis() {
 		return auftragspreis;
 	}
 
 
 
 
-	public void setAuftragspreis(Double auftragspreis) {
+	public void setAuftragspreis(Long auftragspreis) {
 		this.auftragspreis = auftragspreis;
 	}
 
 
-	public Double getBurttopreis() {
+	public Long getBurttopreis() {
 		return bruttopreis;
 	}
 
 
 
-	public void setBurttopreis(Double burttopreis) {
+	public void setBurttopreis(Long burttopreis) {
 		this.bruttopreis = burttopreis;
 	}
 
 
 
-	public Double getRabattpreis() {
+	public Long getRabattpreis() {
 		return rabattpreis;
 	}
 
 
 
 
-	public void setRabattpreis(Double rabattpreis) {
+	public void setRabattpreis(Long rabattpreis) {
 		this.rabattpreis = rabattpreis;
 	}
 
@@ -241,6 +243,20 @@ public class Cart implements Serializable {
 	public void setSpezifikation(String spezifikation) {
 		this.spezifikation = spezifikation;
 	}
+
+
+	public String getEingangsdatum() {
+		return eingangsdatum.toString();
+	}
+
+
+
+
+	public void setEingangsdatum(Date eingangsdatum) {
+		this.eingangsdatum = eingangsdatum;
+	}
+
+
 
 
 	@Override

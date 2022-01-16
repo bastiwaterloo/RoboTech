@@ -39,7 +39,7 @@
       <bpmn:incoming>Flow_19r9b4r</bpmn:incoming>
       <bpmn:outgoing>Flow_1j9jwkq</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_0tg0wxe" name="Angebot prüfen" camunda:formKey="form_genehmigung_bereichsleiter">
+    <bpmn:userTask id="Activity_0tg0wxe" name="Angebot prüfen">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="formfield_genehmigung_bereichsleiter" type="enum">
@@ -47,6 +47,26 @@
             <camunda:value id="value_nein" name="NEIN" />
             <camunda:value id="value_eskalation" name="ESKALATION" />
           </camunda:formField>
+          <camunda:formField id="formfield_kundenart" label="Kundenart" type="enum" />
+          <camunda:formField id="formfield_vorname" label="Vorname" type="string" />
+          <camunda:formField id="formfield_nachname" label="Nachname" type="string" />
+          <camunda:formField id="formfield_email" label="Email Adresse" type="string" />
+          <camunda:formField id="formfield_stadt" label="Stadt" type="string" />
+          <camunda:formField id="formfield_plz" label="plz" type="long" />
+          <camunda:formField id="formfield_land" label="Land" type="string" />
+          <camunda:formField id="formfield_robotertyp" label="Robotertyp" type="long" />
+          <camunda:formField id="formfield_menge" label="Menge" type="long" />
+          <camunda:formField id="formfield_auftragspreis" label="Auftragspreis" type="long" />
+          <camunda:formField id="formfield_bruttopreis" label="Bruttopreis" type="long" />
+          <camunda:formField id="formfield_rabattpreis" label="Rabattpreis" type="long" />
+          <camunda:formField id="formfield_status" label="Status" type="string" />
+          <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="string" />
+          <camunda:formField id="formfield_erhoehterfertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" />
+          <camunda:formField id="formfield_lautstaerkereduzierung" label="Lautstaerkereduzierung" type="boolean" />
+          <camunda:formField id="formfield_leichtbauweise" label="Leichtbauweise" type="boolean" />
+          <camunda:formField id="formfield_sonderzuschlag" label="Sonderzuschlag" type="boolean" />
+          <camunda:formField id="formfield_spezialdesign" label="Spezialdesign" type="boolean" />
+          <camunda:formField id="formfield_spezifikation" label="Spezifikation" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0tth5cf</bpmn:incoming>
@@ -73,6 +93,26 @@
             <camunda:value id="value_ja" name="JA" />
             <camunda:value id="value_nein" name="NEIN" />
           </camunda:formField>
+          <camunda:formField id="formfield_kundenart" label="Kundenart" type="enum" />
+          <camunda:formField id="formfield_vorname" label="Vorname" type="string" />
+          <camunda:formField id="formfield_nachname" label="Nachname" type="string" />
+          <camunda:formField id="formfield_email" label="Email Adresse" type="string" />
+          <camunda:formField id="formfield_stadt" label="Stadt" type="string" />
+          <camunda:formField id="formfield_plz" label="plz" type="long" />
+          <camunda:formField id="formfield_land" label="Land" type="string" />
+          <camunda:formField id="formfield_robotertyp" label="Robotertyp" type="long" />
+          <camunda:formField id="formfield_menge" label="Menge" type="long" />
+          <camunda:formField id="formfield_auftragspreis" label="Auftragspreis" type="long" />
+          <camunda:formField id="formfield_bruttopreis" label="Bruttopreis" type="long" />
+          <camunda:formField id="formfield_rabattpreis" label="Rabattpreis" type="long" />
+          <camunda:formField id="formfield_status" label="Status" type="string" />
+          <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="string" />
+          <camunda:formField id="formfield_erhoehterfertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" />
+          <camunda:formField id="formfield_lautstaerkereduzierung" label="Lautstaerkereduzierung" type="boolean" />
+          <camunda:formField id="formfield_leichtbauweise" label="Leichtbauweise" type="boolean" />
+          <camunda:formField id="formfield_sonderzuschlag" label="Sonderzuschlag" type="boolean" />
+          <camunda:formField id="formfield_spezialdesign" label="Spezialdesign" type="boolean" />
+          <camunda:formField id="formfield_spezifikation" label="Spezifikation" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1u3kqzm</bpmn:incoming>
@@ -131,6 +171,10 @@
       <bpmndi:BPMNShape id="Lane_0lxznut_di" bpmnElement="Lane_0lxznut" isHorizontal="true">
         <dc:Bounds x="190" y="80" width="1340" height="295" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1j9jwkq_di" bpmnElement="Flow_1j9jwkq">
+        <di:waypoint x="1355" y="120" />
+        <di:waypoint x="1402" y="120" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_19r9b4r_di" bpmnElement="Flow_19r9b4r">
         <di:waypoint x="1265" y="470" />
         <di:waypoint x="1330" y="470" />
@@ -206,10 +250,6 @@
       <bpmndi:BPMNEdge id="Flow_0tth5cf_di" bpmnElement="Flow_0tth5cf">
         <di:waypoint x="338" y="220" />
         <di:waypoint x="390" y="220" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1j9jwkq_di" bpmnElement="Flow_1j9jwkq">
-        <di:waypoint x="1355" y="120" />
-        <di:waypoint x="1402" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1aqd5u1_di" bpmnElement="Event_1aqd5u1">
         <dc:Bounds x="302" y="202" width="36" height="36" />
