@@ -88,23 +88,59 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 	public void delete(DelegateExecution execution) {
 		System.out.println("delete order....");
 	}
+	
+	public void requestConditions(DelegateExecution execution) {
+		String processId = execution.getProcessInstanceId();
+	}
 
-	public void updateDiscount(DelegateExecution execution) {
+	public void setLifetimeValue(DelegateExecution execution) {
 		Customer customer = (Customer) execution.getVariable("input_customer");
 		Collection<Cart> carts = customer.getCarts();
-		// TODO Rabatt regel einfügen
-		Double discount = summarizeCustomerLifetimeValue(carts) / 10;
-		Cart currentCart = (Cart) execution.getVariable("input_cart");
-		currentCart.setRabattpreis((currentCart.getAuftragspreis() - discount));
-		orderService.update(currentCart);
+		Double customerValue = summarizeCustomerLifetimeValue(carts);
+		execution.setVariable("customerValue", customerValue);
 	}
 
 	private Double summarizeCustomerLifetimeValue(Collection<Cart> carts) {
 		Double lifetimeValue = 0.00;
 		for (Cart cart : carts) {
-			lifetimeValue = lifetimeValue + cart.getAuftragspreis();
+			if(cart.getStatus().equals(Status.ABGESCHLOSSEN)) {
+				lifetimeValue = lifetimeValue + cart.getAuftragspreis();
+			}
 		}
 		return lifetimeValue;
+	}
+	
+	public void calcDiscount(DelegateExecution execution) {
+		Cart cart = (Cart) execution.getVariable("input_cart");
+		Double rabatt = ((cart.getAuftragspreis()/100) * (Double) execution.getVariable("rabatt"));
+		cart.setAuftragspreis(cart.getAuftragspreis() - rabatt);
+		execution.setVariable("input_cart", cart);
+		orderService.update(cart);
+	}
+	
+	public void addExtraCharge(DelegateExecution execution, Double percentage) {
+		Cart cart = (Cart) execution.getVariable("input_cart");
+		Double auftragspreis = cart.getAuftragspreis();
+		Double aufschlag = 0.00;
+		if(cart.getSonderzuschlag()) {
+			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		}
+		if(cart.getLautstaerkereduzierung()) {
+			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		}
+		if(cart.getLeichtbauweise()) {
+			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		}
+		if(cart.getErhoeterFertigungsaufwand()) {
+			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		}
+		if(cart.getSpezialdesign()) {
+			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		}
+		auftragspreis = auftragspreis + aufschlag;
+		cart.setAuftragspreis(auftragspreis);
+		execution.setVariable("input_cart", cart);
+		orderService.update(cart);
 	}
 
 	public void updateStatus(DelegateExecution execution, String status) {
