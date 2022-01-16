@@ -55,11 +55,25 @@ public class CustomerServiceDelegate implements CustomerServiceDelegateLocal {
         customer.setLand(land);
         customer.setEmail(email);
         
+        /*
         if(customerService.checkCustomer(email)) {
-        	customerService.create(customer);
-        } else {
+        	
+        	Customer[] customerList = customerService.search(email);
+        	customer = customerList[0];
+        	customer.setKundenart(kundenart);
+            customer.setNachname(name);
+            customer.setVorname(vorname);
+            customer.setPlz(plz);
+            customer.setStadt(stadt);
+            customer.setLand(land);
+        	
         	customerService.update(customer);
+        } else {
+        	customerService.create(customer);
         }
+        */
+    	customerService.create(customer);
+
         
         execution.setVariable("customer", customer);
       

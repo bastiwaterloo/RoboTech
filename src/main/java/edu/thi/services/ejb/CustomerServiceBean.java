@@ -31,7 +31,8 @@ public class CustomerServiceBean implements CustomerServiceBeanRemote, CustomerS
     
     public Boolean checkCustomer(String email) {
     	System.out.println("checking for customer with mail: " + email);
-    	if(this.search(email) == null) {
+    	System.out.println("checking for length: " + this.search(email).length);
+    	if(this.search(email).length < 1) {
     		return false;
     	} else {
     		return true;
