@@ -22,18 +22,8 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </participant>
-    <messageFlow id="sid-0CDF028D-D222-4E76-9A45-8E9049DF1797" sourceRef="task_fehlende_daten_anfordern" targetRef="sid-FFDCA759-CC09-4001-948C-C48973FFD49D" messageRef="sid-B464B251-1AEC-4A73-AEE7-0E732C6E66ED">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        <signavio:signavioMetaData metaKey="messageposition" metaValue="{&#34;x&#34;:760.7954935816547,&#34;y&#34;:158.08051528975636}" />
-      </extensionElements>
-    </messageFlow>
-    <messageFlow id="sid-180E1E83-E466-4F7C-88BD-2E10B9991F05" name="" sourceRef="sid-FFDCA759-CC09-4001-948C-C48973FFD49D" targetRef="task_fehlende_daten_erhalten" messageRef="sid-DCAC9D82-0277-444B-8678-1BFAC008CD2E">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        <signavio:signavioMetaData metaKey="messageposition" metaValue="{&#34;x&#34;:975.7954935816554,&#34;y&#34;:157.6453240388461}" />
-      </extensionElements>
-    </messageFlow>
+    <messageFlow id="Flow_1r38hk2" name="Anforderung Fehlende Auftragsdaten" sourceRef="task_fehlende_daten_anfordern" targetRef="sid-FFDCA759-CC09-4001-948C-C48973FFD49D" />
+    <messageFlow id="Flow_0wt70mt" name="Fehlende Auftragsdaten" sourceRef="sid-FFDCA759-CC09-4001-948C-C48973FFD49D" targetRef="task_fehlende_daten_erhalten" />
   </collaboration>
   <process id="process_auftragsdatenpruefung_id" name="process_auftragsdatenpruefung" processType="None" isClosed="false" isExecutable="true">
     <extensionElements />
@@ -49,12 +39,10 @@
         <flowNodeRef>Activity_1vs7tpo</flowNodeRef>
         <flowNodeRef>Activity_1y5l94z</flowNodeRef>
         <flowNodeRef>sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79</flowNodeRef>
-        <flowNodeRef>sid-792FCE35-238A-4DC0-A32B-3C865BD2B669</flowNodeRef>
+        <flowNodeRef>Event_12mzmpd</flowNodeRef>
         <flowNodeRef>sid-787B9C94-187B-4198-961A-CE785C4843BB</flowNodeRef>
         <flowNodeRef>task_auftragsdaten_pruefen</flowNodeRef>
-        <flowNodeRef>Gateway_1bgxu86</flowNodeRef>
         <flowNodeRef>Activity_1q9h6ay</flowNodeRef>
-        <flowNodeRef>Event_0new3el</flowNodeRef>
       </lane>
     </laneSet>
     <exclusiveGateway id="gateway_auftragsdaten_vollstaendig" name="Auftragsdaten&#10;vollstaendig?" gatewayDirection="Diverging">
@@ -63,11 +51,11 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         <signavio:signavioLabel align="center" bottom="false" left="false" ref="text_name" right="false" top="true" valign="bottom" x="20.0" y="-9.0" />
       </extensionElements>
-      <incoming>Flow_0efzdb3</incoming>
+      <incoming>Flow_0vlvx2c</incoming>
       <outgoing>gate_auftragsdaten_vollstaendig_no</outgoing>
       <outgoing>Flow_015okzj</outgoing>
     </exclusiveGateway>
-    <sendTask id="task_fehlende_daten_anfordern" name="Fehlende Daten anfordern" implementation="##WebService" camunda:class="${edu.thi.java.servicetask.sendFehlendeAuftragsdatenToQueue}">
+    <sendTask id="task_fehlende_daten_anfordern" name="Fehlende Daten anfordern" implementation="##WebService" camunda:class="edu.thi.java.servicetask.SendFehlendeAuftragsdatenToQueue">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -96,10 +84,16 @@
     <serviceTask id="Activity_1vs7tpo" name="Kundendaten persistieren" camunda:expression="${customerServiceDelegate.createCustomer(execution)}">
       <incoming>Flow_015okzj</incoming>
       <outgoing>Flow_1ht2jph</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1lgb9su">
+        <targetRef>DataStoreReference_12xwpxl</targetRef>
+      </dataOutputAssociation>
     </serviceTask>
     <serviceTask id="Activity_1y5l94z" name="Auftrag persistieren" camunda:expression="${orderServiceDelegate.createOrder(execution)}">
       <incoming>Flow_1ht2jph</incoming>
       <outgoing>Flow_1mqsb6n</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_0o7nxbb">
+        <targetRef>DataStoreReference_12xwpxl</targetRef>
+      </dataOutputAssociation>
     </serviceTask>
     <exclusiveGateway id="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" name="" gatewayDirection="Converging">
       <extensionElements>
@@ -108,16 +102,10 @@
       </extensionElements>
       <incoming>sid-CA1881D1-C925-4BBF-939A-7356B26F351B</incoming>
       <incoming>Flow_1mqsb6n</incoming>
-      <outgoing>Flow_0xq87z9</outgoing>
+      <outgoing>Flow_1gs1x6p</outgoing>
     </exclusiveGateway>
-    <endEvent id="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669" name="Auftragsdaten-pruefung beendet">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        <signavio:signavioMetaData metaKey="nachfolgerprozesse" metaValue="[]" />
-        <signavio:signavioLabel bottom="false" left="false" ref="text_name" right="false" top="true" valign="bottom" x="15.0" y="-9.0" />
-      </extensionElements>
-      <incoming>Flow_0xq87z9</incoming>
+    <endEvent id="Event_12mzmpd" name="Auftragsdatenprüfung abgeschlossen">
+      <incoming>Flow_1gs1x6p</incoming>
     </endEvent>
     <startEvent id="sid-787B9C94-187B-4198-961A-CE785C4843BB" name="">
       <extensionElements>
@@ -129,8 +117,26 @@
           <camunda:formField id="input_kundenart" label="kundenart" type="enum" />
         </camunda:formData>
       </extensionElements>
-      <outgoing>sid-231B97FA-3785-4492-A02F-BF347326C8CF</outgoing>
+      <outgoing>Flow_0dq8a32</outgoing>
     </startEvent>
+    <sequenceFlow id="Flow_1mqsb6n" sourceRef="Activity_1y5l94z" targetRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" />
+    <sequenceFlow id="Flow_1ht2jph" sourceRef="Activity_1vs7tpo" targetRef="Activity_1y5l94z" />
+    <sequenceFlow id="Flow_015okzj" name="ja" sourceRef="gateway_auftragsdaten_vollstaendig" targetRef="Activity_1vs7tpo">
+      <conditionExpression xsi:type="tFormalExpression">${(formfield_auftragsdaten_vollstaendig == true) &amp;&amp; (isValidLocation == true)}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="gate_auftragsdaten_vollstaendig_no" name="nein" sourceRef="gateway_auftragsdaten_vollstaendig" targetRef="task_fehlende_daten_anfordern">
+      <extensionElements>
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${(formfield_auftragsdaten_vollstaendig == false) || (isValidLocation == false)}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-CA1881D1-C925-4BBF-939A-7356B26F351B" name="" sourceRef="task_fehlende_daten_erhalten" targetRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79">
+      <extensionElements>
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_13zi0fc" sourceRef="task_fehlende_daten_anfordern" targetRef="task_fehlende_daten_erhalten" />
+    <sequenceFlow id="Flow_1gs1x6p" sourceRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" targetRef="Event_12mzmpd" />
     <userTask id="task_auftragsdaten_pruefen" name="Auftragsdaten pruefen" implementation="##WebService" camunda:assignee="Sachbearbeiter">
       <documentation>Es ist zu prüfen, ob die Spezifikation des Kunden vollständig ist.</documentation>
       <extensionElements>
@@ -203,204 +209,161 @@
           <camunda:formField id="formfield_auftragsdaten_anmerkungen" label="Anmerkungen zu den Auftragsdaten" type="string" />
         </camunda:formData>
       </extensionElements>
-      <incoming>sid-231B97FA-3785-4492-A02F-BF347326C8CF</incoming>
-      <outgoing>sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738</outgoing>
+      <incoming>Flow_0dq8a32</incoming>
+      <outgoing>Flow_02736zu</outgoing>
     </userTask>
-    <sequenceFlow id="Flow_13zi0fc" sourceRef="task_fehlende_daten_anfordern" targetRef="task_fehlende_daten_erhalten" />
-    <sequenceFlow id="sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738" name="" sourceRef="task_auftragsdaten_pruefen" targetRef="Activity_1q9h6ay">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-      </extensionElements>
-    </sequenceFlow>
-    <sequenceFlow id="sid-231B97FA-3785-4492-A02F-BF347326C8CF" name="" sourceRef="sid-787B9C94-187B-4198-961A-CE785C4843BB" targetRef="task_auftragsdaten_pruefen">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-      </extensionElements>
-    </sequenceFlow>
-    <sequenceFlow id="sid-CA1881D1-C925-4BBF-939A-7356B26F351B" name="" sourceRef="task_fehlende_daten_erhalten" targetRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-      </extensionElements>
-    </sequenceFlow>
-    <sequenceFlow id="gate_auftragsdaten_vollstaendig_no" name="nein" sourceRef="gateway_auftragsdaten_vollstaendig" targetRef="task_fehlende_daten_anfordern">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-      </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${formfield_auftragsdaten_vollstaendig == false}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="Flow_0xq87z9" sourceRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" targetRef="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669" />
-    <sequenceFlow id="Flow_015okzj" name="ja" sourceRef="gateway_auftragsdaten_vollstaendig" targetRef="Activity_1vs7tpo">
-      <conditionExpression xsi:type="tFormalExpression">${formfield_auftragsdaten_vollstaendig == true}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="Flow_1ht2jph" sourceRef="Activity_1vs7tpo" targetRef="Activity_1y5l94z" />
-    <sequenceFlow id="Flow_1mqsb6n" sourceRef="Activity_1y5l94z" targetRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" />
-    <sequenceFlow id="Flow_1fufp3p" sourceRef="Activity_1q9h6ay" targetRef="Gateway_1bgxu86" />
-    <sequenceFlow id="Flow_0efzdb3" name="Ort existiert" sourceRef="Gateway_1bgxu86" targetRef="gateway_auftragsdaten_vollstaendig">
-      <conditionExpression xsi:type="tFormalExpression">${isValidLocation == true}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="Flow_1tvux1k" name="Ort existiert nicht" sourceRef="Gateway_1bgxu86" targetRef="Event_0new3el">
-      <conditionExpression xsi:type="tFormalExpression">${isValidLocation == false}</conditionExpression>
-    </sequenceFlow>
-    <exclusiveGateway id="Gateway_1bgxu86">
-      <incoming>Flow_1fufp3p</incoming>
-      <outgoing>Flow_0efzdb3</outgoing>
-      <outgoing>Flow_1tvux1k</outgoing>
-    </exclusiveGateway>
-    <serviceTask id="Activity_1q9h6ay" name="Ort validieren" camunda:expression="${customerServiceDelegate.validateLocation(execution)}">
-      <incoming>sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738</incoming>
-      <outgoing>Flow_1fufp3p</outgoing>
+    <serviceTask id="Activity_1q9h6ay" name="Wohnort validieren" camunda:expression="${customerServiceDelegate.validateLocation(execution)}">
+      <incoming>Flow_02736zu</incoming>
+      <outgoing>Flow_0vlvx2c</outgoing>
     </serviceTask>
-    <endEvent id="Event_0new3el">
-      <incoming>Flow_1tvux1k</incoming>
-      <terminateEventDefinition id="TerminateEventDefinition_1ttpmue" />
-    </endEvent>
+    <sequenceFlow id="Flow_0dq8a32" sourceRef="sid-787B9C94-187B-4198-961A-CE785C4843BB" targetRef="task_auftragsdaten_pruefen" />
+    <sequenceFlow id="Flow_02736zu" sourceRef="task_auftragsdaten_pruefen" targetRef="Activity_1q9h6ay" />
+    <sequenceFlow id="Flow_0vlvx2c" sourceRef="Activity_1q9h6ay" targetRef="gateway_auftragsdaten_vollstaendig" />
+    <dataStoreReference id="DataStoreReference_12xwpxl" name="Auftrags-DB" />
   </process>
   <message id="Message_0jpwy3q" name="fehlendeDatenMsg" />
   <bpmndi:BPMNDiagram id="sid-b05780af-137b-4642-b6d6-249ae8057935">
     <bpmndi:BPMNPlane id="sid-ae93883f-ab5b-4f88-90d7-29ee76c59e4b" bpmnElement="Process_Auftragsdatenpruefung">
       <bpmndi:BPMNShape id="sid-02B2C1F2-4DA5-4497-A753-88BC624DA2AF_gui" bpmnElement="process_auftragsdatenpruefung" isHorizontal="true">
-        <omgdc:Bounds x="155" y="80" width="1295" height="390" />
+        <omgdc:Bounds x="160" y="80" width="1230" height="380" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="134.29202509968326" y="306.035777208416" width="12.000000000000028" height="121.11428833007812" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-1BE197FA-FBD4-4782-90D0-641A8B487D2A_gui" bpmnElement="sid-1BE197FA-FBD4-4782-90D0-641A8B487D2A" isHorizontal="true">
-        <omgdc:Bounds x="185" y="80" width="1265" height="390" />
+        <omgdc:Bounds x="190" y="80" width="1200" height="380" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="165.29202509968326" y="326.09292137345506" width="12" height="81" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0vlvx2c_di" bpmnElement="Flow_0vlvx2c">
+        <omgdi:waypoint x="620" y="279" />
+        <omgdi:waypoint x="681" y="279" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02736zu_di" bpmnElement="Flow_02736zu">
+        <omgdi:waypoint x="450" y="279" />
+        <omgdi:waypoint x="520" y="279" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dq8a32_di" bpmnElement="Flow_0dq8a32">
+        <omgdi:waypoint x="295" y="279" />
+        <omgdi:waypoint x="350" y="279" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gs1x6p_di" bpmnElement="Flow_1gs1x6p">
+        <omgdi:waypoint x="1200" y="279" />
+        <omgdi:waypoint x="1262" y="279" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13zi0fc_di" bpmnElement="Flow_13zi0fc">
-        <omgdi:waypoint x="950" y="350" />
-        <omgdi:waypoint x="1070" y="350" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738_gui" bpmnElement="sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738">
-        <omgdi:waypoint x="370" y="259" />
-        <omgdi:waypoint x="420" y="259" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="sid-231B97FA-3785-4492-A02F-BF347326C8CF_gui" bpmnElement="sid-231B97FA-3785-4492-A02F-BF347326C8CF">
-        <omgdi:waypoint x="245" y="259" />
-        <omgdi:waypoint x="270" y="259" />
+        <omgdi:waypoint x="890" y="370" />
+        <omgdi:waypoint x="1010" y="370" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-CA1881D1-C925-4BBF-939A-7356B26F351B_gui" bpmnElement="sid-CA1881D1-C925-4BBF-939A-7356B26F351B">
-        <omgdi:waypoint x="1170" y="350" />
-        <omgdi:waypoint x="1240" y="350" />
-        <omgdi:waypoint x="1240" y="279" />
+        <omgdi:waypoint x="1110" y="370" />
+        <omgdi:waypoint x="1180" y="370" />
+        <omgdi:waypoint x="1180" y="299" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-4DCA09EF-5C19-4160-A732-D13C965EC026_gui" bpmnElement="gate_auftragsdaten_vollstaendig_no">
-        <omgdi:waypoint x="761" y="279" />
-        <omgdi:waypoint x="761" y="350" />
-        <omgdi:waypoint x="850" y="350" />
+        <omgdi:waypoint x="701" y="299" />
+        <omgdi:waypoint x="701" y="370" />
+        <omgdi:waypoint x="790" y="370" />
         <bpmndi:BPMNLabel labelStyle="sid-ed0cd071-7512-4341-b176-a722f87cc734">
-          <omgdc:Bounds x="729" y="303" width="21" height="14" />
+          <omgdc:Bounds x="669" y="323" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0xq87z9_di" bpmnElement="Flow_0xq87z9">
-        <omgdi:waypoint x="1260" y="259" />
-        <omgdi:waypoint x="1336" y="259" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_015okzj_di" bpmnElement="Flow_015okzj">
-        <omgdi:waypoint x="761" y="239" />
-        <omgdi:waypoint x="761" y="180" />
-        <omgdi:waypoint x="850" y="180" />
+        <omgdi:waypoint x="701" y="259" />
+        <omgdi:waypoint x="701" y="200" />
+        <omgdi:waypoint x="790" y="200" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="746" y="213" width="8" height="14" />
+          <omgdc:Bounds x="686" y="233" width="8" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ht2jph_di" bpmnElement="Flow_1ht2jph">
-        <omgdi:waypoint x="950" y="180" />
-        <omgdi:waypoint x="1070" y="180" />
+        <omgdi:waypoint x="890" y="200" />
+        <omgdi:waypoint x="1010" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1mqsb6n_di" bpmnElement="Flow_1mqsb6n">
-        <omgdi:waypoint x="1170" y="180" />
-        <omgdi:waypoint x="1240" y="180" />
-        <omgdi:waypoint x="1240" y="239" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1fufp3p_di" bpmnElement="Flow_1fufp3p">
-        <omgdi:waypoint x="520" y="259" />
-        <omgdi:waypoint x="605" y="259" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0efzdb3_di" bpmnElement="Flow_0efzdb3">
-        <omgdi:waypoint x="655" y="259" />
-        <omgdi:waypoint x="741" y="259" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="669" y="241" width="58" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1tvux1k_di" bpmnElement="Flow_1tvux1k">
-        <omgdi:waypoint x="630" y="234" />
-        <omgdi:waypoint x="630" y="138" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="603" y="189" width="84" height="14" />
-        </bpmndi:BPMNLabel>
+        <omgdi:waypoint x="1110" y="200" />
+        <omgdi:waypoint x="1180" y="200" />
+        <omgdi:waypoint x="1180" y="259" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="sid-E1D845DA-5615-4432-B4BD-6152266C4FE2_gui" bpmnElement="gateway_auftragsdaten_vollstaendig" isMarkerVisible="true">
-        <omgdc:Bounds x="741" y="239" width="40" height="40" />
+        <omgdc:Bounds x="681" y="259" width="40" height="40" />
         <bpmndi:BPMNLabel labelStyle="sid-ed0cd071-7512-4341-b176-a722f87cc734">
-          <omgdc:Bounds x="791" y="246" width="68" height="27" />
+          <omgdc:Bounds x="731" y="266" width="68" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-6F9D8D60-0F30-4936-822B-BBE3DD49C676_gui" bpmnElement="task_fehlende_daten_anfordern">
-        <omgdc:Bounds x="850" y="310" width="100" height="80" />
+        <omgdc:Bounds x="790" y="330" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="718.7526316431781" y="295.1977721584533" width="84.08572387695312" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-0EAF443B-F7A4-49FA-B0B0-2E6B1E569F8F_gui" bpmnElement="task_fehlende_daten_erhalten">
-        <omgdc:Bounds x="1070" y="310" width="100" height="80" />
+        <omgdc:Bounds x="1010" y="330" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="933.7526316431781" y="295.1977721584533" width="84.08572387695312" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1pdm2l8_di" bpmnElement="Activity_1vs7tpo">
-        <omgdc:Bounds x="850" y="140" width="100" height="80" />
+        <omgdc:Bounds x="790" y="160" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0289edc_di" bpmnElement="Activity_1y5l94z">
-        <omgdc:Bounds x="1070" y="140" width="100" height="80" />
+        <omgdc:Bounds x="1010" y="160" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79_gui" bpmnElement="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" isMarkerVisible="true">
-        <omgdc:Bounds x="1220" y="239" width="40" height="40" />
+        <omgdc:Bounds x="1160" y="259" width="40" height="40" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669_gui" bpmnElement="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669">
-        <omgdc:Bounds x="1336" y="245" width="28" height="28" />
-        <bpmndi:BPMNLabel labelStyle="sid-ed0cd071-7512-4341-b176-a722f87cc734">
-          <omgdc:Bounds x="1308" y="276" width="88" height="27" />
+      <bpmndi:BPMNShape id="Event_12mzmpd_di" bpmnElement="Event_12mzmpd">
+        <omgdc:Bounds x="1262" y="261" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1238" y="304" width="84" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-787B9C94-187B-4198-961A-CE785C4843BB_gui" bpmnElement="sid-787B9C94-187B-4198-961A-CE785C4843BB">
-        <omgdc:Bounds x="215" y="244" width="30" height="30" />
+        <omgdc:Bounds x="265" y="264" width="30" height="30" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-F4997679-2FCD-463E-AB5D-0FD3174F7067_gui" bpmnElement="task_auftragsdaten_pruefen">
-        <omgdc:Bounds x="270" y="219" width="100" height="80" />
+        <omgdc:Bounds x="350" y="239" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="350.338351705434" y="295.1977721584533" width="77.9142837524414" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_07gptyr_di" bpmnElement="Activity_1q9h6ay">
-        <omgdc:Bounds x="420" y="219" width="100" height="80" />
+        <omgdc:Bounds x="520" y="239" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1bgxu86_di" bpmnElement="Gateway_1bgxu86" isMarkerVisible="true">
-        <omgdc:Bounds x="605" y="234" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_13n37to_di" bpmnElement="Event_0new3el">
-        <omgdc:Bounds x="612" y="102" width="36" height="36" />
+      <bpmndi:BPMNShape id="DataStoreReference_12xwpxl_di" bpmnElement="DataStoreReference_12xwpxl">
+        <omgdc:Bounds x="925" y="105" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="920" y="162" width="60" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-FFDCA759-CC09-4001-948C-C48973FFD49D_gui" bpmnElement="sid-FFDCA759-CC09-4001-948C-C48973FFD49D" isHorizontal="true">
-        <omgdc:Bounds x="339" y="540" width="1111" height="60" />
+        <omgdc:Bounds x="160" y="530" width="1230" height="60" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="708.2834606309572" y="58.90265548715615" width="57.85711669921875" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="sid-0CDF028D-D222-4E76-9A45-8E9049DF1797_gui" bpmnElement="sid-0CDF028D-D222-4E76-9A45-8E9049DF1797">
-        <omgdi:waypoint x="900" y="390" />
-        <omgdi:waypoint x="900" y="540" />
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1lgb9su_di" bpmnElement="DataOutputAssociation_1lgb9su">
+        <omgdi:waypoint x="889" y="165" />
+        <omgdi:waypoint x="925" y="139" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0o7nxbb_di" bpmnElement="DataOutputAssociation_0o7nxbb">
+        <omgdi:waypoint x="1011" y="167" />
+        <omgdi:waypoint x="975" y="143" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r38hk2_di" bpmnElement="Flow_1r38hk2">
+        <omgdi:waypoint x="840" y="410" />
+        <omgdi:waypoint x="840" y="530" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="773" y="183" width="7" height="14" />
+          <omgdc:Bounds x="756" y="478" width="68" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="sid-180E1E83-E466-4F7C-88BD-2E10B9991F05_gui" bpmnElement="sid-180E1E83-E466-4F7C-88BD-2E10B9991F05">
-        <omgdi:waypoint x="1120" y="540" />
-        <omgdi:waypoint x="1120" y="390" />
+      <bpmndi:BPMNEdge id="Flow_0wt70mt_di" bpmnElement="Flow_0wt70mt">
+        <omgdi:waypoint x="1060" y="530" />
+        <omgdi:waypoint x="1060" y="410" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1066" y="485" width="68" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
     <bpmndi:BPMNLabelStyle id="sid-ed0cd071-7512-4341-b176-a722f87cc734">

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="test-ejb-lukas:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>test-ejb-lukas</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="test-ejb-lukas.war">
+      <element id="artifact" artifact-name="test-ejb-lukas:war exploded" />
+    </root>
+  </artifact>
+</component>

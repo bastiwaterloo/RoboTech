@@ -26,7 +26,7 @@ public class LocationValidator {
 	}
 	
 	public Boolean isValidLocation() {
-		String city = this.location;;
+		String city = this.location;
 		String apiKey = "dce1ae7436e4418c85d20e41e0c08090";
 
 		HttpClient client = HttpClient.newHttpClient();
@@ -58,8 +58,6 @@ public class LocationValidator {
 			e.printStackTrace();
 		}
 		return false;
-			
-
 	}
 
 

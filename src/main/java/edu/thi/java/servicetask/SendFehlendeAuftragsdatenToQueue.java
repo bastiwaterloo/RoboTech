@@ -23,8 +23,6 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 
-import edu.thi.jpa.beans.Cart;
-
 
 public class SendFehlendeAuftragsdatenToQueue implements JavaDelegate {
 
@@ -35,25 +33,18 @@ public class SendFehlendeAuftragsdatenToQueue implements JavaDelegate {
         String url = ActiveMQConnection.DEFAULT_BROKER_URL;
         Destination destination;
         
-        // Relevante Variablen aus dem Prozesskontext auslesen
-        Cart fehlendeDaten = (Cart) execution.getVariable("input_cart"); 
-        String anmerkung = (String) execution.getVariable("anmerkungSachbearbeiter"); //TODO VariableLocal?
-        
-                
         // JSON mit fehlenden Auftragsdaten erstellen
         JsonObject fehlendeDatenJson = Json.createObjectBuilder()
         		.add("fehlendeDaten", 
     				 Json.createObjectBuilder()       				 	
-    				 .add("Auftrags-ID", fehlendeDaten.getAuftragsID())
-                     .add("Kunden-ID", fehlendeDaten.getKundenID())
-                     .add("Spezifikation des Kunden", fehlendeDaten.getSpezifikation())
-                     .add("Anmerkung bzgl. fehlender Daten", anmerkung)
+    				 .add("E-Mail-Adresse", (String) execution.getVariable("formfield_email"))
+                     .add("Type", (String) execution.getVariable("formfield_type"))
+                     .add("SpezifikationKunde", (String) execution.getVariable("formfield_spezifikation"))
+                     .add("AnmerkungfehlendeDaten", (String) execution.getVariable("formfield_auftragsdaten_anmerkungen"))
                      .build()
                  )
                  .build();
 
-        
-        
         try {
             Connection connection = null;
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(user, password, url);
