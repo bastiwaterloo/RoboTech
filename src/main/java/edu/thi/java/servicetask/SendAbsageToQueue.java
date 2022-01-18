@@ -26,7 +26,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import edu.thi.jpa.beans.Cart;
 
 
-public class SendFehlendeAuftragsdatenToQueue implements JavaDelegate {
+public class SendAbsageToQueue implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
@@ -36,18 +36,15 @@ public class SendFehlendeAuftragsdatenToQueue implements JavaDelegate {
         Destination destination;
         
         // Relevante Variablen aus dem Prozesskontext auslesen
-        Cart fehlendeDaten = (Cart) execution.getVariable("input_cart"); 
-        String anmerkung = (String) execution.getVariable("anmerkungSachbearbeiter"); //TODO VariableLocal?
+        Cart abgesagterAuftrag = (Cart) execution.getVariable("input_cart"); 
         
                 
         // JSON mit fehlenden Auftragsdaten erstellen
-        JsonObject fehlendeDatenJson = Json.createObjectBuilder()
-        		.add("fehlendeDaten", 
+        JsonObject absageJson = Json.createObjectBuilder()
+        		.add("abgesagterAuftrag", 
     				 Json.createObjectBuilder()       				 	
-    				 .add("Auftrags-ID", fehlendeDaten.getAuftragsID())
-                     .add("Kunden-ID", fehlendeDaten.getKundenID())
-                     .add("Spezifikation des Kunden", fehlendeDaten.getSpezifikation())
-                     .add("Anmerkung bzgl. fehlender Daten", anmerkung)
+    				 .add("Auftrags-ID", abgesagterAuftrag.getAuftragsID())
+                     .add("Kunden-ID", abgesagterAuftrag.getKundenID())
                      .build()
                  )
                  .build();
@@ -60,11 +57,11 @@ public class SendFehlendeAuftragsdatenToQueue implements JavaDelegate {
             connection = connectionFactory.createConnection();
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            destination = session.createQueue("FehlendeAuftragsdatenQueue");
+            destination = session.createQueue("AbgesagteAuftraegeQueue");
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-            TextMessage message = session.createTextMessage(fehlendeDatenJson.toString());
+            TextMessage message = session.createTextMessage(absageJson.toString());
             producer.send(message);
 
             connection.close();

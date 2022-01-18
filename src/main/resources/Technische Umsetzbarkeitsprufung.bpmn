@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:signavio="http://www.signavio.com" id="sid-d862a8a9-1478-4a73-a4b7-2fec565f86a3" name="Technische Umsetzbarkeit prüfen" targetNamespace="http://www.signavio.com" expressionLanguage="http://www.w3.org/TR/XPath" exporter="Camunda Modeler" exporterVersion="4.11.1" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:signavio="http://www.signavio.com" id="sid-d862a8a9-1478-4a73-a4b7-2fec565f86a3" name="Technische Umsetzbarkeit prüfen" targetNamespace="http://www.signavio.com" expressionLanguage="http://www.w3.org/TR/XPath" exporter="Camunda Modeler" exporterVersion="4.10.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
   <collaboration id="Process_Technische_Umsetzbarkeitspruefung">
     <extensionElements>
       <signavio:signavioDiagramMetaData metaKey="prozessreifegrad" metaValue="" />
@@ -49,6 +49,7 @@
       <outgoing>sid-C45CF3CC-F3C0-4016-A63B-14E8AABA49C0</outgoing>
     </startEvent>
     <userTask id="sid-F94EFF2C-7CCF-4023-B082-914C77A16F47" name="Fragestellungen&#10;herausarbeiten" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
+      <documentation>In diesem Schritt ist zu bewerten, welche Fachexperten für die Umsetzbarkeitsprüfung befragt werden müssen.</documentation>
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -97,7 +98,8 @@
       <incoming>sid-C45CF3CC-F3C0-4016-A63B-14E8AABA49C0</incoming>
       <outgoing>sid-5B3CD8F8-AA37-4D1D-8BAD-AEA9ED20362E</outgoing>
     </userTask>
-    <userTask id="sid-CAA59FCF-5696-44E6-A3D3-8EDA6858560F" name="Material-Experten befragen" implementation="##WebService">
+    <userTask id="sid-CAA59FCF-5696-44E6-A3D3-8EDA6858560F" name="Material-Experten befragen" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
+      <documentation>In diesem Schritt sind die Ergebnisse nach dem Gespräch mit dem Material-Experten festzuhalten.</documentation>
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -137,7 +139,8 @@
       <incoming>sid-79F3F083-D122-4A82-B9B4-84BBB66C03A5</incoming>
       <outgoing>sid-6233247E-6DDD-419F-A18B-67F64C6839CE</outgoing>
     </userTask>
-    <userTask id="sid-276675E4-EC21-4697-B01F-2F01427D9597" name="Maschinenbau-Experten befragen" implementation="##WebService">
+    <userTask id="sid-276675E4-EC21-4697-B01F-2F01427D9597" name="Maschinenbau-Experten befragen" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
+      <documentation>In diesem Schritt sind die Ergebnisse nach dem Gespräch mit dem Maschinenbau-Experten festzuhalten.</documentation>
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -177,7 +180,8 @@
       <incoming>sid-61333C25-6B10-452F-B18D-9A52539EF11D</incoming>
       <outgoing>sid-A94C5C3E-080B-4B98-825E-9C98DF65A4CA</outgoing>
     </userTask>
-    <userTask id="sid-ADB4C5CF-D12B-468E-A331-9611EA756617" name="Spezialisten befragen" implementation="##WebService">
+    <userTask id="sid-ADB4C5CF-D12B-468E-A331-9611EA756617" name="Spezialisten befragen" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
+      <documentation>In diesem Schritt sind die Ergebnisse nach dem Gespräch mit einem Fachspezialisten festzuhalten.</documentation>
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -306,19 +310,19 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="sid-B401A6AE-8EAC-4F76-9286-4D1DEF355669" name="eingeschränkt umsetzbar" isImmediate="true" sourceRef="sid-9E9C4EC5-3DD4-438A-86D4-9C1B79D54874" targetRef="sid-8B977342-1EE4-45C6-94F1-669E138C260D">
+    <sequenceFlow id="sid-B401A6AE-8EAC-4F76-9286-4D1DEF355669" name="Auftrag&#10;eingeschränkt umsetzbar" isImmediate="true" sourceRef="sid-9E9C4EC5-3DD4-438A-86D4-9C1B79D54874" targetRef="sid-8B977342-1EE4-45C6-94F1-669E138C260D">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
       <conditionExpression xsi:type="tFormalExpression">${formfield_umsetzbarkeit=="eingeschraenktUmsetzbar"}</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sid-889F8334-181E-47D6-9C3F-6F8E7F3D598C" name="nicht umsetzbar" isImmediate="true" sourceRef="sid-9E9C4EC5-3DD4-438A-86D4-9C1B79D54874" targetRef="sid-99812CAC-8CE5-4930-973D-3A553E3F037D">
+    <sequenceFlow id="sid-889F8334-181E-47D6-9C3F-6F8E7F3D598C" name="Auftrag&#10;nicht&#10; umsetzbar" isImmediate="true" sourceRef="sid-9E9C4EC5-3DD4-438A-86D4-9C1B79D54874" targetRef="sid-99812CAC-8CE5-4930-973D-3A553E3F037D">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
       <conditionExpression xsi:type="tFormalExpression">${formfield_umsetzbarkeit=="nichtUmsetzbar"}</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sid-8F95F389-6B72-4990-BF32-79BA599C77AE" name="umsetzbar" isImmediate="true" sourceRef="sid-9E9C4EC5-3DD4-438A-86D4-9C1B79D54874" targetRef="sid-740807E2-407F-4F1E-AFF4-5655ADC1E8EB">
+    <sequenceFlow id="sid-8F95F389-6B72-4990-BF32-79BA599C77AE" name="Auftrag&#10; umsetzbar" isImmediate="true" sourceRef="sid-9E9C4EC5-3DD4-438A-86D4-9C1B79D54874" targetRef="sid-740807E2-407F-4F1E-AFF4-5655ADC1E8EB">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
@@ -329,7 +333,8 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <userTask id="sid-501AF384-219B-4D46-8A2A-E248C6177B5E" name="IT-Experten befragen" implementation="##WebService">
+    <userTask id="sid-501AF384-219B-4D46-8A2A-E248C6177B5E" name="IT-Experten befragen" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
+      <documentation>In diesem Schritt sind die Ergebnisse nach dem Gespräch mit dem IT-Experten festzuhalten.</documentation>
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -369,7 +374,8 @@
       <incoming>sid-9E97D8E8-F1BF-4729-9444-824E86431054</incoming>
       <outgoing>sid-BFEF8D65-AB80-4B37-BA53-E07464B1A041</outgoing>
     </userTask>
-    <userTask id="sid-CCC6DA4F-AF76-40F5-BA4B-C91697A438FC" name="Elektronik-Experten befragen" implementation="##WebService">
+    <userTask id="sid-CCC6DA4F-AF76-40F5-BA4B-C91697A438FC" name="Elektronik-Experten befragen" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
+      <documentation>In diesem Schritt sind die Ergebnisse nach dem Gespräch mit dem Elektronik-Experten festzuhalten.</documentation>
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -448,8 +454,12 @@
     <serviceTask id="Activity_12hq0r1" name="Auftragsdetails updaten" camunda:expression="${orderServiceDelegate.update(execution)}">
       <incoming>Flow_0va4d5u</incoming>
       <outgoing>Flow_0z6hjxs</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1elat00">
+        <targetRef>DataStoreReference_0qpiqdw</targetRef>
+      </dataOutputAssociation>
     </serviceTask>
-    <userTask id="sid-3A13E8A3-F4B5-472B-BB28-0669866FFC35" name="Ergebnisse auswerten" implementation="##WebService">
+    <userTask id="sid-3A13E8A3-F4B5-472B-BB28-0669866FFC35" name="Ergebnisse auswerten" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
+      <documentation>In diesem Schritt ist auszuwählen, ob dar Auftrag umsetzbar ist und welche Sonderkonditionen im Rahmen des Auftrages zutreffen.</documentation>
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -522,17 +532,18 @@
       <incoming>sid-26B9C8FE-1311-4C79-80E1-FF9F423308C3</incoming>
       <outgoing>Flow_0va4d5u</outgoing>
     </userTask>
+    <dataStoreReference id="DataStoreReference_0qpiqdw" name="Auftrags-DB" />
   </process>
   <bpmndi:BPMNDiagram id="sid-5c8b39c8-761a-4c65-acfd-edca9eb1ed1d" name="Technische Umsetzbarkeit prüfen">
     <bpmndi:BPMNPlane id="sid-9d90b8e9-282f-40a2-9b9a-1a98c6aab125" bpmnElement="Process_Technische_Umsetzbarkeitspruefung">
       <bpmndi:BPMNShape id="sid-94799CE7-F9EB-4D8E-8510-8F6A7E37D378_gui" bpmnElement="technische_umsetzbarkeitspruefung" isHorizontal="true">
-        <omgdc:Bounds x="121" y="84" width="1472" height="682" />
+        <omgdc:Bounds x="121" y="84" width="1509" height="682" />
         <bpmndi:BPMNLabel labelStyle="sid-5e50dc9d-1480-4090-b59f-42379b913f1a">
           <omgdc:Bounds x="126.06574792769517" y="509.1717331096202" width="12.000000000000043" height="190.5428619384765" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-8D1748EC-6F08-4C56-8100-6A4B61149FFF_gui" bpmnElement="sid-8D1748EC-6F08-4C56-8100-6A4B61149FFF" isHorizontal="true">
-        <omgdc:Bounds x="151" y="84" width="1442" height="682" />
+        <omgdc:Bounds x="151" y="84" width="1479" height="682" />
         <bpmndi:BPMNLabel labelStyle="sid-5e50dc9d-1480-4090-b59f-42379b913f1a">
           <omgdc:Bounds x="157.06574792769518" y="541.957446305421" width="12.000000000000028" height="124.971435546875" />
         </bpmndi:BPMNLabel>
@@ -554,7 +565,7 @@
         <omgdi:waypoint x="1350" y="256" />
         <omgdi:waypoint x="1517" y="256" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1361" y="322" width="53" height="14" />
+          <omgdc:Bounds x="1362" y="276" width="55" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-889F8334-181E-47D6-9C3F-6F8E7F3D598C_gui" bpmnElement="sid-889F8334-181E-47D6-9C3F-6F8E7F3D598C">
@@ -562,14 +573,14 @@
         <omgdi:waypoint x="1350" y="577" />
         <omgdi:waypoint x="1517" y="577" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1358" y="504" width="79" height="14" />
+          <omgdc:Bounds x="1362" y="520" width="55" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-B401A6AE-8EAC-4F76-9286-4D1DEF355669_gui" bpmnElement="sid-B401A6AE-8EAC-4F76-9286-4D1DEF355669">
         <omgdi:waypoint x="1370" y="416" />
         <omgdi:waypoint x="1517" y="416" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1373" y="384" width="70" height="27" />
+          <omgdc:Bounds x="1405" y="370" width="69" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-5B3CD8F8-AA37-4D1D-8BAD-AEA9ED20362E_gui" bpmnElement="sid-5B3CD8F8-AA37-4D1D-8BAD-AEA9ED20362E">
@@ -709,6 +720,16 @@
           <omgdc:Bounds x="1063.0367330418649" y="583.5085355110587" width="59.400001525878906" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0qpiqdw_di" bpmnElement="DataStoreReference_0qpiqdw">
+        <omgdc:Bounds x="1205" y="518" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1200" y="575" width="60" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1elat00_di" bpmnElement="DataOutputAssociation_1elat00">
+        <omgdi:waypoint x="1230" y="456" />
+        <omgdi:waypoint x="1230" y="518" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
     <bpmndi:BPMNLabelStyle id="sid-1a96889f-e0a8-47ee-b7a4-7473f7270e12">
       <omgdc:Font name="Arial" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />

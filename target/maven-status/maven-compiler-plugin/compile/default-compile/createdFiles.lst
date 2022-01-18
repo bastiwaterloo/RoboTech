@@ -1,8 +1,12 @@
+edu\thi\java\servicetask\SendAbsageToQueue.class
+edu\thi\java\servicetask\RequestConditionsService.class
 edu\thi\constants\enums\Status.class
 edu\thi\demo\test_ejb_lukas\ProcessConstants.class
 edu\thi\camundabpm\ejb\CustomerServiceDelegateLocal.class
 edu\thi\camundabpm\ejb\CustomerServiceDelegate.class
+edu\thi\demo\location\LocationValidator.class
 edu\thi\services\ejb\CustomerServiceBeanLocal.class
+edu\thi\java\maschinenevent\CriticalEventSubscriber.class
 edu\thi\services\ejb\CustomerServiceBean.class
 edu\thi\java\servicetask\LoadRobotertypeService.class
 edu\thi\java\getConditionsFromQueue\ReceiveConditionsFromQueue.class
@@ -11,6 +15,7 @@ edu\thi\services\ejb\RobotertypeServiceBeanLocal.class
 edu\thi\jpa\beans\Cart.class
 edu\thi\services\ejb\OrderServiceBean.class
 edu\thi\java\servicetask\CreateCustomerService.class
+edu\thi\java\maschinenevent\FuellstandEvent.class
 edu\thi\webservice\OrderServiceSOAP.class
 edu\thi\services\ejb\CustomerServiceBeanRemote.class
 edu\thi\camundabpm\ejb\OrderServiceDelegateLocal.class
@@ -18,6 +23,7 @@ edu\thi\java\servicetask\SendFehlendeAuftragsdatenToQueue.class
 edu\thi\jpa\beans\Robotertype.class
 edu\thi\java\auftragsaggregation\SendToAuftragsaggregator.class
 edu\thi\webservice\CustomerServiceSOAP.class
+edu\thi\java\maschinenevent\StatementSubscriber.class
 edu\thi\camundabpm\ejb\RobotertypeServiceDelegateLocal.class
 edu\thi\services\ejb\OrderServiceBeanLocal.class
 edu\thi\services\ejb\OrderServiceBeanRemote.class
@@ -25,7 +31,9 @@ edu\thi\java\auftragsaggregation\SendAuftraegeToQueue.class
 edu\thi\services\ejb\RobotertypeServiceBeanRemote.class
 edu\thi\java\servicetask\CreateRobotertypeService.class
 edu\thi\services\ejb\RobotertypeServiceBean.class
+edu\thi\java\maschinenevent\FuellstandEventController.class
 edu\thi\camundabpm\ejb\RobotertypeServiceDelegate.class
+edu\thi\java\maschinenevent\RandomFuellstandEventSender.class
 edu\thi\jpa\beans\Customer.class
 edu\thi\webservice\RobotertypeServiceSOAP.class
 edu\thi\java\auftragsaggregation\AddAuftragToListe.class

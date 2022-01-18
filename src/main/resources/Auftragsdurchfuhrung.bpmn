@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:signavio="http://www.signavio.com" id="sid-352216f5-0c47-4f7d-a968-2d19b7f33ab0" targetNamespace="http://www.signavio.com" expressionLanguage="http://www.w3.org/TR/XPath" exporter="Camunda Modeler" exporterVersion="4.11.1" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:signavio="http://www.signavio.com" id="sid-352216f5-0c47-4f7d-a968-2d19b7f33ab0" targetNamespace="http://www.signavio.com" expressionLanguage="http://www.w3.org/TR/XPath" exporter="Camunda Modeler" exporterVersion="4.10.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
   <message id="sid-6C18103D-2BD9-4AE0-A07F-8E09708612C7" name="auftragZugesagtMsg" />
   <message id="sid-75064450-9D34-47A2-A1D6-52736B1A7D15" name="auftragAbgesagtMsg" />
   <message id="sid-F54CB53F-244D-4204-B00F-F7B4781571FD" name="Angebotsruecknahme" />
@@ -25,11 +25,13 @@
       </extensionElements>
     </participant>
     <participant id="Participant_1g9uisz" name="Auftragsaggregator" processRef="Process_05lktg0" />
+    <participant id="Participant_0h1xa3r" name="Auftragsverwaltungssystem" />
     <messageFlow id="Flow_0rhw6ob" name="Auftrag" sourceRef="auftrag_festhalten_id" targetRef="startevent_neuerAuftrag" />
     <messageFlow id="Flow_1ql25zg" name="Zusage" sourceRef="sid-D428C282-C55B-4E11-A83F-A02A083AF3A8" targetRef="event_zusage_erhalten" />
     <messageFlow id="Flow_0k7vv1b" name="Absage" sourceRef="sid-D428C282-C55B-4E11-A83F-A02A083AF3A8" targetRef="event_absage_erhalten" />
-    <messageFlow id="Flow_0ro02te" name="Angebots&#10;ruecknahme" sourceRef="task_angebot_zurueckziehen" targetRef="sid-D428C282-C55B-4E11-A83F-A02A083AF3A8" />
     <messageFlow id="Flow_1yv0mn2" name="Nachtraegliche Absage" sourceRef="sid-D428C282-C55B-4E11-A83F-A02A083AF3A8" targetRef="subprozess_roboterbau" />
+    <messageFlow id="Flow_1vtvs0x" name="Angebotsruecknahme" sourceRef="task_angebot_zurueckziehen" targetRef="sid-D428C282-C55B-4E11-A83F-A02A083AF3A8" />
+    <messageFlow id="Flow_1et15y7" name="Aggregierte Auftraege" sourceRef="Activity_0b7mg1i" targetRef="Participant_0h1xa3r" />
   </collaboration>
   <process id="auftragsdurchfuehrung_processid" name="Auftragsdurchfuehrung" processType="None" isClosed="false" isExecutable="true">
     <extensionElements />
@@ -44,12 +46,14 @@
         <flowNodeRef>sid-D50F4EFC-783A-41CA-8239-F5F8D56BEB16</flowNodeRef>
         <flowNodeRef>endevent_auftragsdurchfuehrung_nicht_erfolgreich</flowNodeRef>
         <flowNodeRef>auftrag_festhalten_id</flowNodeRef>
-        <flowNodeRef>event_30_tage</flowNodeRef>
         <flowNodeRef>event_zusage_erhalten</flowNodeRef>
         <flowNodeRef>event_absage_erhalten</flowNodeRef>
-        <flowNodeRef>task_angebot_zurueckziehen</flowNodeRef>
         <flowNodeRef>subprozess_roboterbau</flowNodeRef>
         <flowNodeRef>Activity_15rpg6y</flowNodeRef>
+        <flowNodeRef>task_angebot_zurueckziehen</flowNodeRef>
+        <flowNodeRef>event_30_tage</flowNodeRef>
+        <flowNodeRef>Activity_0tyzu8r</flowNodeRef>
+        <flowNodeRef>Activity_1hjharz</flowNodeRef>
       </lane>
     </laneSet>
     <startEvent id="sid-095170DE-7B3C-4261-85A5-B9D87D9E5ECB" name="">
@@ -87,9 +91,9 @@
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <incoming>sid-470FE23D-AD14-41A3-A7C6-DCA5231A19B1</incoming>
-      <incoming>sid-D3197F6B-7636-4336-B1C1-58A015A5BFC0</incoming>
       <incoming>Flow_15unmdg</incoming>
+      <incoming>Flow_0988h2x</incoming>
+      <incoming>Flow_1u7m4d7</incoming>
       <outgoing>Flow_0qhmhku</outgoing>
     </exclusiveGateway>
     <sequenceFlow id="sid-43EFC928-ADFB-4E56-AE80-22EB77ACA3A7" name="" sourceRef="sid-095170DE-7B3C-4261-85A5-B9D87D9E5ECB" targetRef="sid-D8583A75-EC5A-417B-8239-5694BE027150">
@@ -97,12 +101,12 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="sid-D3197F6B-7636-4336-B1C1-58A015A5BFC0" name="" sourceRef="task_angebot_zurueckziehen" targetRef="sid-D50F4EFC-783A-41CA-8239-F5F8D56BEB16">
+    <sequenceFlow id="sid-D3197F6B-7636-4336-B1C1-58A015A5BFC0" name="" sourceRef="task_angebot_zurueckziehen" targetRef="Activity_1hjharz">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="sid-470FE23D-AD14-41A3-A7C6-DCA5231A19B1" name="" sourceRef="event_absage_erhalten" targetRef="sid-D50F4EFC-783A-41CA-8239-F5F8D56BEB16">
+    <sequenceFlow id="sid-470FE23D-AD14-41A3-A7C6-DCA5231A19B1" name="" sourceRef="event_absage_erhalten" targetRef="Activity_0tyzu8r">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
@@ -142,17 +146,6 @@
       <incoming>Flow_0qhmhku</incoming>
       <outgoing>Flow_1i3aun6</outgoing>
     </sendTask>
-    <intermediateCatchEvent id="event_30_tage" name="30 Tage">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-      </extensionElements>
-      <incoming>sid-CFC2B50E-8F58-4FF7-A382-DE7BE2BF39AB</incoming>
-      <outgoing>sid-455CA382-71A6-443F-9274-914EB12AB433</outgoing>
-      <timerEventDefinition id="sid-71b2f97e-7033-4f56-862c-1cbb56c10408">
-        <timeDuration xsi:type="tFormalExpression">P30D</timeDuration>
-      </timerEventDefinition>
-    </intermediateCatchEvent>
     <intermediateCatchEvent id="event_zusage_erhalten" name="Zusage erhalten">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
@@ -171,7 +164,27 @@
       <outgoing>sid-470FE23D-AD14-41A3-A7C6-DCA5231A19B1</outgoing>
       <messageEventDefinition id="sid-bda62761-583c-42bb-9441-a483addb2bdd" messageRef="sid-75064450-9D34-47A2-A1D6-52736B1A7D15" />
     </intermediateCatchEvent>
-    <sendTask id="task_angebot_zurueckziehen" name="Angebot zurueckziehen" implementation="##WebService" camunda:class="a">
+    <sequenceFlow id="Flow_06hqj8l" sourceRef="event_zusage_erhalten" targetRef="Activity_15rpg6y" />
+    <sequenceFlow id="Flow_0278zia" sourceRef="Activity_15rpg6y" targetRef="subprozess_roboterbau" />
+    <callActivity id="subprozess_roboterbau" name="Roboterbau" calledElement="subprozess_roboterbau_processID">
+      <extensionElements>
+        <camunda:in source="input_cart" target="input_cart_L2" />
+        <camunda:out source="input_cart_L2" target="input_cart" />
+      </extensionElements>
+      <incoming>Flow_0278zia</incoming>
+      <outgoing>Flow_15unmdg</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_007fsf4">
+        <targetRef>DataStoreReference_1gjva07</targetRef>
+      </dataOutputAssociation>
+    </callActivity>
+    <serviceTask id="Activity_15rpg6y" name="Status setzen" camunda:expression="${orderServiceDelegate.updateStatus(execution, &#34;INBEARBEITUNG&#34;)}">
+      <incoming>Flow_06hqj8l</incoming>
+      <outgoing>Flow_0278zia</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_0fbjxmf">
+        <targetRef>DataStoreReference_1gjva07</targetRef>
+      </dataOutputAssociation>
+    </serviceTask>
+    <sendTask id="task_angebot_zurueckziehen" name="Angebot zurueckziehen" implementation="##WebService" camunda:class="edu.thi.java.servicetask.SendAbsageToQueue">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -184,20 +197,34 @@
       <incoming>sid-455CA382-71A6-443F-9274-914EB12AB433</incoming>
       <outgoing>sid-D3197F6B-7636-4336-B1C1-58A015A5BFC0</outgoing>
     </sendTask>
-    <sequenceFlow id="Flow_06hqj8l" sourceRef="event_zusage_erhalten" targetRef="Activity_15rpg6y" />
-    <sequenceFlow id="Flow_0278zia" sourceRef="Activity_15rpg6y" targetRef="subprozess_roboterbau" />
-    <callActivity id="subprozess_roboterbau" name="Roboterbau" calledElement="subprozess_roboterbau_processID">
+    <intermediateCatchEvent id="event_30_tage" name="30 Tage">
       <extensionElements>
-        <camunda:in source="input_cart" target="input_cart_L2" />
-        <camunda:out source="input_cart_L2" target="input_cart" />
+        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <incoming>Flow_0278zia</incoming>
-      <outgoing>Flow_15unmdg</outgoing>
-    </callActivity>
-    <serviceTask id="Activity_15rpg6y" name="Status updaten" camunda:expression="${orderServiceDelegate.updateStatus(execution, &#34;INBEARBEITUNG&#34;)}">
-      <incoming>Flow_06hqj8l</incoming>
-      <outgoing>Flow_0278zia</outgoing>
+      <incoming>sid-CFC2B50E-8F58-4FF7-A382-DE7BE2BF39AB</incoming>
+      <outgoing>sid-455CA382-71A6-443F-9274-914EB12AB433</outgoing>
+      <timerEventDefinition id="sid-71b2f97e-7033-4f56-862c-1cbb56c10408">
+        <timeDuration xsi:type="tFormalExpression">P30D</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="Flow_0988h2x" sourceRef="Activity_0tyzu8r" targetRef="sid-D50F4EFC-783A-41CA-8239-F5F8D56BEB16" />
+    <sequenceFlow id="Flow_1u7m4d7" sourceRef="Activity_1hjharz" targetRef="sid-D50F4EFC-783A-41CA-8239-F5F8D56BEB16" />
+    <serviceTask id="Activity_0tyzu8r" name="Status setzen" camunda:expression="${orderServiceDelegate.updateStatus(execution, &#34;NICHTERFOLGREICH&#34;)}">
+      <incoming>sid-470FE23D-AD14-41A3-A7C6-DCA5231A19B1</incoming>
+      <outgoing>Flow_0988h2x</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_06c6d21">
+        <targetRef>DataStoreReference_1gjva07</targetRef>
+      </dataOutputAssociation>
     </serviceTask>
+    <serviceTask id="Activity_1hjharz" name="Status setzen" camunda:expression="${orderServiceDelegate.updateStatus(execution, &#34;ABGELEHNT&#34;)}">
+      <incoming>sid-D3197F6B-7636-4336-B1C1-58A015A5BFC0</incoming>
+      <outgoing>Flow_1u7m4d7</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_04h9dqx">
+        <targetRef>DataStoreReference_1gjva07</targetRef>
+      </dataOutputAssociation>
+    </serviceTask>
+    <dataStoreReference id="DataStoreReference_1gjva07" name="Auftrags-DB" />
     <textAnnotation id="TextAnnotation_1x2sfnw">
       <text>nicht wiederverwendbar</text>
     </textAnnotation>
@@ -283,6 +310,17 @@
           <omgdc:Bounds x="102.67033541886336" y="702.9525362866781" width="12.000000000000014" height="124.971435546875" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1x2sfnw_di" bpmnElement="TextAnnotation_1x2sfnw">
+        <omgdc:Bounds x="870" y="260" width="120" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0278zia_di" bpmnElement="Flow_0278zia">
+        <omgdi:waypoint x="680" y="359" />
+        <omgdi:waypoint x="710" y="359" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06hqj8l_di" bpmnElement="Flow_06hqj8l">
+        <omgdi:waypoint x="495" y="359" />
+        <omgdi:waypoint x="580" y="359" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_15unmdg_di" bpmnElement="Flow_15unmdg">
         <omgdi:waypoint x="810" y="358" />
         <omgdi:waypoint x="835" y="358" />
@@ -308,32 +346,32 @@
       <bpmndi:BPMNEdge id="sid-CFC2B50E-8F58-4FF7-A382-DE7BE2BF39AB_gui" bpmnElement="sid-CFC2B50E-8F58-4FF7-A382-DE7BE2BF39AB">
         <omgdi:waypoint x="388" y="491" />
         <omgdi:waypoint x="387.63287266547195" y="572" />
-        <omgdi:waypoint x="465" y="572" />
+        <omgdi:waypoint x="425" y="572" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-455CA382-71A6-443F-9274-914EB12AB433_gui" bpmnElement="sid-455CA382-71A6-443F-9274-914EB12AB433">
-        <omgdi:waypoint x="495" y="572" />
-        <omgdi:waypoint x="640" y="572" />
+        <omgdi:waypoint x="455" y="572" />
+        <omgdi:waypoint x="510" y="572" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-470FE23D-AD14-41A3-A7C6-DCA5231A19B1_gui" bpmnElement="sid-470FE23D-AD14-41A3-A7C6-DCA5231A19B1">
         <omgdi:waypoint x="535" y="472" />
-        <omgdi:waypoint x="815" y="472" />
+        <omgdi:waypoint x="660" y="472" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-D3197F6B-7636-4336-B1C1-58A015A5BFC0_gui" bpmnElement="sid-D3197F6B-7636-4336-B1C1-58A015A5BFC0">
-        <omgdi:waypoint x="740" y="572" />
-        <omgdi:waypoint x="835.1705859389398" y="572" />
-        <omgdi:waypoint x="835" y="492" />
+        <omgdi:waypoint x="610" y="572" />
+        <omgdi:waypoint x="660" y="572" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-43EFC928-ADFB-4E56-AE80-22EB77ACA3A7_gui" bpmnElement="sid-43EFC928-ADFB-4E56-AE80-22EB77ACA3A7">
         <omgdi:waypoint x="270" y="471.93305518770603" />
         <omgdi:waypoint x="367.13287266547195" y="472.29922712801556" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_06hqj8l_di" bpmnElement="Flow_06hqj8l">
-        <omgdi:waypoint x="495" y="359" />
-        <omgdi:waypoint x="560" y="359" />
+      <bpmndi:BPMNEdge id="Flow_0988h2x_di" bpmnElement="Flow_0988h2x">
+        <omgdi:waypoint x="760" y="472" />
+        <omgdi:waypoint x="815" y="472" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0278zia_di" bpmnElement="Flow_0278zia">
-        <omgdi:waypoint x="660" y="359" />
-        <omgdi:waypoint x="710" y="359" />
+      <bpmndi:BPMNEdge id="Flow_1u7m4d7_di" bpmnElement="Flow_1u7m4d7">
+        <omgdi:waypoint x="760" y="572" />
+        <omgdi:waypoint x="835.1705859389398" y="572" />
+        <omgdi:waypoint x="835" y="492" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="sid-095170DE-7B3C-4261-85A5-B9D87D9E5ECB_gui" bpmnElement="sid-095170DE-7B3C-4261-85A5-B9D87D9E5ECB">
         <omgdc:Bounds x="240" y="457" width="30" height="30" />
@@ -353,15 +391,6 @@
       <bpmndi:BPMNShape id="Activity_0lf9kw6_di" bpmnElement="auftrag_festhalten_id">
         <omgdc:Bounds x="900" y="432" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-EFDBFF5A-540A-4DA8-A709-26D2185C2330_gui" bpmnElement="event_30_tage">
-        <omgdc:Bounds x="465" y="557" width="30" height="30" />
-        <bpmndi:BPMNLabel labelStyle="sid-ec2145c3-2146-418a-bfe2-002f30d84184">
-          <omgdc:Bounds x="460" y="589" width="40" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1x2sfnw_di" bpmnElement="TextAnnotation_1x2sfnw">
-        <omgdc:Bounds x="850" y="270" width="120" height="40" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-BB6C0C90-0E1D-4D72-BFC5-1AF559F130AB_gui" bpmnElement="event_zusage_erhalten">
         <omgdc:Bounds x="465" y="344" width="30" height="30" />
         <bpmndi:BPMNLabel labelStyle="sid-ec2145c3-2146-418a-bfe2-002f30d84184">
@@ -374,21 +403,39 @@
           <omgdc:Bounds x="481" y="489" width="80" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-EB96403B-9B2E-4477-86F4-0159E7179D86_gui" bpmnElement="task_angebot_zurueckziehen">
-        <omgdc:Bounds x="640" y="532" width="100" height="80" />
-        <bpmndi:BPMNLabel labelStyle="sid-c6d20ade-d36b-4f7e-a1f8-6c043d79eab8">
-          <omgdc:Bounds x="550.5142860412598" y="877.8765081202312" width="70.97142791748047" height="24" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_03ulkzm_di" bpmnElement="subprozess_roboterbau">
         <omgdc:Bounds x="710" y="318" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_03ccaag_di" bpmnElement="Activity_15rpg6y">
-        <omgdc:Bounds x="560" y="319" width="100" height="80" />
+        <omgdc:Bounds x="580" y="319" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-EB96403B-9B2E-4477-86F4-0159E7179D86_gui" bpmnElement="task_angebot_zurueckziehen">
+        <omgdc:Bounds x="510" y="532" width="100" height="80" />
+        <bpmndi:BPMNLabel labelStyle="sid-c6d20ade-d36b-4f7e-a1f8-6c043d79eab8">
+          <omgdc:Bounds x="550.5142860412598" y="877.8765081202312" width="70.97142791748047" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-EFDBFF5A-540A-4DA8-A709-26D2185C2330_gui" bpmnElement="event_30_tage">
+        <omgdc:Bounds x="425" y="557" width="30" height="30" />
+        <bpmndi:BPMNLabel labelStyle="sid-ec2145c3-2146-418a-bfe2-002f30d84184">
+          <omgdc:Bounds x="420" y="589" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1deplxg_di" bpmnElement="Activity_0tyzu8r">
+        <omgdc:Bounds x="660" y="432" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p1vhuy_di" bpmnElement="Activity_1hjharz">
+        <omgdc:Bounds x="660" y="532" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1gjva07_di" bpmnElement="DataStoreReference_1gjva07">
+        <omgdc:Bounds x="845" y="595" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="840" y="652" width="60" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1f5yby9_di" bpmnElement="Association_1f5yby9">
         <omgdi:waypoint x="809" y="325" />
-        <omgdi:waypoint x="850" y="298" />
+        <omgdi:waypoint x="870" y="286" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="sid-D428C282-C55B-4E11-A83F-A02A083AF3A8_gui" bpmnElement="sid-D428C282-C55B-4E11-A83F-A02A083AF3A8" isHorizontal="true">
         <omgdc:Bounds x="157" y="84" width="1003" height="60" />
@@ -474,6 +521,9 @@
       <bpmndi:BPMNShape id="Activity_0ssca8n_di" bpmnElement="Activity_0b7mg1i">
         <omgdc:Bounds x="840" y="885" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0hfzkd9_di" bpmnElement="Participant_0h1xa3r" isHorizontal="true">
+        <omgdc:Bounds x="157" y="1160" width="1003" height="60" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0rhw6ob_di" bpmnElement="Flow_0rhw6ob">
         <omgdi:waypoint x="950" y="512" />
         <omgdi:waypoint x="950" y="711" />
@@ -487,21 +537,14 @@
         <omgdi:waypoint x="480" y="144" />
         <omgdi:waypoint x="480" y="344" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="491" y="173" width="36" height="14" />
+          <omgdc:Bounds x="511" y="173" width="37" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0k7vv1b_di" bpmnElement="Flow_0k7vv1b">
         <omgdi:waypoint x="520" y="144" />
         <omgdi:waypoint x="520" y="457" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="471" y="173" width="37" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0ro02te_di" bpmnElement="Flow_0ro02te">
-        <omgdi:waypoint x="690" y="532" />
-        <omgdi:waypoint x="690" y="144" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="699" y="166" width="61" height="27" />
+          <omgdc:Bounds x="441" y="173" width="37" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1yv0mn2_di" bpmnElement="Flow_1yv0mn2">
@@ -510,6 +553,38 @@
         <bpmndi:BPMNLabel>
           <omgdc:Bounds x="763" y="166" width="74" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vtvs0x_di" bpmnElement="Flow_1vtvs0x">
+        <omgdi:waypoint x="560" y="532" />
+        <omgdi:waypoint x="560" y="144" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="564" y="166" width="79" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1et15y7_di" bpmnElement="Flow_1et15y7">
+        <omgdi:waypoint x="890" y="965" />
+        <omgdi:waypoint x="890" y="1160" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="901" y="1116" width="57" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_04h9dqx_di" bpmnElement="DataOutputAssociation_04h9dqx">
+        <omgdi:waypoint x="760" y="587" />
+        <omgdi:waypoint x="845" y="614" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_06c6d21_di" bpmnElement="DataOutputAssociation_06c6d21">
+        <omgdi:waypoint x="753" y="511" />
+        <omgdi:waypoint x="845" y="597" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0fbjxmf_di" bpmnElement="DataOutputAssociation_0fbjxmf">
+        <omgdi:waypoint x="630" y="399" />
+        <omgdi:waypoint x="630" y="625" />
+        <omgdi:waypoint x="845" y="625" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_007fsf4_di" bpmnElement="DataOutputAssociation_007fsf4">
+        <omgdi:waypoint x="809" y="390" />
+        <omgdi:waypoint x="870" y="430" />
+        <omgdi:waypoint x="870" y="595" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
     <bpmndi:BPMNLabelStyle id="sid-ec2145c3-2146-418a-bfe2-002f30d84184">
