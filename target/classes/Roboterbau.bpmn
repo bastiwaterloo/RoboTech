@@ -21,9 +21,11 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </participant>
-    <participant id="Participant_16k7d91" name="Prozessgesteuerte Anwendung" />
+    <participant id="Participant_16k7d91" name="Maschinenverwaltungssystem" />
     <messageFlow id="Flow_0nioubw" name="Maschinenevent" sourceRef="Participant_16k7d91" targetRef="Event_05a09xg" />
-    <messageFlow id="Flow_1h4fpq7" name="Nachtraegliche Absage" sourceRef="sid-8AE39A42-1A6A-48DF-B8BF-0AA37EF1FA7D" targetRef="Event_0qm5nms" />
+    <messageFlow id="Flow_1h4fpq7" name="Nachtraegliche Absage" sourceRef="sid-8AE39A42-1A6A-48DF-B8BF-0AA37EF1FA7D" targetRef="Event_1e35m8p" />
+    <messageFlow id="Flow_0y43z12" name="Nachtraegliche Absage" sourceRef="sid-8AE39A42-1A6A-48DF-B8BF-0AA37EF1FA7D" targetRef="Event_08kn79x" />
+    <messageFlow id="Flow_1g9bcr5" name="Nachtraegliche Absage" sourceRef="sid-8AE39A42-1A6A-48DF-B8BF-0AA37EF1FA7D" targetRef="Event_043wyj2" />
   </collaboration>
   <process id="subprozess_roboterbau_processID" name="Roboterbau" processType="None" isClosed="false" isExecutable="true">
     <extensionElements />
@@ -34,60 +36,45 @@
           <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         </extensionElements>
         <flowNodeRef>sid-0BA00A4A-7BAF-4E07-9960-3E5912459968</flowNodeRef>
-        <flowNodeRef>endevent_roboterbau_erfolgreich</flowNodeRef>
+        <flowNodeRef>Activity_1o8t55k</flowNodeRef>
         <flowNodeRef>Gateway_196jzo3</flowNodeRef>
+        <flowNodeRef>endevent_roboterbau_erfolgreich</flowNodeRef>
         <flowNodeRef>subprozess_roboterfertigung</flowNodeRef>
         <flowNodeRef>Event_1nr0c5n</flowNodeRef>
-        <flowNodeRef>Activity_1o8t55k</flowNodeRef>
         <flowNodeRef>Activity_0mci44k</flowNodeRef>
       </lane>
     </laneSet>
-    <sequenceFlow id="sid-5458FDD6-4A27-4328-89B6-8029B969D55D" name="" sourceRef="sid-0BA00A4A-7BAF-4E07-9960-3E5912459968" targetRef="subprozess_roboterfertigung">
+    <startEvent id="sid-0BA00A4A-7BAF-4E07-9960-3E5912459968" name="">
       <extensionElements>
+        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+        <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
+        <camunda:formData>
+          <camunda:formField id="fuellstand1" label="F1" type="long" defaultValue="111" />
+        </camunda:formData>
       </extensionElements>
-    </sequenceFlow>
-    <subProcess id="subprozess_roboterfertigung" name="Roboterfertigung">
+      <outgoing>sid-5458FDD6-4A27-4328-89B6-8029B969D55D</outgoing>
+    </startEvent>
+    <serviceTask id="Activity_1o8t55k" name="Update Status &#34;Abgeschlossen&#34;" camunda:expression="${orderServiceDelegate.updateStatus(execution, &#34;ABGESCHLOSSEN&#34;)}">
+      <incoming>Flow_13bxdy9</incoming>
+      <outgoing>Flow_04dyz6b</outgoing>
+    </serviceTask>
+    <exclusiveGateway id="Gateway_196jzo3">
+      <incoming>Flow_0x4s4is</incoming>
+      <incoming>Flow_04dyz6b</incoming>
+      <outgoing>Flow_1mytkfw</outgoing>
+    </exclusiveGateway>
+    <endEvent id="endevent_roboterbau_erfolgreich" name="Roboterbau abgeschlossen">
+      <extensionElements>
+        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+        <signavio:signavioMetaData metaKey="nachfolgerprozesse" metaValue="[]" />
+      </extensionElements>
+      <incoming>Flow_1mytkfw</incoming>
+    </endEvent>
+    <transaction id="subprozess_roboterfertigung" name="Roboterfertigung">
       <incoming>sid-5458FDD6-4A27-4328-89B6-8029B969D55D</incoming>
       <outgoing>Flow_13bxdy9</outgoing>
-      <startEvent id="sid-06DD42A4-6CA8-4318-B3E2-F216FFCA28F5" name="">
-        <extensionElements>
-          <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
-          <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-          <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
-        </extensionElements>
-        <outgoing>sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A</outgoing>
-      </startEvent>
-      <userTask id="task_abschlusstermin_vereinbaren" name="Abschlusstermin vereinbaren" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
-        <extensionElements>
-          <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
-          <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-          <signavio:signavioMetaData metaKey="erteiltfreigabe" metaValue="" />
-          <signavio:signavioMetaData metaKey="wirdkonsultiert" metaValue="[]" />
-          <signavio:signavioMetaData metaKey="externaldocuments" metaValue="[]" />
-          <signavio:signavioMetaData metaKey="meta-risikomanagement" metaValue="" />
-          <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
-          <camunda:formData>
-            <camunda:formField id="form_auftragsID" label="Auftrags-ID" type="long" />
-            <camunda:formField id="form_roboterart" label="Robotertyp-ID" type="string" />
-            <camunda:formField id="form_menge" label="Menge" type="long" />
-            <camunda:formField id="form_spezialdesign" label="Spezialdesign" type="boolean" />
-            <camunda:formField id="form_erhoehterFertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" />
-            <camunda:formField id="form_lautstaerkereduzierung" label="Lautstaerkereduzierung" type="boolean" />
-            <camunda:formField id="form_leichtbauweise" label="Leichtbauweise" type="boolean" />
-            <camunda:formField id="form_sonderzuschlag" label="Sonderzuschlag" type="boolean" />
-            <camunda:formField id="form_status" label="Status" type="string" />
-            <camunda:formField id="form_spezifikation" label="Spezifikation" type="string" />
-            <camunda:formField id="form_abschlusstermin" label="Abschlusstermin" type="enum">
-              <camunda:value id="termin_ausstehend" name="ausstehend" />
-              <camunda:value id="termin_vereinbart" name="vereinbart" />
-              <camunda:value id="termin_abgesagt" name="abgesagt" />
-            </camunda:formField>
-          </camunda:formData>
-        </extensionElements>
-        <incoming>sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A</incoming>
-        <outgoing>sid-7EDCEDC4-252D-4A2B-9D5B-D964EE2F7FF8</outgoing>
-      </userTask>
       <manualTask id="sid-73DAF242-9C86-45B7-82AA-BC569D52D52D" name="Teile aus Lager beschaffen">
         <extensionElements>
           <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
@@ -101,6 +88,67 @@
         <incoming>sid-7EDCEDC4-252D-4A2B-9D5B-D964EE2F7FF8</incoming>
         <outgoing>Flow_0r3smyg</outgoing>
       </manualTask>
+      <endEvent id="Event_0vfqbm5">
+        <incoming>Flow_02ciijx</incoming>
+      </endEvent>
+      <userTask id="task_abschlusstermin_vereinbaren" name="Abschlusstermin vereinbaren" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
+        <extensionElements>
+          <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
+          <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+          <signavio:signavioMetaData metaKey="erteiltfreigabe" metaValue="" />
+          <signavio:signavioMetaData metaKey="wirdkonsultiert" metaValue="[]" />
+          <signavio:signavioMetaData metaKey="externaldocuments" metaValue="[]" />
+          <signavio:signavioMetaData metaKey="meta-risikomanagement" metaValue="" />
+          <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
+          <camunda:formData>
+            <camunda:formField id="formfield_auftragsID" label="Auftrags-ID" type="long" defaultValue="${input_cart_L2.getAuftragsID()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_robotertyp" label="Robotertyp-ID" type="string" defaultValue="${input_cart_L2.getRobotertypID()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_menge" label="Menge" type="long" defaultValue="${input_cart_L2.getMenge()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_spezialdesign" label="Spezialdesign" type="boolean" defaultValue="${input_cart_L2.getSpezialdesign()}" />
+            <camunda:formField id="formfield_erhoehterFertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" defaultValue="${input_cart_L2.getErhoehterFertigungsaufwand()}" />
+            <camunda:formField id="formfield_lautstaerkereduzierung" label="Lautstaerkereduzierung" type="boolean" defaultValue="${input_cart_L2.getLautstaerkereduzierung()}" />
+            <camunda:formField id="formfield_leichtbauweise" label="Leichtbauweise" type="boolean" defaultValue="${input_cart_L2.getLeichtbauweise()}" />
+            <camunda:formField id="formfield_sonderzuschlag" label="Sonderzuschlag" type="boolean" defaultValue="${input_cart_L2.getSonderzuschlag()}" />
+            <camunda:formField id="formfield_status" label="Status" type="string" defaultValue="${input_cart_L2.getStatus()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_spezifikation" label="Spezifikation" type="string" defaultValue="${input_cart_L2.getSpezifikation()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_abschlusstermin" label="Abschlusstermin" type="enum">
+              <camunda:value id="termin_ausstehend" name="ausstehend" />
+              <camunda:value id="termin_vereinbart" name="vereinbart" />
+              <camunda:value id="termin_abgesagt" name="abgesagt" />
+            </camunda:formField>
+          </camunda:formData>
+        </extensionElements>
+        <incoming>sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A</incoming>
+        <outgoing>sid-7EDCEDC4-252D-4A2B-9D5B-D964EE2F7FF8</outgoing>
+      </userTask>
+      <startEvent id="sid-06DD42A4-6CA8-4318-B3E2-F216FFCA28F5" name="">
+        <extensionElements>
+          <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
+          <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+          <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
+        </extensionElements>
+        <outgoing>sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A</outgoing>
+      </startEvent>
       <manualTask id="sid-78517B6F-1B52-4851-BC5D-097D365671EE" name="Roboter montieren">
         <extensionElements>
           <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
@@ -112,36 +160,8 @@
           <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
         </extensionElements>
         <incoming>Flow_0r3smyg</incoming>
-        <outgoing>Flow_0rheqq9</outgoing>
+        <outgoing>Flow_02ciijx</outgoing>
       </manualTask>
-      <userTask id="task_abschlusstermin_absagen" name="Abschlusstermin absagen" isForCompensation="true" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
-        <extensionElements>
-          <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
-          <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-          <signavio:signavioMetaData metaKey="erteiltfreigabe" metaValue="" />
-          <signavio:signavioMetaData metaKey="wirdkonsultiert" metaValue="[]" />
-          <signavio:signavioMetaData metaKey="externaldocuments" metaValue="[]" />
-          <signavio:signavioMetaData metaKey="meta-risikomanagement" metaValue="" />
-          <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
-          <camunda:formData>
-            <camunda:formField id="form_auftragsID" label="Auftrags-ID" type="long" />
-            <camunda:formField id="form_roboterart" label="Robotertyp-ID" type="string" />
-            <camunda:formField id="form_menge" label="Menge" type="long" />
-            <camunda:formField id="form_spezialdesign" label="Spezialdesign" type="boolean" />
-            <camunda:formField id="form_erhoehterFertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" />
-            <camunda:formField id="form_lautstaerkereduzierung" label="Lautstaerkereduzierung" type="boolean" />
-            <camunda:formField id="form_leichtbauweise" label="Leichtbauweise" type="boolean" />
-            <camunda:formField id="form_sonderzuschlag" label="Sonderzuschlag" type="boolean" />
-            <camunda:formField id="form_status" label="Status" type="string" />
-            <camunda:formField id="form_spezifikation" label="Spezifikation" type="string" />
-            <camunda:formField id="form_abschlusstermin" label="Abschlusstermin" type="enum">
-              <camunda:value id="termin_ausstehend" name="ausstehend" />
-              <camunda:value id="termin_vereinbart" name="vereinbart" />
-              <camunda:value id="termin_abgesagt" name="abgesagt" />
-            </camunda:formField>
-          </camunda:formData>
-        </extensionElements>
-      </userTask>
       <manualTask id="sid-32874633-6DDE-468D-A4E9-CC55CFB4FAA5" name="Teile zurueck in das Lager bringen" isForCompensation="true">
         <extensionElements>
           <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
@@ -153,115 +173,140 @@
           <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
         </extensionElements>
       </manualTask>
-      <endEvent id="sid-61298E7C-16C1-4243-9623-135488B633B7" name="">
+      <userTask id="task_abschlusstermin_absagen" name="Abschlusstermin absagen" isForCompensation="true" implementation="##WebService" camunda:assignee="Technischer Mitarbeiter">
         <extensionElements>
-          <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
+          <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
           <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-          <signavio:signavioMetaData metaKey="nachfolgerprozesse" metaValue="[]" />
+          <signavio:signavioMetaData metaKey="erteiltfreigabe" metaValue="" />
+          <signavio:signavioMetaData metaKey="wirdkonsultiert" metaValue="[]" />
+          <signavio:signavioMetaData metaKey="externaldocuments" metaValue="[]" />
+          <signavio:signavioMetaData metaKey="meta-risikomanagement" metaValue="" />
+          <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
+          <camunda:formData>
+            <camunda:formField id="formfield_auftragsID" label="Auftrags-ID" type="long" defaultValue="${input_cart_L2.getAuftragsID()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_robotertyp" label="Robotertyp-ID" type="string" defaultValue="${input_cart_L2.getRobotertypID()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_menge" label="Menge" type="long" defaultValue="${input_cart_L2.getMenge()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_spezialdesign" label="Spezialdesign" type="boolean" defaultValue="${input_cart_L2.getSpezialdesign()}" />
+            <camunda:formField id="formfield_erhoehterFertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" defaultValue="${input_cart_L2.getErhoehterFertigungsaufwand()}" />
+            <camunda:formField id="formfield_lautstaerkereduzierung" label="Lautstaerkereduzierung" type="boolean" defaultValue="${input_cart_L2.getLautstaerkereduzierung()}" />
+            <camunda:formField id="formfield_leichtbauweise" label="Leichtbauweise" type="boolean" defaultValue="${input_cart_L2.getLeichtbauweise()}" />
+            <camunda:formField id="formfield_sonderzuschlag" label="Sonderzuschlag" type="boolean" defaultValue="${input_cart_L2.getSonderzuschlag()}" />
+            <camunda:formField id="formfield_status" label="Status" type="string" defaultValue="${input_cart_L2.getStatus()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_spezifikation" label="Spezifikation" type="string" defaultValue="${input_cart_L2.getSpezifikation()}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="formfield_abschlusstermin" label="Abschlusstermin" type="enum">
+              <camunda:value id="termin_ausstehend" name="ausstehend" />
+              <camunda:value id="termin_vereinbart" name="vereinbart" />
+              <camunda:value id="termin_abgesagt" name="abgesagt" />
+            </camunda:formField>
+          </camunda:formData>
         </extensionElements>
-        <incoming>Flow_0rheqq9</incoming>
-      </endEvent>
-      <boundaryEvent id="sid-89A074BC-D93A-48AB-9F64-604219175BCF" name="" attachedToRef="task_abschlusstermin_vereinbaren">
-        <compensateEventDefinition id="sid-015a6f32-e29f-4163-a079-8c7395bcf7da" />
-      </boundaryEvent>
-      <boundaryEvent id="sid-168D47AC-C55D-4FD2-93AA-F0713DAE9937" name="" attachedToRef="sid-73DAF242-9C86-45B7-82AA-BC569D52D52D">
-        <compensateEventDefinition id="sid-876c7197-8f70-4425-a349-62e6fd771c5a" />
-      </boundaryEvent>
-      <sequenceFlow id="sid-7EDCEDC4-252D-4A2B-9D5B-D964EE2F7FF8" name="" sourceRef="task_abschlusstermin_vereinbaren" targetRef="sid-73DAF242-9C86-45B7-82AA-BC569D52D52D">
-        <extensionElements>
-          <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        </extensionElements>
-      </sequenceFlow>
-      <sequenceFlow id="sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A" name="" sourceRef="sid-06DD42A4-6CA8-4318-B3E2-F216FFCA28F5" targetRef="task_abschlusstermin_vereinbaren">
-        <extensionElements>
-          <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        </extensionElements>
-      </sequenceFlow>
-      <subProcess id="Activity_0hn4jx3" name="Kompensation bei nachträglicher Absage des Kunden" triggeredByEvent="true">
-        <sequenceFlow id="Flow_1sxxsfm" sourceRef="Event_0qm5nms" targetRef="Event_11uk38j" />
-        <sequenceFlow id="Flow_18h2bkd" sourceRef="Event_11uk38j" targetRef="Event_1om9f9i" />
-        <startEvent id="Event_0qm5nms" name="Nachtraegliche Absage">
-          <outgoing>Flow_1sxxsfm</outgoing>
-          <messageEventDefinition id="MessageEventDefinition_1r0p92g" messageRef="sid-A4968CAE-144B-4B1F-A223-A334D8C6A3E9" />
-        </startEvent>
-        <intermediateThrowEvent id="Event_11uk38j" name="Teile zurueck in das Lager bringen">
-          <incoming>Flow_1sxxsfm</incoming>
-          <outgoing>Flow_18h2bkd</outgoing>
-          <compensateEventDefinition id="CompensateEventDefinition_0cu6fam" activityRef="task_abschlusstermin_vereinbaren" />
-        </intermediateThrowEvent>
-        <intermediateThrowEvent id="Event_1om9f9i" name="Abschlusstermin absagen">
-          <incoming>Flow_18h2bkd</incoming>
-          <outgoing>Flow_0102eky</outgoing>
-          <compensateEventDefinition id="CompensateEventDefinition_1fnpa4z" activityRef="task_abschlusstermin_vereinbaren" />
-        </intermediateThrowEvent>
-        <endEvent id="Event_0tts1io" name="Roboterbau abgebrochen">
-          <incoming>Flow_0102eky</incoming>
-          <errorEventDefinition id="ErrorEventDefinition_14xcli7" errorRef="Error_1wygiea" />
-        </endEvent>
-        <sequenceFlow id="Flow_0102eky" sourceRef="Event_1om9f9i" targetRef="Event_0tts1io" />
-      </subProcess>
+      </userTask>
       <subProcess id="Activity_07v6r1z" name="Maschinenevent behandeln" triggeredByEvent="true">
         <sequenceFlow id="Flow_1att7sj" sourceRef="Event_05a09xg" targetRef="Activity_0uefkh2" />
         <endEvent id="Event_0s6w4t7">
           <incoming>Flow_1rnw7g6</incoming>
         </endEvent>
         <sequenceFlow id="Flow_1rnw7g6" sourceRef="Activity_0uefkh2" targetRef="Event_0s6w4t7" />
-        <startEvent id="Event_05a09xg" name="Maschinenevent">
-          <outgoing>Flow_1att7sj</outgoing>
-          <messageEventDefinition id="MessageEventDefinition_1yp1zdf" messageRef="Message_09rh0nb" />
-        </startEvent>
         <userTask id="Activity_0uefkh2" name="Maschine überprüfen">
+          <extensionElements>
+            <camunda:formData>
+              <camunda:formField id="fuellstand1" label="Fuellstand Maschine 1" type="long" />
+              <camunda:formField id="fuellstand2" label="Fuellstand Maschine 2" type="long" />
+              <camunda:formField id="fuellstand3" label="Fuellstand Maschine 3" type="long" />
+            </camunda:formData>
+          </extensionElements>
           <incoming>Flow_1att7sj</incoming>
           <outgoing>Flow_1rnw7g6</outgoing>
         </userTask>
+        <startEvent id="Event_05a09xg" name="Maschinenevent" isInterrupting="false">
+          <outgoing>Flow_1att7sj</outgoing>
+          <messageEventDefinition id="MessageEventDefinition_1pzd0ao" messageRef="Message_09rh0nb" />
+        </startEvent>
       </subProcess>
+      <boundaryEvent id="Event_1e35m8p" attachedToRef="task_abschlusstermin_vereinbaren">
+        <outgoing>Flow_1d84qy6</outgoing>
+        <messageEventDefinition id="MessageEventDefinition_1ww3iyc" messageRef="sid-A4968CAE-144B-4B1F-A223-A334D8C6A3E9" />
+      </boundaryEvent>
+      <boundaryEvent id="Event_043wyj2" attachedToRef="sid-78517B6F-1B52-4851-BC5D-097D365671EE">
+        <outgoing>Flow_19uozvu</outgoing>
+        <messageEventDefinition id="MessageEventDefinition_108xq4z" messageRef="sid-A4968CAE-144B-4B1F-A223-A334D8C6A3E9" />
+      </boundaryEvent>
+      <boundaryEvent id="Event_08kn79x" attachedToRef="sid-73DAF242-9C86-45B7-82AA-BC569D52D52D">
+        <outgoing>Flow_0psgb8z</outgoing>
+        <messageEventDefinition id="MessageEventDefinition_0c9bwps" messageRef="sid-A4968CAE-144B-4B1F-A223-A334D8C6A3E9" />
+      </boundaryEvent>
+      <boundaryEvent id="sid-89A074BC-D93A-48AB-9F64-604219175BCF" name="" attachedToRef="task_abschlusstermin_vereinbaren">
+        <compensateEventDefinition id="sid-015a6f32-e29f-4163-a079-8c7395bcf7da" />
+      </boundaryEvent>
+      <boundaryEvent id="sid-168D47AC-C55D-4FD2-93AA-F0713DAE9937" name="" attachedToRef="sid-73DAF242-9C86-45B7-82AA-BC569D52D52D">
+        <compensateEventDefinition id="sid-876c7197-8f70-4425-a349-62e6fd771c5a" />
+      </boundaryEvent>
       <sequenceFlow id="Flow_0r3smyg" sourceRef="sid-73DAF242-9C86-45B7-82AA-BC569D52D52D" targetRef="sid-78517B6F-1B52-4851-BC5D-097D365671EE" />
-      <sequenceFlow id="Flow_0rheqq9" sourceRef="sid-78517B6F-1B52-4851-BC5D-097D365671EE" targetRef="sid-61298E7C-16C1-4243-9623-135488B633B7" />
-      <association id="sid-1CDFB5C4-A28F-4FF6-BFF7-C6347DA9706B" associationDirection="One" sourceRef="sid-89A074BC-D93A-48AB-9F64-604219175BCF" targetRef="task_abschlusstermin_absagen">
+      <sequenceFlow id="sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A" name="" sourceRef="sid-06DD42A4-6CA8-4318-B3E2-F216FFCA28F5" targetRef="task_abschlusstermin_vereinbaren">
         <extensionElements>
           <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         </extensionElements>
-      </association>
+      </sequenceFlow>
+      <sequenceFlow id="sid-7EDCEDC4-252D-4A2B-9D5B-D964EE2F7FF8" name="" sourceRef="task_abschlusstermin_vereinbaren" targetRef="sid-73DAF242-9C86-45B7-82AA-BC569D52D52D">
+        <extensionElements>
+          <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+        </extensionElements>
+      </sequenceFlow>
+      <sequenceFlow id="Flow_02ciijx" sourceRef="sid-78517B6F-1B52-4851-BC5D-097D365671EE" targetRef="Event_0vfqbm5" />
+      <sequenceFlow id="Flow_1d84qy6" sourceRef="Event_1e35m8p" targetRef="Event_0hkpw6x" />
+      <sequenceFlow id="Flow_0psgb8z" sourceRef="Event_08kn79x" targetRef="Event_0hkpw6x" />
+      <sequenceFlow id="Flow_19uozvu" sourceRef="Event_043wyj2" targetRef="Event_0hkpw6x" />
+      <endEvent id="Event_0hkpw6x" name="Roboterbau abgebrochen">
+        <incoming>Flow_1d84qy6</incoming>
+        <incoming>Flow_0psgb8z</incoming>
+        <incoming>Flow_19uozvu</incoming>
+        <cancelEventDefinition id="CancelEventDefinition_0bslcq5" />
+      </endEvent>
       <association id="sid-989C575A-E4F1-4113-A787-5BCD24AD48E1" associationDirection="One" sourceRef="sid-168D47AC-C55D-4FD2-93AA-F0713DAE9937" targetRef="sid-32874633-6DDE-468D-A4E9-CC55CFB4FAA5">
         <extensionElements>
           <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         </extensionElements>
       </association>
-    </subProcess>
-    <startEvent id="sid-0BA00A4A-7BAF-4E07-9960-3E5912459968" name="">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
-      </extensionElements>
-      <outgoing>sid-5458FDD6-4A27-4328-89B6-8029B969D55D</outgoing>
-    </startEvent>
-    <sequenceFlow id="Flow_1mytkfw" sourceRef="Gateway_196jzo3" targetRef="endevent_roboterbau_erfolgreich" />
-    <endEvent id="endevent_roboterbau_erfolgreich" name="Roboterbau abgeschlossen">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        <signavio:signavioMetaData metaKey="nachfolgerprozesse" metaValue="[]" />
-      </extensionElements>
-      <incoming>Flow_1mytkfw</incoming>
-    </endEvent>
-    <exclusiveGateway id="Gateway_196jzo3">
-      <incoming>Flow_0x4s4is</incoming>
-      <incoming>Flow_04dyz6b</incoming>
-      <outgoing>Flow_1mytkfw</outgoing>
-    </exclusiveGateway>
+      <association id="sid-1CDFB5C4-A28F-4FF6-BFF7-C6347DA9706B" associationDirection="One" sourceRef="sid-89A074BC-D93A-48AB-9F64-604219175BCF" targetRef="task_abschlusstermin_absagen">
+        <extensionElements>
+          <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+        </extensionElements>
+      </association>
+    </transaction>
     <boundaryEvent id="Event_1nr0c5n" name="Roboterbau abgebrochen" attachedToRef="subprozess_roboterfertigung">
       <outgoing>Flow_0xpjuuq</outgoing>
-      <errorEventDefinition id="ErrorEventDefinition_10joo34" errorRef="Error_1wygiea" />
+      <cancelEventDefinition id="CancelEventDefinition_0yer92w" />
     </boundaryEvent>
-    <serviceTask id="Activity_1o8t55k" name="Update Status &#34;Abgeschlossen&#34;" camunda:expression="${orderServiceDelegate.updateStatus(execution, &#34;ABGESCHLOSSEN&#34;)}">
-      <incoming>Flow_13bxdy9</incoming>
-      <outgoing>Flow_04dyz6b</outgoing>
-    </serviceTask>
-    <sequenceFlow id="Flow_0xpjuuq" sourceRef="Event_1nr0c5n" targetRef="Activity_0mci44k" />
-    <sequenceFlow id="Flow_0x4s4is" sourceRef="Activity_0mci44k" targetRef="Gateway_196jzo3" />
-    <sequenceFlow id="Flow_13bxdy9" sourceRef="subprozess_roboterfertigung" targetRef="Activity_1o8t55k" />
     <sequenceFlow id="Flow_04dyz6b" sourceRef="Activity_1o8t55k" targetRef="Gateway_196jzo3" />
+    <sequenceFlow id="Flow_13bxdy9" sourceRef="subprozess_roboterfertigung" targetRef="Activity_1o8t55k" />
+    <sequenceFlow id="Flow_0x4s4is" sourceRef="Activity_0mci44k" targetRef="Gateway_196jzo3" />
+    <sequenceFlow id="Flow_0xpjuuq" sourceRef="Event_1nr0c5n" targetRef="Activity_0mci44k" />
+    <sequenceFlow id="Flow_1mytkfw" sourceRef="Gateway_196jzo3" targetRef="endevent_roboterbau_erfolgreich" />
+    <sequenceFlow id="sid-5458FDD6-4A27-4328-89B6-8029B969D55D" name="" sourceRef="sid-0BA00A4A-7BAF-4E07-9960-3E5912459968" targetRef="subprozess_roboterfertigung">
+      <extensionElements>
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+      </extensionElements>
+    </sequenceFlow>
     <serviceTask id="Activity_0mci44k" name="Update Status &#34;Nicht erfolgreich&#34;" camunda:expression="${orderServiceDelegate.updateStatus(execution, &#34;NICHTERFOLGREICH&#34;)}">
       <incoming>Flow_0xpjuuq</incoming>
       <outgoing>Flow_0x4s4is</outgoing>
@@ -272,220 +317,228 @@
   <bpmndi:BPMNDiagram id="sid-dae6125f-6203-4d85-a1a9-fffab5dfc1d3">
     <bpmndi:BPMNPlane id="sid-4064cd30-5cfb-4488-8665-95f49f022b4d" bpmnElement="Process_Roboterbau">
       <bpmndi:BPMNShape id="sid-BE6B5E62-66E0-417D-B23F-F03FAA06C9CB_gui" bpmnElement="subprozess_roboterbau" isHorizontal="true">
-        <omgdc:Bounds x="153" y="247" width="1521" height="863" />
+        <omgdc:Bounds x="153" y="197" width="1537" height="703" />
         <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
           <omgdc:Bounds x="217.96517210250641" y="614.0243329278273" width="12" height="64.02857208251953" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-93D38870-C279-4F99-ABA0-9DC53DFF54D5_gui" bpmnElement="sid-93D38870-C279-4F99-ABA0-9DC53DFF54D5" isHorizontal="true">
-        <omgdc:Bounds x="183" y="247" width="1491" height="863" />
+        <omgdc:Bounds x="183" y="197" width="1507" height="703" />
         <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
           <omgdc:Bounds x="248.96518736129548" y="583.5529011956496" width="12" height="124.971435546875" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1mytkfw_di" bpmnElement="Flow_1mytkfw">
-        <omgdi:waypoint x="1575" y="700" />
-        <omgdi:waypoint x="1626" y="700" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-5458FDD6-4A27-4328-89B6-8029B969D55D_gui" bpmnElement="sid-5458FDD6-4A27-4328-89B6-8029B969D55D">
-        <omgdi:waypoint x="307" y="700" />
-        <omgdi:waypoint x="411" y="700" />
+        <omgdi:waypoint x="307" y="540" />
+        <omgdi:waypoint x="411" y="540" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mytkfw_di" bpmnElement="Flow_1mytkfw">
+        <omgdi:waypoint x="1515" y="540" />
+        <omgdi:waypoint x="1606" y="540" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xpjuuq_di" bpmnElement="Flow_0xpjuuq">
-        <omgdi:waypoint x="1258" y="800" />
-        <omgdi:waypoint x="1380" y="800" />
+        <omgdi:waypoint x="1258" y="830" />
+        <omgdi:waypoint x="1330" y="830" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0x4s4is_di" bpmnElement="Flow_0x4s4is">
-        <omgdi:waypoint x="1480" y="800" />
-        <omgdi:waypoint x="1550" y="800" />
-        <omgdi:waypoint x="1550" y="725" />
+        <omgdi:waypoint x="1430" y="830" />
+        <omgdi:waypoint x="1490" y="830" />
+        <omgdi:waypoint x="1490" y="565" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13bxdy9_di" bpmnElement="Flow_13bxdy9">
-        <omgdi:waypoint x="1240" y="700" />
-        <omgdi:waypoint x="1330" y="700" />
+        <omgdi:waypoint x="1240" y="540" />
+        <omgdi:waypoint x="1330" y="540" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_04dyz6b_di" bpmnElement="Flow_04dyz6b">
-        <omgdi:waypoint x="1430" y="700" />
-        <omgdi:waypoint x="1525" y="700" />
+        <omgdi:waypoint x="1430" y="540" />
+        <omgdi:waypoint x="1465" y="540" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="sid-0C2E1FD0-CF98-4F7E-A11F-6C5E79F80DBD_gui" bpmnElement="endevent_roboterbau_erfolgreich">
-        <omgdc:Bounds x="1626" y="686" width="28" height="28" />
-        <bpmndi:BPMNLabel labelStyle="sid-57a1d573-bd45-4ec8-90ec-68af6b06a9f0">
-          <omgdc:Bounds x="1603" y="649" width="74" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_196jzo3_di" bpmnElement="Gateway_196jzo3" isMarkerVisible="true">
-        <omgdc:Bounds x="1525" y="675" width="50" height="50" />
+      <bpmndi:BPMNShape id="sid-0BA00A4A-7BAF-4E07-9960-3E5912459968_gui" bpmnElement="sid-0BA00A4A-7BAF-4E07-9960-3E5912459968">
+        <omgdc:Bounds x="277" y="525" width="30" height="30" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_096ts3t_di" bpmnElement="Activity_1o8t55k">
-        <omgdc:Bounds x="1330" y="660" width="100" height="80" />
+        <omgdc:Bounds x="1330" y="500" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0ainksu_di" bpmnElement="Activity_0mci44k">
-        <omgdc:Bounds x="1380" y="760" width="100" height="80" />
+      <bpmndi:BPMNShape id="Gateway_196jzo3_di" bpmnElement="Gateway_196jzo3" isMarkerVisible="true">
+        <omgdc:Bounds x="1465" y="515" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1pw2z97_di" bpmnElement="subprozess_roboterfertigung" isExpanded="true">
-        <omgdc:Bounds x="411" y="300" width="829" height="770" />
+      <bpmndi:BPMNShape id="sid-0C2E1FD0-CF98-4F7E-A11F-6C5E79F80DBD_gui" bpmnElement="endevent_roboterbau_erfolgreich">
+        <omgdc:Bounds x="1606" y="526" width="28" height="28" />
+        <bpmndi:BPMNLabel labelStyle="sid-57a1d573-bd45-4ec8-90ec-68af6b06a9f0">
+          <omgdc:Bounds x="1583" y="566" width="74" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A_gui" bpmnElement="sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A">
-        <omgdi:waypoint x="467.9650543291518" y="398.44141220469805" />
-        <omgdi:waypoint x="512.9650543291518" y="398.44141220469805" />
+      <bpmndi:BPMNShape id="Activity_06q9qh2_di" bpmnElement="subprozess_roboterfertigung" isExpanded="true">
+        <omgdc:Bounds x="411" y="250" width="829" height="580" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_19uozvu_di" bpmnElement="Flow_19uozvu">
+        <omgdi:waypoint x="950" y="428" />
+        <omgdi:waypoint x="950" y="560" />
+        <omgdi:waypoint x="1132" y="560" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0psgb8z_di" bpmnElement="Flow_0psgb8z">
+        <omgdi:waypoint x="760" y="428" />
+        <omgdi:waypoint x="760" y="560" />
+        <omgdi:waypoint x="1132" y="560" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1d84qy6_di" bpmnElement="Flow_1d84qy6">
+        <omgdi:waypoint x="570" y="428" />
+        <omgdi:waypoint x="570" y="560" />
+        <omgdi:waypoint x="1132" y="560" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02ciijx_di" bpmnElement="Flow_02ciijx">
+        <omgdi:waypoint x="1050" y="370" />
+        <omgdi:waypoint x="1132" y="370" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-7EDCEDC4-252D-4A2B-9D5B-D964EE2F7FF8_gui" bpmnElement="sid-7EDCEDC4-252D-4A2B-9D5B-D964EE2F7FF8">
-        <omgdi:waypoint x="613" y="398" />
-        <omgdi:waypoint x="735" y="398" />
+        <omgdi:waypoint x="670" y="370" />
+        <omgdi:waypoint x="760" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A_gui" bpmnElement="sid-0355BB44-6352-48E5-B3B9-BBEFDB58B34A">
+        <omgdi:waypoint x="485" y="370" />
+        <omgdi:waypoint x="570" y="370" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0r3smyg_di" bpmnElement="Flow_0r3smyg">
-        <omgdi:waypoint x="835" y="398" />
-        <omgdi:waypoint x="900" y="398" />
+        <omgdi:waypoint x="860" y="370" />
+        <omgdi:waypoint x="950" y="370" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0rheqq9_di" bpmnElement="Flow_0rheqq9">
-        <omgdi:waypoint x="1000" y="398" />
-        <omgdi:waypoint x="1106" y="398" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="sid-06DD42A4-6CA8-4318-B3E2-F216FFCA28F5_gui" bpmnElement="sid-06DD42A4-6CA8-4318-B3E2-F216FFCA28F5">
-        <omgdc:Bounds x="438" y="383" width="30" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-AF9B7332-4C6B-4A91-B3E6-4BCD4E765698_gui" bpmnElement="task_abschlusstermin_vereinbaren">
-        <omgdc:Bounds x="513" y="358" width="100" height="80" />
-        <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
-          <omgdc:Bounds x="578.2221954424331" y="534.441412204698" width="89.4857177734375" height="24" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-B6305B41-DD19-46E7-97B0-D31BD6A0FA44_gui" bpmnElement="task_abschlusstermin_absagen">
-        <omgdc:Bounds x="563" y="480" width="100" height="80" />
-        <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
-          <omgdc:Bounds x="626.7412921235605" y="716.0726599403376" width="89.4857177734375" height="24" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-73DAF242-9C86-45B7-82AA-BC569D52D52D_gui" bpmnElement="sid-73DAF242-9C86-45B7-82AA-BC569D52D52D">
-        <omgdc:Bounds x="735" y="358" width="100" height="80" />
+        <omgdc:Bounds x="760" y="330" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
           <omgdc:Bounds x="774.6805521145434" y="534.441412204698" width="81" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-32874633-6DDE-468D-A4E9-CC55CFB4FAA5_gui" bpmnElement="sid-32874633-6DDE-468D-A4E9-CC55CFB4FAA5">
-        <omgdc:Bounds x="790" y="480" width="100" height="80" />
+      <bpmndi:BPMNShape id="Event_0vfqbm5_di" bpmnElement="Event_0vfqbm5">
+        <omgdc:Bounds x="1132" y="352" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-AF9B7332-4C6B-4A91-B3E6-4BCD4E765698_gui" bpmnElement="task_abschlusstermin_vereinbaren">
+        <omgdc:Bounds x="570" y="330" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
-          <omgdc:Bounds x="823.9631279050232" y="710.0726599403376" width="77.14286041259766" height="36" />
+          <omgdc:Bounds x="578.2221954424331" y="534.441412204698" width="89.4857177734375" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-06DD42A4-6CA8-4318-B3E2-F216FFCA28F5_gui" bpmnElement="sid-06DD42A4-6CA8-4318-B3E2-F216FFCA28F5">
+        <omgdc:Bounds x="455" y="355" width="30" height="30" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-78517B6F-1B52-4851-BC5D-097D365671EE_gui" bpmnElement="sid-78517B6F-1B52-4851-BC5D-097D365671EE">
-        <omgdc:Bounds x="900" y="358" width="100" height="80" />
+        <omgdc:Bounds x="950" y="330" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
           <omgdc:Bounds x="980.0103382300128" y="534.441412204698" width="54.77142333984375" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-61298E7C-16C1-4243-9623-135488B633B7_gui" bpmnElement="sid-61298E7C-16C1-4243-9623-135488B633B7">
-        <omgdc:Bounds x="1106" y="384" width="28" height="28" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1gh693c_di" bpmnElement="Activity_0hn4jx3" isExpanded="true">
-        <omgdc:Bounds x="460" y="610" width="750" height="200" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_18h2bkd_di" bpmnElement="Flow_18h2bkd">
-        <omgdi:waypoint x="708" y="710" />
-        <omgdi:waypoint x="822" y="710" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1sxxsfm_di" bpmnElement="Flow_1sxxsfm">
-        <omgdi:waypoint x="536" y="710" />
-        <omgdi:waypoint x="672" y="710" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0102eky_di" bpmnElement="Flow_0102eky">
-        <omgdi:waypoint x="858" y="710" />
-        <omgdi:waypoint x="1002" y="710" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Event_0vx4i27_di" bpmnElement="Event_0qm5nms">
-        <omgdc:Bounds x="500" y="692" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="481" y="735" width="74" height="27" />
+      <bpmndi:BPMNShape id="sid-32874633-6DDE-468D-A4E9-CC55CFB4FAA5_gui" bpmnElement="sid-32874633-6DDE-468D-A4E9-CC55CFB4FAA5">
+        <omgdc:Bounds x="820" y="440" width="100" height="80" />
+        <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
+          <omgdc:Bounds x="823.9631279050232" y="710.0726599403376" width="77.14286041259766" height="36" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_12dncrl_di" bpmnElement="Event_11uk38j">
-        <omgdc:Bounds x="672" y="692" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="646" y="735" width="89" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0tmbl4p_di" bpmnElement="Event_1om9f9i">
-        <omgdc:Bounds x="822" y="692" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="800" y="735" width="81" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_00hj5d1_di" bpmnElement="Event_0tts1io">
-        <omgdc:Bounds x="1002" y="692" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="988" y="735" width="65" height="27" />
+      <bpmndi:BPMNShape id="sid-B6305B41-DD19-46E7-97B0-D31BD6A0FA44_gui" bpmnElement="task_abschlusstermin_absagen">
+        <omgdc:Bounds x="630" y="440" width="100" height="80" />
+        <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
+          <omgdc:Bounds x="626.7412921235605" y="716.0726599403376" width="89.4857177734375" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0lsdsy1_di" bpmnElement="Activity_07v6r1z" isExpanded="true">
-        <omgdc:Bounds x="460" y="840" width="650" height="200" />
+        <omgdc:Bounds x="510" y="610" width="622" height="160" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1rnw7g6_di" bpmnElement="Flow_1rnw7g6">
-        <omgdi:waypoint x="840" y="940" />
-        <omgdi:waypoint x="1012" y="940" />
+        <omgdi:waypoint x="870" y="690" />
+        <omgdi:waypoint x="1002" y="690" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1att7sj_di" bpmnElement="Flow_1att7sj">
-        <omgdi:waypoint x="536" y="940" />
-        <omgdi:waypoint x="740" y="940" />
+        <omgdi:waypoint x="618" y="690" />
+        <omgdi:waypoint x="770" y="690" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0s6w4t7_di" bpmnElement="Event_0s6w4t7">
-        <omgdc:Bounds x="1012" y="922" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1x4ijli_di" bpmnElement="Event_05a09xg">
-        <omgdc:Bounds x="500" y="922" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="477" y="898" width="81" height="14" />
-        </bpmndi:BPMNLabel>
+        <omgdc:Bounds x="1002" y="672" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1p8eko6_di" bpmnElement="Activity_0uefkh2">
-        <omgdc:Bounds x="740" y="900" width="100" height="80" />
+        <omgdc:Bounds x="770" y="650" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1udbjw4_di" bpmnElement="Event_05a09xg">
+        <omgdc:Bounds x="582" y="672" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="559" y="648" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1tpfyyu_di" bpmnElement="Event_0hkpw6x">
+        <omgdc:Bounds x="1132" y="542" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1137" y="585" width="65" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-168D47AC-C55D-4FD2-93AA-F0713DAE9937_gui" bpmnElement="sid-168D47AC-C55D-4FD2-93AA-F0713DAE9937">
+        <omgdc:Bounds x="785" y="395" width="30" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-89A074BC-D93A-48AB-9F64-604219175BCF_gui" bpmnElement="sid-89A074BC-D93A-48AB-9F64-604219175BCF">
+        <omgdc:Bounds x="595" y="395" width="30" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0c7iwi6_di" bpmnElement="Event_08kn79x">
+        <omgdc:Bounds x="742" y="392" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1gc6kmt_di" bpmnElement="Event_043wyj2">
+        <omgdc:Bounds x="932" y="392" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ogn3mv_di" bpmnElement="Event_1e35m8p">
+        <omgdc:Bounds x="552" y="392" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="sid-989C575A-E4F1-4113-A787-5BCD24AD48E1_gui" bpmnElement="sid-989C575A-E4F1-4113-A787-5BCD24AD48E1">
-        <omgdi:waypoint x="766" y="453" />
-        <omgdi:waypoint x="766" y="520" />
-        <omgdi:waypoint x="790" y="520" />
+        <omgdi:waypoint x="800" y="425" />
+        <omgdi:waypoint x="800" y="480" />
+        <omgdi:waypoint x="820" y="480" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="sid-89A074BC-D93A-48AB-9F64-604219175BCF_gui" bpmnElement="sid-89A074BC-D93A-48AB-9F64-604219175BCF">
-        <omgdc:Bounds x="533" y="423" width="30" height="30" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="sid-1CDFB5C4-A28F-4FF6-BFF7-C6347DA9706B_gui" bpmnElement="sid-1CDFB5C4-A28F-4FF6-BFF7-C6347DA9706B">
-        <omgdi:waypoint x="548" y="453" />
-        <omgdi:waypoint x="548" y="520" />
-        <omgdi:waypoint x="563" y="520" />
+        <omgdi:waypoint x="610" y="425" />
+        <omgdi:waypoint x="610" y="480" />
+        <omgdi:waypoint x="630" y="480" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="sid-168D47AC-C55D-4FD2-93AA-F0713DAE9937_gui" bpmnElement="sid-168D47AC-C55D-4FD2-93AA-F0713DAE9937">
-        <omgdc:Bounds x="751" y="423" width="30" height="30" />
+      <bpmndi:BPMNShape id="Activity_0ainksu_di" bpmnElement="Activity_0mci44k">
+        <omgdc:Bounds x="1330" y="790" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-0BA00A4A-7BAF-4E07-9960-3E5912459968_gui" bpmnElement="sid-0BA00A4A-7BAF-4E07-9960-3E5912459968">
-        <omgdc:Bounds x="277" y="685" width="30" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1dkwwjt_di" bpmnElement="Event_1nr0c5n">
-        <omgdc:Bounds x="1222" y="782" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_0olbkof_di" bpmnElement="Event_1nr0c5n">
+        <omgdc:Bounds x="1222" y="812" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1253" y="816" width="65" height="27" />
+          <omgdc:Bounds x="1253" y="846" width="65" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-8AE39A42-1A6A-48DF-B8BF-0AA37EF1FA7D_gui" bpmnElement="sid-8AE39A42-1A6A-48DF-B8BF-0AA37EF1FA7D" isHorizontal="true">
-        <omgdc:Bounds x="153" y="81" width="1407" height="77" />
+        <omgdc:Bounds x="153" y="80" width="1537" height="67" />
         <bpmndi:BPMNLabel labelStyle="sid-214d9b0d-f5ae-41aa-9ef1-61aaf867b410">
           <omgdc:Bounds x="870.536044249985" y="256.60706331041354" width="57.85711669921875" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0tse40q_di" bpmnElement="Participant_16k7d91" isHorizontal="true">
-        <omgdc:Bounds x="153" y="1180" width="1407" height="60" />
+        <omgdc:Bounds x="153" y="950" width="1537" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0nioubw_di" bpmnElement="Flow_0nioubw">
-        <omgdi:waypoint x="518" y="1180" />
-        <omgdi:waypoint x="518" y="958" />
+        <omgdi:waypoint x="600" y="950" />
+        <omgdi:waypoint x="600" y="708" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="539" y="1142" width="81" height="14" />
+          <omgdc:Bounds x="621" y="909" width="81" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1h4fpq7_di" bpmnElement="Flow_1h4fpq7">
-        <omgdi:waypoint x="518" y="158" />
-        <omgdi:waypoint x="518" y="692" />
+        <omgdi:waypoint x="530" y="147" />
+        <omgdi:waypoint x="530" y="410" />
+        <omgdi:waypoint x="552" y="410" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="523" y="196" width="74" height="27" />
+          <omgdc:Bounds x="535" y="159" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0y43z12_di" bpmnElement="Flow_0y43z12">
+        <omgdi:waypoint x="720" y="147" />
+        <omgdi:waypoint x="720" y="410" />
+        <omgdi:waypoint x="742" y="410" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="723" y="159" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g9bcr5_di" bpmnElement="Flow_1g9bcr5">
+        <omgdi:waypoint x="910" y="147" />
+        <omgdi:waypoint x="910" y="410" />
+        <omgdi:waypoint x="932" y="410" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="913" y="159" width="74" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

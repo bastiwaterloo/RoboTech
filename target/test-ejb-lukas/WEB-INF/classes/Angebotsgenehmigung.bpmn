@@ -68,26 +68,86 @@
             <camunda:value id="value_no_area_manager" name="Nein" />
             <camunda:value id="value_escalation" name="Eskalation" />
           </camunda:formField>
-          <camunda:formField id="formfield_kundenart" label="Kundenart" type="string" defaultValue="${input_customer.getKundenart()}" />
-          <camunda:formField id="formfield_vorname" label="Vorname" type="string" defaultValue="${input_customer.getVorname()}" />
-          <camunda:formField id="formfield_nachname" label="Nachname" type="string" defaultValue="${input_customer.getNachname()}" />
-          <camunda:formField id="formfield_email" label="Email Adresse" type="string" defaultValue="${input_customer.getEmail()}" />
-          <camunda:formField id="formfield_stadt" label="Stadt" type="string" defaultValue="${input_customer.getStadt()}" />
-          <camunda:formField id="formfield_plz" label="plz" type="string" defaultValue="${input_customer.getPlz()}" />
-          <camunda:formField id="formfield_land" label="Land" type="string" defaultValue="${input_customer.getLand()}" />
-          <camunda:formField id="formfield_robotertyp" label="Robotertyp" type="string" defaultValue="${input_cart.getRobotertypID()}" />
-          <camunda:formField id="formfield_menge" label="Menge" type="string" defaultValue="${input_cart.getMenge()}" />
-          <camunda:formField id="formfield_auftragspreis" label="Auftragspreis" type="long" defaultValue="${input_cart.getAuftragspreis()}" />
-          <camunda:formField id="formfield_bruttopreis" label="Bruttopreis" type="long" defaultValue="${input_cart.getBurttopreis()}" />
-          <camunda:formField id="formfield_rabattpreis" label="Rabattpreis" type="long" defaultValue="${input_cart.getRabattpreis()}" />
-          <camunda:formField id="formfield_status" label="Status" type="string" defaultValue="${input_cart.getStatus()}" />
-          <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="string" defaultValue="${input_cart.getEingangsdatum()}" />
-          <camunda:formField id="formfield_erhoehterfertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" defaultValue="${input_cart.getErhoeterFertigungsaufwand()}" />
+          <camunda:formField id="formfield_kundenart" label="Kundenart" type="string" defaultValue="${input_customer.getKundenart()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_vorname" label="Vorname" type="string" defaultValue="${input_customer.getVorname()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_nachname" label="Nachname" type="string" defaultValue="${input_customer.getNachname()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_email" label="Email Adresse" type="string" defaultValue="${input_customer.getEmail()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_stadt" label="Stadt" type="string" defaultValue="${input_customer.getStadt()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_plz" label="plz" type="string" defaultValue="${input_customer.getPlz()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_land" label="Land" type="string" defaultValue="${input_customer.getLand()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_robotertyp" label="Robotertyp" type="string" defaultValue="${input_cart.getRobotertypID()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_menge" label="Menge" type="string" defaultValue="${input_cart.getMenge()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_auftragspreis" label="Auftragspreis" type="long" defaultValue="${input_cart.getAuftragspreis()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_bruttopreis" label="Bruttopreis" type="long" defaultValue="${input_cart.getBurttopreis()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_rabattpreis" label="Rabattpreis" type="long" defaultValue="${input_cart.getRabattpreis()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_status" label="Status" type="string" defaultValue="${input_cart.getStatus()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="string" defaultValue="${input_cart.getEingangsdatum()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_erhoehterfertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" defaultValue="${input_cart.getErhoehterFertigungsaufwand()}" />
           <camunda:formField id="formfield_lautstaerkereduzierung" label="Lautstaerkereduzierung" type="boolean" defaultValue="${input_cart.getLautstaerkereduzierung()}" />
           <camunda:formField id="formfield_leichtbauweise" label="Leichtbauweise" type="boolean" defaultValue="${input_cart.getLeichtbauweise()}" />
           <camunda:formField id="formfield_sonderzuschlag" label="Sonderzuschlag" type="boolean" defaultValue="${input_cart.getSonderzuschlag()}" />
           <camunda:formField id="formfield_spezialdesign" label="Spezialdesign" type="boolean" defaultValue="${input_cart.getSpezialdesign()}" />
-          <camunda:formField id="formfield_spezifikation" label="Spezifikation" type="string" defaultValue="${input_cart.getSpezifikation()}" />
+          <camunda:formField id="formfield_spezifikation" label="Spezifikation" type="string" defaultValue="${input_cart.getSpezifikation()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
         </camunda:formData>
       </extensionElements>
       <incoming>sid-CEEA268B-7D26-4C43-93C4-C30E28EE74C6</incoming>
@@ -154,31 +214,91 @@
             <camunda:value id="value_yes" name="Ja" />
             <camunda:value id="value_no" name="Nein" />
           </camunda:formField>
-          <camunda:formField id="formfield_acceptance_status" label="Akzeptanz Bereichsleiter" type="enum">
-            <camunda:value id="value_acceptance_area_manager" name="Ja" />
-            <camunda:value id="value_acceptance_manager" name="Nein" />
-            <camunda:value id="value_escalation" name="Eksalieren" />
+          <camunda:formField id="formfield_acceptance_status" label="Akzeptanz Bereichsleiter" type="string" defaultValue="${formfield_acceptance_status}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="formfield_kundenart" label="Kundenart" type="string" defaultValue="${input_customer.getKundenart()}" />
-          <camunda:formField id="formfield_vorname" label="Vorname" type="string" defaultValue="${input_customer.getVorname()}" />
-          <camunda:formField id="formfield_nachname" label="Nachname" type="string" defaultValue="${input_customer.getNachname()}" />
-          <camunda:formField id="formfield_email" label="Email Adresse" type="string" defaultValue="${input_customer.getEmail()}" />
-          <camunda:formField id="formfield_stadt" label="Stadt" type="string" defaultValue="${input_customer.getStadt()}" />
-          <camunda:formField id="formfield_plz" label="plz" type="string" defaultValue="${input_customer.getPlz()}" />
-          <camunda:formField id="formfield_land" label="Land" type="string" defaultValue="${input_customer.getLand()}" />
-          <camunda:formField id="formfield_robotertyp" label="Robotertyp" type="string" defaultValue="${input_cart.getRobotertypID()}" />
-          <camunda:formField id="formfield_menge" label="Menge" type="string" defaultValue="${input_cart.getMenge()}" />
-          <camunda:formField id="formfield_auftragspreis" label="Auftragspreis" type="long" defaultValue="${input_cart.getAuftragspreis()}" />
-          <camunda:formField id="formfield_bruttopreis" label="Bruttopreis" type="long" defaultValue="${input_cart.getBurttopreis()}" />
-          <camunda:formField id="formfield_rabattpreis" label="Rabattpreis" type="long" defaultValue="${input_cart.getRabattpreis()}" />
-          <camunda:formField id="formfield_status" label="Status" type="string" defaultValue="${input_cart.getStatus()}" />
-          <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="string" defaultValue="${input_cart.getEingangsdatum()}" />
-          <camunda:formField id="formfield_erhoehterfertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" defaultValue="${input_cart.getErhoeterFertigungsaufwand()}" />
+          <camunda:formField id="formfield_kundenart" label="Kundenart" type="string" defaultValue="${input_customer.getKundenart()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_vorname" label="Vorname" type="string" defaultValue="${input_customer.getVorname()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_nachname" label="Nachname" type="string" defaultValue="${input_customer.getNachname()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_email" label="Email Adresse" type="string" defaultValue="${input_customer.getEmail()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_stadt" label="Stadt" type="string" defaultValue="${input_customer.getStadt()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_plz" label="plz" type="string" defaultValue="${input_customer.getPlz()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_land" label="Land" type="string" defaultValue="${input_customer.getLand()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_robotertyp" label="Robotertyp" type="string" defaultValue="${input_cart.getRobotertypID()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_menge" label="Menge" type="string" defaultValue="${input_cart.getMenge()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_auftragspreis" label="Auftragspreis" type="long" defaultValue="${input_cart.getAuftragspreis()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_bruttopreis" label="Bruttopreis" type="long" defaultValue="${input_cart.getBurttopreis()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_rabattpreis" label="Rabattpreis" type="long" defaultValue="${input_cart.getRabattpreis()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_status" label="Status" type="string" defaultValue="${input_cart.getStatus()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_eingangsdatum" label="Eingangsdatum" type="string" defaultValue="${input_cart.getEingangsdatum()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_erhoehterfertigungsaufwand" label="Erhoehter Fertigungsaufwand" type="boolean" defaultValue="${input_cart.getErhoehterFertigungsaufwand()}" />
           <camunda:formField id="formfield_lautstaerkereduzierung" label="Lautstaerkereduzierung" type="boolean" defaultValue="${input_cart.getLautstaerkereduzierung()}" />
           <camunda:formField id="formfield_leichtbauweise" label="Leichtbauweise" type="boolean" defaultValue="${input_cart.getLeichtbauweise()}" />
           <camunda:formField id="formfield_sonderzuschlag" label="Sonderzuschlag" type="boolean" defaultValue="${input_cart.getSonderzuschlag()}" />
           <camunda:formField id="formfield_spezialdesign" label="Spezialdesign" type="boolean" defaultValue="${input_cart.getSpezialdesign()}" />
-          <camunda:formField id="formfield_spezifikation" label="Spezifikation" type="string" defaultValue="${input_cart.getSpezifikation()}" />
+          <camunda:formField id="formfield_spezifikation" label="Spezifikation" type="string" defaultValue="${input_cart.getSpezifikation()}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
         </camunda:formData>
       </extensionElements>
       <incoming>sid-E43C2BFD-87D8-4EB0-8234-054B68976FDF</incoming>

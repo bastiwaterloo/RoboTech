@@ -51,18 +51,18 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		Boolean leichtbauweise = false;
 		Boolean sonderzuschlag = false;
 		Status status = Status.EINGEGANGEN;
-		String spezifikation = (String) execution.getVariable("formfield_auftragsdaten_anmerkungen");
+		String spezifikation = (String) execution.getVariable("formfield_spezifikation");
 		Date datum = new Date();
-		
+
 		System.out.println(datum.toString());
-		
+
 		cart.setRobotertypID(robotertypId);
 		cart.setMenge(menge);
 		cart.setAuftragspreis(auftragspreis);
 		cart.setRabattpreis(rabattpreis);
 		cart.setSpezialdesign(spezialdesign);
 		cart.setBurttopreis(auftragspreis);
-		cart.setErhoeterFertigungsaufwand(erhoehterFertigungsaufwand);
+		cart.setErhoehterFertigungsaufwand(erhoehterFertigungsaufwand);
 		cart.setLautstaerkereduzierung(lautstaerkereduzierung);
 		cart.setLeichtbauweise(leichtbauweise);
 		cart.setSonderzuschlag(sonderzuschlag);
@@ -70,9 +70,9 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		cart.setSpezifikation(spezifikation);
 		cart.setCustomer(customer);
 		cart.setEingangsdatum(datum);
-		
+
 		orderService.create(cart);
-		
+
 		Collection<Cart> customerCarts = customer.getCarts();
 		customerCarts.add(cart);
 		customer.setCarts(customerCarts);
@@ -95,7 +95,7 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 	public void delete(DelegateExecution execution) {
 		System.out.println("delete order....");
 	}
-	
+
 	public void requestConditions(DelegateExecution execution) {
 		String processId = execution.getProcessInstanceId();
 	}
@@ -110,39 +110,39 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 	private Double summarizeCustomerLifetimeValue(Collection<Cart> carts) {
 		Double lifetimeValue = 0.00;
 		for (Cart cart : carts) {
-			if(cart.getStatus().equals(Status.ABGESCHLOSSEN)) {
+			if (cart.getStatus().equals(Status.ABGESCHLOSSEN)) {
 				lifetimeValue = lifetimeValue + cart.getAuftragspreis();
 			}
 		}
 		return lifetimeValue;
 	}
-	
+
 	public void calcDiscount(DelegateExecution execution) {
 		Cart cart = (Cart) execution.getVariable("input_cart");
-		Double rabatt = ((cart.getAuftragspreis()/100) * (Double) execution.getVariable("rabatt"));
+		Double rabatt = ((cart.getAuftragspreis() / 100) * (Double) execution.getVariable("rabatt"));
 		cart.setAuftragspreis((long) (cart.getAuftragspreis() - rabatt));
 		execution.setVariable("input_cart", cart);
 		orderService.update(cart);
 	}
-	
+
 	public void addExtraCharge(DelegateExecution execution, Double percentage) {
 		Cart cart = (Cart) execution.getVariable("input_cart");
 		Long auftragspreis = cart.getAuftragspreis();
 		Double aufschlag = 0.00;
-		if(cart.getSonderzuschlag()) {
-			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		if (cart.getSonderzuschlag()) {
+			aufschlag = aufschlag + ((auftragspreis / 100) * percentage);
 		}
-		if(cart.getLautstaerkereduzierung()) {
-			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		if (cart.getLautstaerkereduzierung()) {
+			aufschlag = aufschlag + ((auftragspreis / 100) * percentage);
 		}
-		if(cart.getLeichtbauweise()) {
-			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		if (cart.getLeichtbauweise()) {
+			aufschlag = aufschlag + ((auftragspreis / 100) * percentage);
 		}
-		if(cart.getErhoeterFertigungsaufwand()) {
-			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		if (cart.getErhoehterFertigungsaufwand()) {
+			aufschlag = aufschlag + ((auftragspreis / 100) * percentage);
 		}
-		if(cart.getSpezialdesign()) {
-			aufschlag = aufschlag + ((auftragspreis/100) * percentage);
+		if (cart.getSpezialdesign()) {
+			aufschlag = aufschlag + ((auftragspreis / 100) * percentage);
 		}
 		auftragspreis = (long) (auftragspreis + aufschlag);
 		cart.setAuftragspreis(auftragspreis);
@@ -153,7 +153,7 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 	public void updateStatus(DelegateExecution execution, String status) {
 		Cart order = (Cart) execution.getVariable("input_cart");
 		int level = 1;
-		if(order == null) {
+		if (order == null) {
 			order = (Cart) execution.getVariable("input_cart_L2");
 			level = 2;
 		}
@@ -168,9 +168,6 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 			break;
 		case "UMSETZBAR":
 			newState = Status.UMSETZBAR;
-			break;
-		case "EINGESCHRAENKTUMSETZBAR":
-			newState = Status.EINGESCHRAENKTUMSETZBAR;
 			break;
 		case "NICHTUMSETZBAR":
 			newState = Status.NICHTUMSETZBAR;
@@ -199,12 +196,94 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 			break;
 		}
 		order.setStatus(newState);
-		if(level == 1) {
+		if (level == 1) {
 			execution.setVariable("input_cart", order);
 		} else {
 			execution.setVariable("input_cart_L2", order);
 		}
 		orderService.update(order);
+	}
+
+	public void update(DelegateExecution execution) {
+		Cart cart = (Cart) execution.getVariable("input_cart");
+		Boolean spezialdesign = (Boolean) execution.getVariable("formfield_spezialdesign");
+		Boolean erhoehterFertigungsaufwand = (Boolean) execution.getVariable("formfield_erhoehterFertigungsaufwand");
+		Boolean lautstaerkereduzierung = (Boolean) execution.getVariable("formfield_lautstaerkereduzierung");
+		Boolean leichtbauweise = (Boolean) execution.getVariable("formfield_leichtbauweise");
+		Boolean sonderzuschlag = (Boolean) execution.getVariable("formfield_sonderzuschlag");
+		Long menge = null;
+		if ((Long) execution.getVariable("formfield_angepasstes_angebot") != null
+				&& (Long) execution.getVariable("formfield_angepasstes_angebot") > 0) {
+			System.out.println("update angebot");
+			Long preis = cart.getAuftragspreis();
+			Long einzelpreis = (preis / cart.getMenge());
+			menge = (Long) execution.getVariable("formfield_angepasstes_angebot");
+			Long newPreis = einzelpreis * menge;
+			cart.setAuftragspreis(newPreis);
+			cart.setBurttopreis(newPreis);
+			cart.setMenge(menge);
+		}
+		cart.setSpezialdesign(spezialdesign);
+		cart.setErhoehterFertigungsaufwand(erhoehterFertigungsaufwand);
+		cart.setLautstaerkereduzierung(lautstaerkereduzierung);
+		cart.setLeichtbauweise(leichtbauweise);
+		cart.setSonderzuschlag(sonderzuschlag);
+		execution.setVariable("input_cart", cart);
+		orderService.update(cart);
+
+	}
+
+	public void calculateAdditionalCosts(DelegateExecution execution) {
+		Cart cart = (Cart) execution.getVariable("input_cart");
+		Double auftragspreis = cart.getAuftragspreis().doubleValue();
+		System.out.println("Auftragspreis vor zuschlägen: " + auftragspreis);
+		Double valueErhoehterFertigungsaufwand = Double.valueOf((String) execution.getVariable("erhoehterFertigungsaufwand"));
+		Double valueLeichtbauweise = Double.valueOf((String) execution.getVariable("leichtbauweise"));
+		Double valueLautstaerkereduzierung = Double.valueOf((String) execution.getVariable("lautstaerkereduzierung"));
+		Double valueSpezialdesign = Double.valueOf((String) execution.getVariable("spezialdesign"));
+		Double valueSonderzuschlag = Double.valueOf((String) execution.getVariable("sonderzuschlag"));
+
+		Double additonalCharges = 0.00;
+
+		if (cart.getErhoehterFertigungsaufwand() && valueErhoehterFertigungsaufwand != null && valueErhoehterFertigungsaufwand > 0) {
+			additonalCharges += ((auftragspreis/100) * valueErhoehterFertigungsaufwand);
+		}
+		if (cart.getLeichtbauweise() && valueLeichtbauweise != null && valueLeichtbauweise > 0) {
+			additonalCharges += ((auftragspreis/100) * valueLeichtbauweise);
+		}
+		if (cart.getLautstaerkereduzierung() && valueLautstaerkereduzierung != null && valueLautstaerkereduzierung > 0) {
+			additonalCharges += ((auftragspreis/100) * valueLautstaerkereduzierung);
+		}
+		if (cart.getSpezialdesign() && valueSpezialdesign != null && valueSpezialdesign > 0) {
+			additonalCharges += ((auftragspreis/100) * valueSpezialdesign);
+		}
+		if (cart.getSonderzuschlag() && valueSonderzuschlag != null && valueSonderzuschlag > 0) {
+			additonalCharges += ((auftragspreis/100) * valueSonderzuschlag);
+		}
+
+		System.out.println("Zuschläge: " + additonalCharges);
+		
+		auftragspreis += additonalCharges;
+		
+		cart.setAuftragspreis(auftragspreis.longValue());
+		
+		execution.setVariable("input_cart", cart);
+		
+		orderService.update(cart);
+	}
+	
+	public void calculateFinalDiscountedPrice(DelegateExecution execution) {
+		Cart cart = (Cart) execution.getVariable("input_cart");
+		Double auftragspreis = cart.getAuftragspreis().doubleValue();
+		Long rabatt = (Long) execution.getVariable("rabatt");
+		System.out.println("Rabatt in %: " + rabatt);
+		System.out.println("Rabbat wert: " + (auftragspreis / 100) * rabatt.doubleValue());
+		Double rabattValue = (double) ((auftragspreis / 100) * rabatt);
+		Double rabattPreis = auftragspreis - rabattValue;
+		cart.setRabattpreis(rabattPreis.longValue());
+		System.out.println("final price: " + rabattPreis);
+		execution.setVariable("input_cart", cart);
+		orderService.update(cart);
 	}
 
 }

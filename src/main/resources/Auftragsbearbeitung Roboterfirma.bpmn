@@ -139,17 +139,46 @@
         <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
         <camunda:formData>
           <camunda:formField id="formfield_kundenart" label="Kundenart" type="enum">
-            <camunda:value id="value_privat" name="Privatkunde" />
-            <camunda:value id="value_geschaeftskunde" name="Geschaeftskunde" />
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+            <camunda:value id="Privatkunde" name="Privatkunde" />
+            <camunda:value id="Geschaeftskunde" name="Geschaeftskunde" />
           </camunda:formField>
-          <camunda:formField id="formfield_name" label="Name" type="string" />
-          <camunda:formField id="formfield_vorname" label="Vorname" type="string" />
-          <camunda:formField id="formfield_postleitzahl" label="Postleitzahl" type="long" />
-          <camunda:formField id="formfield_stadt" label="Stadt" type="string" />
-          <camunda:formField id="formfield_land" label="Land" type="string" />
-          <camunda:formField id="formfield_mail" label="E-mail Adresse" type="string" />
-          <camunda:formField id="formfield_anfrage" label="Anfrage" type="string" />
+          <camunda:formField id="formfield_name" label="Name" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_vorname" label="Vorname" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_plz" label="Postleitzahl" type="long">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_stadt" label="Stadt" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_land" label="Land" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_email" label="E-mail Adresse" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
           <camunda:formField id="formfield_type" label="Robotertyp" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
             <camunda:value id="Staubsaugerroboter" name="Staubsaugerroboter" />
             <camunda:value id="Montierarm" name="Montierarm" />
             <camunda:value id="Kuechenhelfer" name="Kuechenhelfer" />
@@ -158,7 +187,16 @@
             <camunda:value id="Fensterputzer" name="Fensterputzer" />
             <camunda:value id="Haustierroboter" name="Haustierroboter" />
           </camunda:formField>
-          <camunda:formField id="formfield_menge" label="Menge" type="long" />
+          <camunda:formField id="formfield_menge" label="Menge" type="long">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_spezifikation" label="Anfrage" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
         </camunda:formData>
       </extensionElements>
       <outgoing>sid-4A67AB44-290B-4305-A60F-B845C985AC6B</outgoing>
@@ -241,25 +279,25 @@
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${isPossible == false}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${personellUmsetzbar == "nichtUmsetzbar" || technischUmsetzbar == "nichtUmsetzbar"}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-C88F2B85-B7A2-49B8-BFFC-48410A16433A" name="ja" sourceRef="sid-89BF1188-55E6-4311-B716-E8EF2B46CBB5" targetRef="sid-F4B0466F-E480-4B20-8E40-3E1109589D11">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${isPossible ==true}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${personellUmsetzbar == "umsetzbar" &amp;&amp; (technischUmsetzbar == "eingeschraenktUmsetzbar" || technischUmsetzbar == "umsetzbar")}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-7AC5512A-7E72-49BD-B352-067180F7BB0D" name="ja" sourceRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049" targetRef="sid-C34CF306-455A-4AC0-9FBC-ECF6351C7E73">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${(isPermittedAreaManager == "value_acceptance_area_manager" &amp;&amp; price &lt; 50000) || isPermittedManager == "value_yes"}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${(isPermittedAreaManager == "value_acceptance_area_manager" &amp;&amp; cart.getRabattpreis() &lt; 50000) || isPermittedManager == "value_yes"}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-DF0F582C-51AA-483D-8113-012F458EC455" name="nein" sourceRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049" targetRef="sid-D2716A52-8A99-45EE-85D9-A33298BF49D7">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${(isPermittedAreaManager != "value_acceptance_area_manager" &amp;&amp; isPermittedManager != "value_yes") || isPermittedManager}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${isPermittedAreaManager != "value_acceptance_area_manager" || isPermittedManager != "value_yes"}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-D8FD4B78-CEFF-43A0-B790-A8530EA6FF4B" name="" sourceRef="sid-C34CF306-455A-4AC0-9FBC-ECF6351C7E73" targetRef="sid-188DED99-D769-4BF6-BBA8-011D8C8F1565">
       <extensionElements>
@@ -291,11 +329,11 @@
         <camunda:in source="formfield_name" target="input_name" />
         <camunda:in source="formfield_kundenart" target="input_kundenart" />
         <camunda:in source="formfield_vorname" target="input_vorname" />
-        <camunda:in source="formfield_postleitzahl" target="input_postleitzahl" />
+        <camunda:in source="formfield_plz" target="input_plz" />
         <camunda:in source="formfield_stadt" target="input_stadt" />
         <camunda:in source="formfield_land" target="input_land" />
-        <camunda:in source="formfield_mail" target="input_mail" />
-        <camunda:in source="formfield_anfrage" target="input_anfrage" />
+        <camunda:in source="formfield_email" target="input_email" />
+        <camunda:in source="formfield_spezifikation" target="input_spezifikation" />
         <camunda:in source="formfield_type" target="input_type" />
         <camunda:in source="formfield_menge" target="input_menge" />
         <camunda:out source="cart" target="cart" />
@@ -360,12 +398,13 @@
     <sequenceFlow id="Flow_0vptlcq" sourceRef="sid-E0117F7D-1B54-422D-BD60-9D6352E9D6E0" targetRef="sid-CC44A4AD-2D97-4A2D-9B7A-08B0A7233049" />
     <callActivity id="sid-E683B678-F68D-4D2D-BD09-7A4B6A406A01" name="Umsetzbarkeitsprüfung" calledElement="umsetzbarkeitspruefung_id">
       <extensionElements>
-        <camunda:out source="personell_umsetzbar" target="isPossible" />
+        <camunda:out source="personelleUmsetzbarkeit" target="personellUmsetzbar" />
         <camunda:in source="cart" target="input_cart" />
         <camunda:inputOutput>
           <camunda:inputParameter name="Input_3vvvof8" />
         </camunda:inputOutput>
         <camunda:out source="input_cart" target="cart" />
+        <camunda:out source="umsetzbarkeit" target="technischUmsetzbar" />
       </extensionElements>
       <incoming>sid-10FF465E-BFD7-4076-83D2-E0BF794F1B16</incoming>
       <outgoing>sid-D6E0B2CC-5451-4CD2-B3A5-252DFCAB8EBE</outgoing>
@@ -466,7 +505,7 @@
         <omgdi:waypoint x="817" y="700" />
         <omgdi:waypoint x="936" y="700" />
         <bpmndi:BPMNLabel labelStyle="sid-5a0f711a-4128-4ab4-877a-a14fb5c53a91">
-          <omgdc:Bounds x="826" y="680" width="9" height="14" />
+          <omgdc:Bounds x="827" y="680" width="8" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-8272B622-F867-443E-99A8-F2A960EAC008_gui" bpmnElement="sid-8272B622-F867-443E-99A8-F2A960EAC008">

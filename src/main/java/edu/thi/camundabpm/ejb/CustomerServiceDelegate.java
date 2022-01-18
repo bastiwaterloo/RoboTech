@@ -7,6 +7,7 @@ import javax.inject.Named;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 
+import edu.thi.demo.location.LocationValidator;
 import edu.thi.jpa.beans.Customer;
 import edu.thi.jpa.beans.Robotertype;
 import edu.thi.services.ejb.CustomerServiceBean;
@@ -75,6 +76,16 @@ public class CustomerServiceDelegate implements CustomerServiceDelegateLocal {
 		String typename = (String) execution.getVariable("input_type");
 		Robotertype rt = robotertypeService.find(typename);
 		execution.setVariable("robotertype", rt);
+	}
+	
+	public void validateLocation(DelegateExecution execution) {
+		LocationValidator validator = new LocationValidator((String) execution.getVariable("input_stadt"));
+		System.out.println((String) execution.getVariable("input_stadt"));
+		if(validator.isValidLocation()) {
+			execution.setVariable("isValidLocation", true);
+		} else {
+			execution.setVariable("isValidLocation", false);
+		}
 	}
 
 	public void createCustomer_test(DelegateExecution execution) {

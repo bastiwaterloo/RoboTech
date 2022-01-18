@@ -48,10 +48,13 @@
         <flowNodeRef>task_fehlende_daten_erhalten</flowNodeRef>
         <flowNodeRef>Activity_1vs7tpo</flowNodeRef>
         <flowNodeRef>Activity_1y5l94z</flowNodeRef>
-        <flowNodeRef>task_auftragsdaten_pruefen</flowNodeRef>
-        <flowNodeRef>sid-787B9C94-187B-4198-961A-CE785C4843BB</flowNodeRef>
         <flowNodeRef>sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79</flowNodeRef>
         <flowNodeRef>sid-792FCE35-238A-4DC0-A32B-3C865BD2B669</flowNodeRef>
+        <flowNodeRef>sid-787B9C94-187B-4198-961A-CE785C4843BB</flowNodeRef>
+        <flowNodeRef>task_auftragsdaten_pruefen</flowNodeRef>
+        <flowNodeRef>Activity_1q9h6ay</flowNodeRef>
+        <flowNodeRef>Gateway_1bgxu86</flowNodeRef>
+        <flowNodeRef>Event_0new3el</flowNodeRef>
       </lane>
     </laneSet>
     <exclusiveGateway id="gateway_auftragsdaten_vollstaendig" name="Auftragsdaten&#10;vollstaendig?" gatewayDirection="Diverging">
@@ -60,11 +63,11 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
         <signavio:signavioLabel align="center" bottom="false" left="false" ref="text_name" right="false" top="true" valign="bottom" x="20.0" y="-9.0" />
       </extensionElements>
-      <incoming>sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738</incoming>
+      <incoming>Flow_0efzdb3</incoming>
       <outgoing>gate_auftragsdaten_vollstaendig_no</outgoing>
       <outgoing>Flow_015okzj</outgoing>
     </exclusiveGateway>
-    <sendTask id="task_fehlende_daten_anfordern" name="Fehlende Daten anfordern" implementation="##WebService" camunda:expression="${1==1}">
+    <sendTask id="task_fehlende_daten_anfordern" name="Fehlende Daten anfordern" implementation="##WebService" camunda:class="${edu.thi.java.servicetask.sendFehlendeAuftragsdatenToQueue}">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -98,44 +101,6 @@
       <incoming>Flow_1ht2jph</incoming>
       <outgoing>Flow_1mqsb6n</outgoing>
     </serviceTask>
-    <userTask id="task_auftragsdaten_pruefen" name="Auftragsdaten pruefen" implementation="##WebService" camunda:assignee="Sachbearbeiter">
-      <documentation>Es ist zu prüfen, ob die Spezifikation des Kunden vollständig ist.</documentation>
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        <signavio:signavioMetaData metaKey="erteiltfreigabe" metaValue="" />
-        <signavio:signavioMetaData metaKey="wirdkonsultiert" metaValue="[]" />
-        <signavio:signavioMetaData metaKey="externaldocuments" metaValue="[]" />
-        <signavio:signavioMetaData metaKey="meta-risikomanagement" metaValue="" />
-        <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
-        <camunda:formData>
-          <camunda:formField id="formfield_kundenart" label="Kundenart" type="enum">
-            <camunda:value id="kunde_privat" name="Privatkunde" />
-            <camunda:value id="kunde_geschaeft" name="Geschaeftskunde" />
-          </camunda:formField>
-          <camunda:formField id="formfield_name" label="Name" type="string" defaultValue="${input_name}" />
-          <camunda:formField id="formfield_vorname" label="Vorname" type="string" defaultValue="${input_vorname}" />
-          <camunda:formField id="formfield_plz" label="Postleitzahl" type="long" defaultValue="${input_postleitzahl}" />
-          <camunda:formField id="formfield_stadt" label="Stadt" type="string" defaultValue="${input_stadt}" />
-          <camunda:formField id="formfield_land" label="Land" type="string" defaultValue="${input_land}" />
-          <camunda:formField id="formfield_email" label="E-Mail" type="string" defaultValue="${input_mail}" />
-          <camunda:formField id="formfield_anfrage" label="Anfrage" type="string" defaultValue="${input_anfrage}" />
-          <camunda:formField id="formfield_auftragsdaten_vollstaendig" label="Auftragsdaten vollstaendig?" type="boolean" defaultValue="false" />
-          <camunda:formField id="formfield_auftragsdaten_anmerkungen" label="Anmerkungen zu den Auftragsdaten" type="string" />
-        </camunda:formData>
-      </extensionElements>
-      <incoming>sid-231B97FA-3785-4492-A02F-BF347326C8CF</incoming>
-      <outgoing>sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738</outgoing>
-    </userTask>
-    <startEvent id="sid-787B9C94-187B-4198-961A-CE785C4843BB" name="">
-      <extensionElements>
-        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
-        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
-        <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
-        <signavio:signavioLabel bottom="false" left="false" ref="text_name" right="false" top="true" valign="bottom" x="15.0" y="-9.0" />
-      </extensionElements>
-      <outgoing>sid-231B97FA-3785-4492-A02F-BF347326C8CF</outgoing>
-    </startEvent>
     <exclusiveGateway id="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" name="" gatewayDirection="Converging">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
@@ -154,19 +119,104 @@
       </extensionElements>
       <incoming>Flow_0xq87z9</incoming>
     </endEvent>
-    <sequenceFlow id="Flow_1mqsb6n" sourceRef="Activity_1y5l94z" targetRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" />
-    <sequenceFlow id="Flow_1ht2jph" sourceRef="Activity_1vs7tpo" targetRef="Activity_1y5l94z" />
-    <sequenceFlow id="Flow_015okzj" name="ja" sourceRef="gateway_auftragsdaten_vollstaendig" targetRef="Activity_1vs7tpo">
-      <conditionExpression xsi:type="tFormalExpression">${formfield_auftragsdaten_vollstaendig == true}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="Flow_0xq87z9" sourceRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" targetRef="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669" />
-    <sequenceFlow id="gate_auftragsdaten_vollstaendig_no" name="nein" sourceRef="gateway_auftragsdaten_vollstaendig" targetRef="task_fehlende_daten_anfordern">
+    <startEvent id="sid-787B9C94-187B-4198-961A-CE785C4843BB" name="">
       <extensionElements>
+        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+        <signavio:signavioMetaData metaKey="vorgngerprozesse" metaValue="[]" />
+        <signavio:signavioLabel bottom="false" left="false" ref="text_name" right="false" top="true" valign="bottom" x="15.0" y="-9.0" />
+        <camunda:formData>
+          <camunda:formField id="input_kundenart" label="kundenart" type="enum" />
+        </camunda:formData>
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">${formfield_auftragsdaten_vollstaendig == false}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-CA1881D1-C925-4BBF-939A-7356B26F351B" name="" sourceRef="task_fehlende_daten_erhalten" targetRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79">
+      <outgoing>sid-231B97FA-3785-4492-A02F-BF347326C8CF</outgoing>
+    </startEvent>
+    <userTask id="task_auftragsdaten_pruefen" name="Auftragsdaten pruefen" implementation="##WebService" camunda:assignee="Sachbearbeiter">
+      <documentation>Es ist zu prüfen, ob die Spezifikation des Kunden vollständig ist.</documentation>
+      <extensionElements>
+        <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+        <signavio:signavioMetaData metaKey="erteiltfreigabe" metaValue="" />
+        <signavio:signavioMetaData metaKey="wirdkonsultiert" metaValue="[]" />
+        <signavio:signavioMetaData metaKey="externaldocuments" metaValue="[]" />
+        <signavio:signavioMetaData metaKey="meta-risikomanagement" metaValue="" />
+        <signavio:signavioMetaData metaKey="wirdinformiert" metaValue="[]" />
+        <camunda:formData>
+          <camunda:formField id="formfield_kundenart" label="Kundenart" type="string" defaultValue="${input_kundenart}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_name" label="Name" type="string" defaultValue="${input_name}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_vorname" label="Vorname" type="string" defaultValue="${input_vorname}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_plz" label="Postleitzahl" type="long" defaultValue="${input_plz}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_stadt" label="Stadt" type="string" defaultValue="${input_stadt}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_land" label="Land" type="string" defaultValue="${input_land}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_email" label="E-Mail" type="string" defaultValue="${input_email}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_spezifikation" label="Anfrage" type="string" defaultValue="${input_spezifikation}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_type" label="Robotertyp" type="enum" defaultValue="${input_type}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+            <camunda:value id="Staubsaugerroboter" name="Staubsaugerroboter" />
+            <camunda:value id="Montierarm" name="Montierarm" />
+            <camunda:value id="Kuechenhelfer" name="Kuechenhelfer" />
+            <camunda:value id="Buegelroboter" name="Buegelroboter" />
+            <camunda:value id="Rasenmaeher" name="Rasenmaeher" />
+            <camunda:value id="Fensterputzer" name="Fensterputzer" />
+            <camunda:value id="Haustierroboter" name="Haustierroboter" />
+          </camunda:formField>
+          <camunda:formField id="formfield_menge" label="Bestellte Menge" type="long" defaultValue="${input_menge}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="formfield_auftragsdaten_vollstaendig" label="Auftragsdaten vollstaendig?" type="boolean" defaultValue="false" />
+          <camunda:formField id="formfield_auftragsdaten_anmerkungen" label="Anmerkungen zu den Auftragsdaten" type="string" />
+        </camunda:formData>
+      </extensionElements>
+      <incoming>sid-231B97FA-3785-4492-A02F-BF347326C8CF</incoming>
+      <outgoing>sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738</outgoing>
+    </userTask>
+    <serviceTask id="Activity_1q9h6ay" name="Ort validieren" camunda:expression="${customerServiceDelegate.validateLocation(execution)}">
+      <incoming>sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738</incoming>
+      <outgoing>Flow_1fufp3p</outgoing>
+    </serviceTask>
+    <exclusiveGateway id="Gateway_1bgxu86">
+      <incoming>Flow_1fufp3p</incoming>
+      <outgoing>Flow_0efzdb3</outgoing>
+      <outgoing>Flow_1tvux1k</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_13zi0fc" sourceRef="task_fehlende_daten_anfordern" targetRef="task_fehlende_daten_erhalten" />
+    <sequenceFlow id="sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738" name="" sourceRef="task_auftragsdaten_pruefen" targetRef="Activity_1q9h6ay">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
@@ -176,132 +226,181 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738" name="" sourceRef="task_auftragsdaten_pruefen" targetRef="gateway_auftragsdaten_vollstaendig">
+    <sequenceFlow id="sid-CA1881D1-C925-4BBF-939A-7356B26F351B" name="" sourceRef="task_fehlende_daten_erhalten" targetRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="Flow_13zi0fc" sourceRef="task_fehlende_daten_anfordern" targetRef="task_fehlende_daten_erhalten" />
+    <sequenceFlow id="gate_auftragsdaten_vollstaendig_no" name="nein" sourceRef="gateway_auftragsdaten_vollstaendig" targetRef="task_fehlende_daten_anfordern">
+      <extensionElements>
+        <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${formfield_auftragsdaten_vollstaendig == false}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_0xq87z9" sourceRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" targetRef="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669" />
+    <sequenceFlow id="Flow_015okzj" name="ja" sourceRef="gateway_auftragsdaten_vollstaendig" targetRef="Activity_1vs7tpo">
+      <conditionExpression xsi:type="tFormalExpression">${formfield_auftragsdaten_vollstaendig == true}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_1ht2jph" sourceRef="Activity_1vs7tpo" targetRef="Activity_1y5l94z" />
+    <sequenceFlow id="Flow_1mqsb6n" sourceRef="Activity_1y5l94z" targetRef="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" />
+    <sequenceFlow id="Flow_1fufp3p" sourceRef="Activity_1q9h6ay" targetRef="Gateway_1bgxu86" />
+    <sequenceFlow id="Flow_0efzdb3" name="Ort existiert" sourceRef="Gateway_1bgxu86" targetRef="gateway_auftragsdaten_vollstaendig">
+      <conditionExpression xsi:type="tFormalExpression">${isValidLocation == true}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_1tvux1k" name="Ort existiert nicht" sourceRef="Gateway_1bgxu86" targetRef="Event_0new3el">
+      <conditionExpression xsi:type="tFormalExpression">${isValidLocation == false}</conditionExpression>
+    </sequenceFlow>
+    <endEvent id="Event_0new3el">
+      <incoming>Flow_1tvux1k</incoming>
+      <terminateEventDefinition id="TerminateEventDefinition_1ttpmue" />
+    </endEvent>
   </process>
   <message id="Message_0jpwy3q" name="fehlendeDatenMsg" />
   <bpmndi:BPMNDiagram id="sid-b05780af-137b-4642-b6d6-249ae8057935">
     <bpmndi:BPMNPlane id="sid-ae93883f-ab5b-4f88-90d7-29ee76c59e4b" bpmnElement="Process_Auftragsdatenpruefung">
       <bpmndi:BPMNShape id="sid-02B2C1F2-4DA5-4497-A753-88BC624DA2AF_gui" bpmnElement="process_auftragsdatenpruefung" isHorizontal="true">
-        <omgdc:Bounds x="129" y="80" width="1111" height="390" />
+        <omgdc:Bounds x="155" y="80" width="1295" height="390" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="134.29202509968326" y="306.035777208416" width="12.000000000000028" height="121.11428833007812" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-1BE197FA-FBD4-4782-90D0-641A8B487D2A_gui" bpmnElement="sid-1BE197FA-FBD4-4782-90D0-641A8B487D2A" isHorizontal="true">
-        <omgdc:Bounds x="159" y="80" width="1081" height="390" />
+        <omgdc:Bounds x="185" y="80" width="1265" height="390" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="165.29202509968326" y="326.09292137345506" width="12" height="81" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_13zi0fc_di" bpmnElement="Flow_13zi0fc">
-        <omgdi:waypoint x="740" y="350" />
-        <omgdi:waypoint x="860" y="350" />
+        <omgdi:waypoint x="950" y="350" />
+        <omgdi:waypoint x="1070" y="350" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738_gui" bpmnElement="sid-DDF26439-D6CF-42F1-B4B1-E8207C7F8738">
-        <omgdi:waypoint x="460" y="259" />
-        <omgdi:waypoint x="531" y="259" />
+        <omgdi:waypoint x="370" y="259" />
+        <omgdi:waypoint x="420" y="259" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-231B97FA-3785-4492-A02F-BF347326C8CF_gui" bpmnElement="sid-231B97FA-3785-4492-A02F-BF347326C8CF">
-        <omgdi:waypoint x="285" y="259" />
-        <omgdi:waypoint x="360" y="259" />
+        <omgdi:waypoint x="245" y="259" />
+        <omgdi:waypoint x="270" y="259" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-CA1881D1-C925-4BBF-939A-7356B26F351B_gui" bpmnElement="sid-CA1881D1-C925-4BBF-939A-7356B26F351B">
-        <omgdi:waypoint x="960" y="350" />
-        <omgdi:waypoint x="1030" y="350" />
-        <omgdi:waypoint x="1030" y="279" />
+        <omgdi:waypoint x="1170" y="350" />
+        <omgdi:waypoint x="1240" y="350" />
+        <omgdi:waypoint x="1240" y="279" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-4DCA09EF-5C19-4160-A732-D13C965EC026_gui" bpmnElement="gate_auftragsdaten_vollstaendig_no">
-        <omgdi:waypoint x="551" y="279" />
-        <omgdi:waypoint x="551" y="350" />
-        <omgdi:waypoint x="640" y="350" />
+        <omgdi:waypoint x="761" y="279" />
+        <omgdi:waypoint x="761" y="350" />
+        <omgdi:waypoint x="850" y="350" />
         <bpmndi:BPMNLabel labelStyle="sid-ed0cd071-7512-4341-b176-a722f87cc734">
-          <omgdc:Bounds x="519" y="303" width="21" height="14" />
+          <omgdc:Bounds x="729" y="303" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xq87z9_di" bpmnElement="Flow_0xq87z9">
-        <omgdi:waypoint x="1050" y="259" />
-        <omgdi:waypoint x="1126" y="259" />
+        <omgdi:waypoint x="1260" y="259" />
+        <omgdi:waypoint x="1336" y="259" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_015okzj_di" bpmnElement="Flow_015okzj">
-        <omgdi:waypoint x="551" y="239" />
-        <omgdi:waypoint x="551" y="180" />
-        <omgdi:waypoint x="640" y="180" />
+        <omgdi:waypoint x="761" y="239" />
+        <omgdi:waypoint x="761" y="180" />
+        <omgdi:waypoint x="850" y="180" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="536" y="213" width="8" height="14" />
+          <omgdc:Bounds x="746" y="213" width="8" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ht2jph_di" bpmnElement="Flow_1ht2jph">
-        <omgdi:waypoint x="740" y="180" />
-        <omgdi:waypoint x="860" y="180" />
+        <omgdi:waypoint x="950" y="180" />
+        <omgdi:waypoint x="1070" y="180" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1mqsb6n_di" bpmnElement="Flow_1mqsb6n">
-        <omgdi:waypoint x="960" y="180" />
-        <omgdi:waypoint x="1030" y="180" />
-        <omgdi:waypoint x="1030" y="239" />
+        <omgdi:waypoint x="1170" y="180" />
+        <omgdi:waypoint x="1240" y="180" />
+        <omgdi:waypoint x="1240" y="239" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fufp3p_di" bpmnElement="Flow_1fufp3p">
+        <omgdi:waypoint x="520" y="259" />
+        <omgdi:waypoint x="555" y="259" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0efzdb3_di" bpmnElement="Flow_0efzdb3">
+        <omgdi:waypoint x="605" y="259" />
+        <omgdi:waypoint x="741" y="259" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="644" y="241" width="58" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tvux1k_di" bpmnElement="Flow_1tvux1k">
+        <omgdi:waypoint x="580" y="234" />
+        <omgdi:waypoint x="580" y="138" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="553" y="195" width="84" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="sid-E1D845DA-5615-4432-B4BD-6152266C4FE2_gui" bpmnElement="gateway_auftragsdaten_vollstaendig" isMarkerVisible="true">
-        <omgdc:Bounds x="531" y="239" width="40" height="40" />
+        <omgdc:Bounds x="741" y="239" width="40" height="40" />
         <bpmndi:BPMNLabel labelStyle="sid-ed0cd071-7512-4341-b176-a722f87cc734">
-          <omgdc:Bounds x="581" y="245.5" width="68" height="27" />
+          <omgdc:Bounds x="791" y="246" width="68" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-6F9D8D60-0F30-4936-822B-BBE3DD49C676_gui" bpmnElement="task_fehlende_daten_anfordern">
-        <omgdc:Bounds x="640" y="310" width="100" height="80" />
+        <omgdc:Bounds x="850" y="310" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="718.7526316431781" y="295.1977721584533" width="84.08572387695312" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-0EAF443B-F7A4-49FA-B0B0-2E6B1E569F8F_gui" bpmnElement="task_fehlende_daten_erhalten">
-        <omgdc:Bounds x="860" y="310" width="100" height="80" />
+        <omgdc:Bounds x="1070" y="310" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="933.7526316431781" y="295.1977721584533" width="84.08572387695312" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1pdm2l8_di" bpmnElement="Activity_1vs7tpo">
-        <omgdc:Bounds x="640" y="140" width="100" height="80" />
+        <omgdc:Bounds x="850" y="140" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0289edc_di" bpmnElement="Activity_1y5l94z">
-        <omgdc:Bounds x="860" y="140" width="100" height="80" />
+        <omgdc:Bounds x="1070" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79_gui" bpmnElement="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" isMarkerVisible="true">
+        <omgdc:Bounds x="1220" y="239" width="40" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669_gui" bpmnElement="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669">
+        <omgdc:Bounds x="1336" y="245" width="28" height="28" />
+        <bpmndi:BPMNLabel labelStyle="sid-ed0cd071-7512-4341-b176-a722f87cc734">
+          <omgdc:Bounds x="1308" y="276" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sid-787B9C94-187B-4198-961A-CE785C4843BB_gui" bpmnElement="sid-787B9C94-187B-4198-961A-CE785C4843BB">
+        <omgdc:Bounds x="215" y="244" width="30" height="30" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-F4997679-2FCD-463E-AB5D-0FD3174F7067_gui" bpmnElement="task_auftragsdaten_pruefen">
-        <omgdc:Bounds x="360" y="219" width="100" height="80" />
+        <omgdc:Bounds x="270" y="219" width="100" height="80" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="350.338351705434" y="295.1977721584533" width="77.9142837524414" height="24" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-787B9C94-187B-4198-961A-CE785C4843BB_gui" bpmnElement="sid-787B9C94-187B-4198-961A-CE785C4843BB">
-        <omgdc:Bounds x="255" y="244" width="30" height="30" />
+      <bpmndi:BPMNShape id="Activity_07gptyr_di" bpmnElement="Activity_1q9h6ay">
+        <omgdc:Bounds x="420" y="219" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79_gui" bpmnElement="sid-A61DFAA9-A7C8-4B1E-9C24-9715E63AEC79" isMarkerVisible="true">
-        <omgdc:Bounds x="1010" y="239" width="40" height="40" />
+      <bpmndi:BPMNShape id="Gateway_1bgxu86_di" bpmnElement="Gateway_1bgxu86" isMarkerVisible="true">
+        <omgdc:Bounds x="555" y="234" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669_gui" bpmnElement="sid-792FCE35-238A-4DC0-A32B-3C865BD2B669">
-        <omgdc:Bounds x="1126" y="245" width="28" height="28" />
-        <bpmndi:BPMNLabel labelStyle="sid-ed0cd071-7512-4341-b176-a722f87cc734">
-          <omgdc:Bounds x="1098" y="276" width="87" height="27" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="Event_13n37to_di" bpmnElement="Event_0new3el">
+        <omgdc:Bounds x="562" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="sid-FFDCA759-CC09-4001-948C-C48973FFD49D_gui" bpmnElement="sid-FFDCA759-CC09-4001-948C-C48973FFD49D" isHorizontal="true">
-        <omgdc:Bounds x="129" y="540" width="1111" height="60" />
+        <omgdc:Bounds x="339" y="540" width="1111" height="60" />
         <bpmndi:BPMNLabel labelStyle="sid-1ff9f5c2-f559-4090-ae5d-e1949ffe8df4">
           <omgdc:Bounds x="708.2834606309572" y="58.90265548715615" width="57.85711669921875" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="sid-0CDF028D-D222-4E76-9A45-8E9049DF1797_gui" bpmnElement="sid-0CDF028D-D222-4E76-9A45-8E9049DF1797">
-        <omgdi:waypoint x="690" y="390" />
-        <omgdi:waypoint x="690" y="540" />
+        <omgdi:waypoint x="900" y="390" />
+        <omgdi:waypoint x="900" y="540" />
         <bpmndi:BPMNLabel>
           <omgdc:Bounds x="773" y="183" width="7" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="sid-180E1E83-E466-4F7C-88BD-2E10B9991F05_gui" bpmnElement="sid-180E1E83-E466-4F7C-88BD-2E10B9991F05">
-        <omgdi:waypoint x="910" y="540" />
-        <omgdi:waypoint x="910" y="390" />
+        <omgdi:waypoint x="1120" y="540" />
+        <omgdi:waypoint x="1120" y="390" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
     <bpmndi:BPMNLabelStyle id="sid-ed0cd071-7512-4341-b176-a722f87cc734">

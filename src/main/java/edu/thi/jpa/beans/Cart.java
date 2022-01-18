@@ -37,7 +37,7 @@ public class Cart implements Serializable {
 	private Long rabattpreis;
 	private Long bruttopreis;
 	private Boolean spezialdesign;
-	private Boolean erhoeterFertigungsaufwand;
+	private Boolean erhoehterFertigungsaufwand;
 	private Boolean lautstaerkereduzierung;
 	private Boolean leichtbauweise;
 	private Boolean sonderzuschlag;
@@ -163,15 +163,15 @@ public class Cart implements Serializable {
 
 
 
-	public Boolean getErhoeterFertigungsaufwand() {
-		return erhoeterFertigungsaufwand;
+	public Boolean getErhoehterFertigungsaufwand() {
+		return erhoehterFertigungsaufwand;
 	}
 
 
 
 
-	public void setErhoeterFertigungsaufwand(Boolean erhoeterFertigungsaufwand) {
-		this.erhoeterFertigungsaufwand = erhoeterFertigungsaufwand;
+	public void setErhoehterFertigungsaufwand(Boolean erhoehterFertigungsaufwand) {
+		this.erhoehterFertigungsaufwand = erhoehterFertigungsaufwand;
 	}
 
 
