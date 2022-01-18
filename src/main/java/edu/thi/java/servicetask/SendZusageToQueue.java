@@ -41,7 +41,7 @@ public class SendZusageToQueue implements JavaDelegate {
                 
         // JSON mit fehlenden Auftragsdaten erstellen
         JsonObject zusageJson = Json.createObjectBuilder()
-        		.add("zugesagterAuftrag", 
+        		.add("zugesagterAuftrag",
     				 Json.createObjectBuilder()       				 	
     				 .add("Auftrags-ID", zugesagterAuftrag.getAuftragsID())
                      .add("Kunden-ID", zugesagterAuftrag.getKundenID())

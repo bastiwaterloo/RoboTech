@@ -35,14 +35,13 @@ public class SendToAuftragsaggregator implements JavaDelegate {
         
         
         Map<String, Object> auftragsdaten = new HashMap<String, Object>();
+        auftragsdaten.put("orderStatus", status);
         auftragsdaten.put("current_auftrag", auftrag);
-        
-        //TODO Restliche Datenfelder hinzufügen
 
         //TODO passt das hier mit dem Status?
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         MessageCorrelationResult mcresult = runtimeService.createMessageCorrelation("NeuerAuftragMsg")
-                                                            .processInstanceVariableEquals("input_cart", status)
+                                                            .processInstanceVariableEquals("orderStatus", status)
                                                             .setVariables(auftragsdaten)
                                                             .correlateWithResult();
         
