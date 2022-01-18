@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>edu.thi.demo</groupId>
-	<artifactId>test-ejb-lukas</artifactId>
+	<artifactId>RoboTech</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<packaging>war</packaging>
