@@ -6,10 +6,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-
-
 import edu.thi.jpa.beans.Robotertype;
 import edu.thi.services.ejb.RobotertypeServiceBean;
 
@@ -31,6 +28,8 @@ public class RobotertypeServiceDelegate {
         // TODO Auto-generated constructor stub
     }
 
+    
+    //Create a new Robotertype
     public void createRobotertype(DelegateExecution execution) {
     	System.out.println("creating order....");
     	Robotertype type = new Robotertype();
@@ -39,31 +38,9 @@ public class RobotertypeServiceDelegate {
     	robotertypeService.create(type);
     }
     
+    //Find a Robotertype by its designation
     public Robotertype find(String bezeichnung) {
     	return robotertypeService.find(bezeichnung);
-    }
-    
-    public void createRobotertype_test(DelegateExecution execution) {
-    	
-    	System.out.println("creating order....");
-    	
-    }
-    
-    public void read(DelegateExecution execution) {
-        Robotertype type = robotertypeService.read(45L);
-        execution.setVariable("robotertype", type);
-    }
-    
-    public void delete(DelegateExecution execution) {
-    	System.out.println("delete order....");
-    }
-    
-    public void search(DelegateExecution execution) {
-    	System.out.println("search order....");
-    }
-    
-    public void update(DelegateExecution execution) {
-    	System.out.println("update order....");
     }
 
 }

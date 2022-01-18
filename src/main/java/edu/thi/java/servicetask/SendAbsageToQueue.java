@@ -1,30 +1,21 @@
+package edu.thi.java.servicetask;
 /*
  * 
- * Klasse erstellt von: Lukas Keßler
+ * @Author Lukas Keßler
  * 
- */
-
-package edu.thi.java.servicetask;
- 
+ */ 
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.MessageProducer;
-
-
 import javax.jms.Session;
 import javax.jms.TextMessage;
-
 import javax.json.*;
-
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-
-
 import edu.thi.jpa.beans.Cart;
-
 
 public class SendAbsageToQueue implements JavaDelegate {
 
@@ -35,11 +26,10 @@ public class SendAbsageToQueue implements JavaDelegate {
         String url = ActiveMQConnection.DEFAULT_BROKER_URL;
         Destination destination;
         
-        // Relevante Variablen aus dem Prozesskontext auslesen
+        // Get current Order from execution
         Cart abgesagterAuftrag = (Cart) execution.getVariable("cart"); 
         
-                
-        // JSON mit fehlenden Auftragsdaten erstellen
+        // Create JSON with information about the cancelled order
         JsonObject absageJson = Json.createObjectBuilder()
         		.add("abgesagterAuftrag", 
     				 Json.createObjectBuilder()       				 	
@@ -48,9 +38,7 @@ public class SendAbsageToQueue implements JavaDelegate {
                      .build()
                  )
                  .build();
-
-        
-        
+        //Send to queue
         try {
             Connection connection = null;
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(user, password, url);

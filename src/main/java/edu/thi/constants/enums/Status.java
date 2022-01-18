@@ -1,5 +1,11 @@
 package edu.thi.constants.enums;
 
+/*
+ * 
+ * @Author Sebastian Waterloo
+ * 
+ * */
+
 public enum Status {
 	EINGEGANGEN,
 	INPRUEFUNG,
@@ -8,7 +14,6 @@ public enum Status {
 	GENEHMIGT,
 	ABGELEHNT,
 	INBEARBEITUNG,
-	TERMINVEREINBART,
 	ABGESCHLOSSEN,
 	NICHTERFOLGREICH;
 }

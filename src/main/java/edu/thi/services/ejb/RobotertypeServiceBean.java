@@ -1,5 +1,9 @@
 package edu.thi.services.ejb;
-
+/*
+ * 
+ * @Author Dominik Knauer
+ * 
+ * */
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -8,17 +12,10 @@ import javax.persistence.TypedQuery;
 
 import edu.thi.jpa.beans.Robotertype;
 
-
-/**
- * Serviceklasse um die Entität Customer herum
- * Bei Session EJBs wird die Threadverwaltung vom Container übernommen - daher kann hier der EntityManager direkt injiziert werden.
- * Verwendet EJB-Transaktionen --> obwohl EntityManager nicht threadSafe ist, kann er in EJBs verwendet werden,
- * da der Container auch das Transaktionsmanagement übernimmt!
- * --> Diese Klasse kann für JAX-WS und JAX-RS Webservices sowie Servlets und in Camunda verwendet werden!
- */
+//ServiceBean to handle all robotertype DB operations
 @Stateless
 @LocalBean
-public class RobotertypeServiceBean implements RobotertypeServiceBeanRemote, RobotertypeServiceBeanLocal {
+public class RobotertypeServiceBean {
 
     @PersistenceContext
     EntityManager em;
@@ -39,6 +36,7 @@ public class RobotertypeServiceBean implements RobotertypeServiceBeanRemote, Rob
         return this.em.find(Robotertype.class, id);
     }
     
+    //find robotertype by designation
     public Robotertype find(String bezeichnung) {
     	System.out.println("searching for .... " + bezeichnung);
     	Robotertype type = null;

@@ -1,9 +1,12 @@
 package edu.thi.jpa.beans;
-
+/*
+ * 
+ * @Author Sebastian Waterloo
+ * 
+ * */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,18 +17,22 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+//Create an entity for this Bean
 @Entity
 @NamedQuery(name = Customer.searchCustomer, query = "SELECT c FROM Customer c WHERE c.email LIKE ?1")
 @Table(name = "customer")
 public class Customer implements Serializable {
 	public final static String searchCustomer = "Customer.searchCustomer";
 
+	// Set continuous variable for Customer ID's
 	private static final long serialVersionUID = 1L;
 
+	// Set variable for ID
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long customerid;
 	
+	// Set relations between customer and cart
 	@OneToMany(mappedBy = "customer",
  		   orphanRemoval = true,
  		   fetch = FetchType.LAZY,
@@ -40,29 +47,21 @@ public class Customer implements Serializable {
 	private String land;
 	private String email;
 	
-	
-	//TODO add private String date
-	
 	public Long getCustomerid() {
 		return customerid;
 	}
 	
-
 	public void setCustomerid(Long customerid) {
 		this.customerid = customerid;
 	}
-
-
 
 	public Collection<Cart> getCarts() {
 		return carts;
 	}
 
-
 	public void setCarts(Collection<Cart> carts) {
 		this.carts = carts;
 	}
-
 
 	public String getKundenart() {
 		return kundenart;

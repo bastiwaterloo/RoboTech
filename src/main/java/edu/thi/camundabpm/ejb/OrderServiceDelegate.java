@@ -2,18 +2,16 @@ package edu.thi.camundabpm.ejb;
 
 /*
  * @Author Sebastian Waterloo
+ * 
  * */
 
 import java.util.Collection;
 import java.util.Date;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import org.camunda.bpm.engine.delegate.DelegateExecution;
-
 import edu.thi.constants.enums.Status;
 import edu.thi.jpa.beans.Cart;
 import edu.thi.jpa.beans.Customer;
@@ -182,9 +180,6 @@ public class OrderServiceDelegate {
 			break;
 		case "INBEARBEITUNG":
 			newState = Status.INBEARBEITUNG;
-			break;
-		case "TERMINVEREINBART":
-			newState = Status.TERMINVEREINBART;
 			break;
 		case "ABGESCHLOSSEN":
 			newState = Status.ABGESCHLOSSEN;
