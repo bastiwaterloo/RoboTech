@@ -3,7 +3,6 @@ package edu.thi.webservice;
 import javax.inject.Inject;
 import javax.jws.WebService;
 
-import edu.thi.constants.enums.Status;
 import edu.thi.jpa.beans.Cart;
 import edu.thi.services.ejb.OrderServiceBean;
 

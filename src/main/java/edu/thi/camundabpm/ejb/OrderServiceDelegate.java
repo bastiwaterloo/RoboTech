@@ -1,5 +1,9 @@
 package edu.thi.camundabpm.ejb;
 
+/*
+ * @Author Sebastian Waterloo
+ * */
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,7 +26,7 @@ import edu.thi.services.ejb.OrderServiceBean;
 @Stateless
 @LocalBean
 @Named
-public class OrderServiceDelegate implements OrderServiceDelegateLocal {
+public class OrderServiceDelegate {
 
 	@Inject
 	OrderServiceBean orderService; // Injizierte Service-EJB (Stateless)
@@ -34,11 +38,13 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		// TODO Auto-generated constructor stub
 	}
 
+	//Create a new Order
 	public void createOrder(DelegateExecution execution) {
 
 		Cart cart = new Cart();
 
 		Customer customer = (Customer) execution.getVariable("customer");
+		
 		Robotertype rt = (Robotertype) execution.getVariable("robotertype");
 
 		Long robotertypId = rt.getRobotertypID();
@@ -54,8 +60,8 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		String spezifikation = (String) execution.getVariable("formfield_spezifikation");
 		Date datum = new Date();
 
-		System.out.println(datum.toString());
-
+		
+		//Set Data for Order
 		cart.setRobotertypID(robotertypId);
 		cart.setMenge(menge);
 		cart.setAuftragspreis(auftragspreis);
@@ -71,35 +77,26 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		cart.setCustomer(customer);
 		cart.setEingangsdatum(datum);
 
+		//Persist order
 		orderService.create(cart);
 
+		//Add order to customers orders
 		Collection<Cart> customerCarts = customer.getCarts();
 		customerCarts.add(cart);
 		customer.setCarts(customerCarts);
 
-		System.out.println(customer.getCarts().size());
-
+		//Set variables to execution
 		execution.setVariable("customer", customer);
 		execution.setVariable("cart", cart);
 	}
 
-	public void createOrder_test(DelegateExecution execution) {
-		System.out.println("creating order....");
-	}
-
+	//Read order from DB
 	public void read(Long id, DelegateExecution execution) {
 		Cart order = orderService.read(id);
 		execution.setVariable("order", order);
 	}
 
-	public void delete(DelegateExecution execution) {
-		System.out.println("delete order....");
-	}
-
-	public void requestConditions(DelegateExecution execution) {
-		String processId = execution.getProcessInstanceId();
-	}
-
+	//Set customers overall value (Lifetime Value)  to execution
 	public void setLifetimeValue(DelegateExecution execution) {
 		Customer customer = (Customer) execution.getVariable("input_customer");
 		Collection<Cart> carts = customer.getCarts();
@@ -107,6 +104,8 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		execution.setVariable("customerValue", customerValue);
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
+	//Calculate customers overall value (Lifetime Value)
 	private Double summarizeCustomerLifetimeValue(Collection<Cart> carts) {
 		Double lifetimeValue = 0.00;
 		for (Cart cart : carts) {
@@ -116,7 +115,8 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		}
 		return lifetimeValue;
 	}
-
+	
+	//Calculate the discount a customer gets based on his lifetime value
 	public void calcDiscount(DelegateExecution execution) {
 		Cart cart = (Cart) execution.getVariable("input_cart");
 		Double rabatt = ((cart.getAuftragspreis() / 100) * (Double) execution.getVariable("rabatt"));
@@ -125,6 +125,7 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		orderService.update(cart);
 	}
 
+	//Adding additional costs for special design, etc.
 	public void addExtraCharge(DelegateExecution execution, Double percentage) {
 		Cart cart = (Cart) execution.getVariable("input_cart");
 		Long auftragspreis = cart.getAuftragspreis();
@@ -150,6 +151,7 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		orderService.update(cart);
 	}
 
+	//Update the orders status
 	public void updateStatus(DelegateExecution execution, String status) {
 		Cart order = (Cart) execution.getVariable("input_cart");
 		int level = 1;
@@ -204,6 +206,7 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		orderService.update(order);
 	}
 
+	//Update order in DB
 	public void update(DelegateExecution execution) {
 		Cart cart = (Cart) execution.getVariable("input_cart");
 		Boolean spezialdesign = (Boolean) execution.getVariable("formfield_spezialdesign");
@@ -212,6 +215,8 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		Boolean leichtbauweise = (Boolean) execution.getVariable("formfield_leichtbauweise");
 		Boolean sonderzuschlag = (Boolean) execution.getVariable("formfield_sonderzuschlag");
 		Long menge = null;
+		
+		//only executed if there is changes in the order
 		if ((Long) execution.getVariable("formfield_angepasstes_angebot") != null
 				&& (Long) execution.getVariable("formfield_angepasstes_angebot") > 0) {
 			System.out.println("update angebot");
@@ -233,6 +238,7 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 
 	}
 
+	//Calculating how much additional charges should be added
 	public void calculateAdditionalCosts(DelegateExecution execution) {
 		Cart cart = (Cart) execution.getVariable("input_cart");
 		Double auftragspreis = cart.getAuftragspreis().doubleValue();
@@ -244,7 +250,8 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		Double valueSonderzuschlag = Double.valueOf((String) execution.getVariable("sonderzuschlag"));
 
 		Double additonalCharges = 0.00;
-
+		
+		//Decision which charges should be added
 		if (cart.getErhoehterFertigungsaufwand() && valueErhoehterFertigungsaufwand != null && valueErhoehterFertigungsaufwand > 0) {
 			additonalCharges += ((auftragspreis/100) * valueErhoehterFertigungsaufwand);
 		}
@@ -260,8 +267,6 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		if (cart.getSonderzuschlag() && valueSonderzuschlag != null && valueSonderzuschlag > 0) {
 			additonalCharges += ((auftragspreis/100) * valueSonderzuschlag);
 		}
-
-		System.out.println("Zuschläge: " + additonalCharges);
 		
 		auftragspreis += additonalCharges;
 		
@@ -272,6 +277,7 @@ public class OrderServiceDelegate implements OrderServiceDelegateLocal {
 		orderService.update(cart);
 	}
 	
+	//Accumulation of the final price
 	public void calculateFinalDiscountedPrice(DelegateExecution execution) {
 		Cart cart = (Cart) execution.getVariable("input_cart");
 		Double auftragspreis = cart.getAuftragspreis().doubleValue();

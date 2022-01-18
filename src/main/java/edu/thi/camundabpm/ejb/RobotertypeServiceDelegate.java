@@ -1,5 +1,7 @@
 package edu.thi.camundabpm.ejb;
-
+/*
+ * @Author Lukas Kessler
+ * */
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,7 +19,7 @@ import edu.thi.services.ejb.RobotertypeServiceBean;
 @Stateless
 @LocalBean
 @Named
-public class RobotertypeServiceDelegate implements RobotertypeServiceDelegateLocal {
+public class RobotertypeServiceDelegate {
     
 	@Inject
     RobotertypeServiceBean robotertypeService; // Injizierte Service-EJB (Stateless)
