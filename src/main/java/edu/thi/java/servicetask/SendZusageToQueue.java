@@ -36,7 +36,7 @@ public class SendZusageToQueue implements JavaDelegate {
         Destination destination;
         
         // Relevante Variablen aus dem Prozesskontext auslesen
-        Cart zugesagterAuftrag = (Cart) execution.getVariable("input_cart"); 
+        Cart zugesagterAuftrag = (Cart) execution.getVariable("cart"); 
         
                 
         // JSON mit fehlenden Auftragsdaten erstellen

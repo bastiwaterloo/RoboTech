@@ -36,7 +36,7 @@ public class SendAbsageToQueue implements JavaDelegate {
         Destination destination;
         
         // Relevante Variablen aus dem Prozesskontext auslesen
-        Cart abgesagterAuftrag = (Cart) execution.getVariable("input_cart"); 
+        Cart abgesagterAuftrag = (Cart) execution.getVariable("cart"); 
         
                 
         // JSON mit fehlenden Auftragsdaten erstellen
